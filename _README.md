@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Brian Fogg
+  - __Scrum Master__: Ian deBoisblanc
+  - __Development Team Members__: Jacques Uys, Alexxis Johnson
 
 ## Table of Contents
 
@@ -44,7 +44,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://waffle.io/UnfetteredCheddar/UnfetteredCheddar)
 
 
 ## Contributing
