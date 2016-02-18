@@ -1,7 +1,7 @@
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
-    tasks: [
+    giblets: [
       { text: "This is task 1" },
       { text: "This is task 2" },
       { text: "This is task 3" }
@@ -9,29 +9,24 @@ if (Meteor.isClient) {
   });
   // This code only runs on the client
   Template.body.helpers({
-    tasks: function () {
+    giblets: function () {
 
-      return Tasks.find({});
+      return Giblets.find({});
     }
   });
   
-  Template.body.events({
-    "submit .new-task": function (event) {
+  Template.addGiblet.events({
+    "submit .addGiblet": function (event) {
       // Prevent default browser form submit
       event.preventDefault();
+      
+      console.log(' got submitted ');
+      // // Get value from form element
+      // var text = event.target.text.value;
 
-      // Get value from form element
-      var text = event.target.text.value;
+      // Meteor.call('addGiblet', text);
 
-      // Insert a task into the collection
-      Meteor.call('addTask', text);
-      // Tasks.insert({
-      //   text: text,
-      //   createdAt: new Date() // current time
-      // });
-
-      // Clear form
-      event.target.text.value = "";
+      // event.target.text.value = "";
     }
   });
 
