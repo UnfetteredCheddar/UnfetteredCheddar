@@ -17,17 +17,30 @@ if (Meteor.isClient) {
   
   Template.addGiblet.events({
     "submit .addGiblet": function (event) {
-      // Prevent default browser form submit
+
       event.preventDefault();
+
+      // // Get values from form
+      var taskname = event.target.taskname.value;
+      var url = event.target.url.value;
+      var keywords  = event.target.keywords.value.split(', ');
+      var SMS = event.target.SMS.checked;
+      var email = event.target.email.checked;
+      var frequency = event.target.frequency.value;
+
+      var giblet = {
+        taskname: taskname,
+        url: url,
+        keywords: keywords,
+        SMS: SMS,
+        email: email,
+        frequency: frequency
+      };
+
+      Meteor.call('addGiblet', giblet);
       
-      console.log(' got submitted ');
-      // // Get value from form element
-      // var text = event.target.text.value;
-
-      // Meteor.call('addGiblet', text);
-
-      // event.target.text.value = "";
     }
+
   });
 
 
