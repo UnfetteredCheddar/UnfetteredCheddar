@@ -15,7 +15,39 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
- 
+
+
+
+Gobbler
+Gobble the internet at high speed
+
+Gobbler is a tool for repeatedly checking on the contents of many locations around the web.
+Sites can be searched repeatedly and the user will be notified in the event of a keyword match.
+
+Problem
+  
+Solution
+
+
+Quote from you
+  "Using Gobbler is not cheating"
+
+How to get started
+  Simply create an account and set up a few search jobs.
+  Find URL's that you check often. Enter them into the Gobbler job, set a few keywords and an update frequency. Decide how you would like to be notified and let the machine take over!
+
+Customer Quote
+  "Before Gobbler I spent nearly four hours each day checking the same websites over and over. Now I can set my search queries and live a normal life. My antique doll collection and my happiness has been growing at an exponential rate since joining Gobbler."
+
+
+Closing and Call to action
+  Thanks for reading about what Gobbler can do for you. Now get out there and get Gobbling!
+
+
+
+
+
+
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
