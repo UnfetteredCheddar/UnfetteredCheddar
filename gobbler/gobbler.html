@@ -1,14 +1,26 @@
 <head>
-  <title>gobbler</title>
+  <title>Todo List</title>
 </head>
-
+ 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <div class="container">
+      <header>
+        <h1>Todo List</h1>
+    
+        <form class="new-task">
+          <input type="text" name="text" placeholder="Type to add new tasks" />
+        </form>
 
-  {{> hello}}
+      </header>
+ 
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
 </body>
-
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+ 
+<template name="task">
+  <li>{{text}}</li>
 </template>
