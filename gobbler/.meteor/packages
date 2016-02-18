@@ -19,3 +19,8 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 autopublish             # Publish all data to the clients (for prototyping)
 kadira:flow-router
 kadira:blaze-layout
+accounts-ui
+accounts-password
+accounts-facebook
+service-configuration
+accounts-google
