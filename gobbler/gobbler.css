@@ -44,6 +44,7 @@ html, body {
 }
 
 .userSettingsView {
+  margin: 15px;
   border: 1px red solid;
 }
 
