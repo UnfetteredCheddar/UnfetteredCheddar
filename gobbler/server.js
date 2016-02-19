@@ -27,7 +27,7 @@ loggedIn.route('/', {
   name: 'home',
   action: function () {
     console.log('arrived at home!');
-    BlazeLayout.render('app_body', {header: 'header', main: 'main', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'addGiblet', footer: 'footer'});
   }
 });
 
