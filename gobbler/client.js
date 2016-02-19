@@ -1,19 +1,13 @@
 if (Meteor.isClient) {
-  // This code only runs on the client
-  Template.body.helpers({
-    giblets: [
-      { text: "This is task 1" },
-      { text: "This is task 2" },
-      { text: "This is task 3" }
-    ]
-  });
-  // This code only runs on the client
-  Template.body.helpers({
-    giblets: function () {
-      return Giblets.find({});
+
+  Meteor.subscribe('giblets');
+
+  Template.main.helpers({
+    giblets: function() {
+      return Giblets.find().fetch();
     }
   });
-  
+
   Template.addGiblet.events({
     "submit .addGiblet": function (event) {
 
@@ -64,6 +58,13 @@ if (Meteor.isClient) {
 
   Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY',
-  }); 
+  });
 
+}
+
+if (Meteor.isServer) {
+  Meteor.publish('giblets', function(){
+    var currentUser = this.userId;
+    return Giblets.find(/*{ createdBy: currentUser }*/);
+  });
 }
