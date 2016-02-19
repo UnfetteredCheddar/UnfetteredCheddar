@@ -6,7 +6,7 @@ exposed = FlowRouter.group({
 exposed.route('/', {
   name:'front',
   action: function () {
-    BlazeLayout.render('app_body', {header: 'header', main: 'main', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'welcome', footer: 'footer'});
   }
 })
 
@@ -27,7 +27,7 @@ loggedIn.route('/', {
   name: 'home',
   action: function () {
     console.log('arrived at home!');
-    BlazeLayout.render('app_body', {header: 'header', main: 'addGiblet', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'main', footer: 'footer'});
   }
 });
 
