@@ -10,7 +10,6 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     giblets: function () {
-
       return Giblets.find({});
     }
   });
@@ -38,29 +37,30 @@ if (Meteor.isClient) {
       };
 
       Meteor.call('addGiblet', giblet);
+    }
+  });
 
   Template.userSettings.events({
     "submit .userSettings": function (event) {
+
       // Prevent default browser form submit
-      // event.preventDefault();
-      console.log('User settings fires');
+      event.preventDefault();
 
       // Get value from form element
-      // var text = event.target.text.value;
+      var chosenName = event.target.name.value;
+      var chosenPhoneNumber = event.target.phone.value;
+      var chosenEmail = event.target.email.value;
 
-      // Insert a task into the collection
-      // Meteor.call('addTask', text);
-      // Tasks.insert({
-      //   text: text,
-      //   createdAt: new Date() // current time
-      // });
+      var userSettings = {
+        chosenName: chosenName,
+        chosenPhoneNumber: chosenPhoneNumber,
+        chosenEmail: chosenEmail
+      }
 
-      // Clear form
-      // event.target.text.value = "";
+      Meteor.call('addUserSettings', userSettings);
     }
 
   });
-
 
   Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY',
