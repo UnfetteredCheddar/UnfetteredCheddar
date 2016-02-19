@@ -39,6 +39,24 @@ if (Meteor.isClient) {
 
       Meteor.call('addGiblet', giblet);
 
+  Template.userSettings.events({
+    "submit .userSettings": function (event) {
+      // Prevent default browser form submit
+      // event.preventDefault();
+      console.log('User settings fires');
+
+      // Get value from form element
+      // var text = event.target.text.value;
+
+      // Insert a task into the collection
+      // Meteor.call('addTask', text);
+      // Tasks.insert({
+      //   text: text,
+      //   createdAt: new Date() // current time
+      // });
+
+      // Clear form
+      // event.target.text.value = "";
     }
 
   });
