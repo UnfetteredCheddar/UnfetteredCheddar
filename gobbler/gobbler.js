@@ -19,7 +19,13 @@ Meteor.methods({
   addUserSettings: function(userSettings) {
     var currentUser = Meteor.users.find().fetch();
     var userId = currentUser[0]._id;
-    Meteor.users.update( {_id: userId}, {$set: {chosenName: userSettings.chosenName, chosenPhoneNumber: userSettings.chosenPhoneNumber, chosenEmail: userSettings.chosenEmail}} );
+    Meteor.users.update( {_id: userId}, {$set:
+      {
+        chosenName: userSettings.chosenName,
+        chosenPhoneNumber: userSettings.chosenPhoneNumber,
+        chosenEmail: userSettings.chosenEmail
+      }
+    });
   }
 
 });
