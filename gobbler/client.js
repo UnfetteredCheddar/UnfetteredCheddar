@@ -1,16 +1,11 @@
 if (Meteor.isClient) {
 
-Meteor.subscribe('giblets');
+  Meteor.subscribe('giblets');
 
   Template.main.helpers({
     giblets: function() {
-      console.log(Giblets.find().fetch());
       return Giblets.find().fetch();
     }
-  });
-
-  Template.main.helpers({
-
   });
 
   Template.addGiblet.events({
@@ -67,14 +62,9 @@ Meteor.subscribe('giblets');
 
 }
 
-Meteor.methods({
-
-});
-
 if (Meteor.isServer) {
   Meteor.publish('giblets', function(){
     var currentUser = this.userId;
-    console.log(Giblets.find().fetch());
     return Giblets.find(/*{ createdBy: currentUser }*/);
   });
 }
