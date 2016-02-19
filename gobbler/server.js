@@ -8,7 +8,7 @@ FlowRouter.route('/', {
 FlowRouter.route('/userSettings', {
   action: function(params, queryParams) {
     console.log("Yeah! We are on the index:");
-    BlazeLayout.render('app_body', {header: 'header', main: 'userSettingsView', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'userSettings', footer: 'footer'});
   }
 });
 
