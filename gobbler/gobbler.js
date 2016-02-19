@@ -1,17 +1,21 @@
 Meteor.methods({
-  addGiblet: function (text) {
-    console.log('add giblet');
+  addGiblet: function ( giblet ) {
     // Make sure the user is logged in before inserting a task
     // if (! Meteor.userId()) {
     //   throw new Meteor.Error("not-authorized");
     // }
  
     Giblets.insert({
-      text: text,
       createdAt: new Date(),
       owner: Meteor.userId(),
-      // username: Meteor.user().username
+      taskname: giblet.taskname,
+      url: giblet.url,
+      keywords: giblet.keywords,
+      SMS: giblet.SMS,
+      email: giblet.email,
+      frequency: giblet.frequency
     });
+    
   },
   deleteGiblet: function ( gibletID ) {
     Giblets.remove( gibletID );
