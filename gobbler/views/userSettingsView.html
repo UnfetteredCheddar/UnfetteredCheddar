@@ -3,10 +3,10 @@
     <nav>
       {{>navBar}}
     </nav>
-    <form> 
-      Name:<input class='name-input' />
-      Phone:<input type='tel' pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}' />
-      Email:<input type='email' />
+    <form action="/" class="userSettings"> 
+      <label for="name">Name<input name="name" class='name-input'></label>
+      <label for="phone">Phone:<input name="phone" type='tel' pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}'></label>
+      <label for="email">Email:<input name="email" type='email'></label>
       <button class='save-user-btn'>Save Changes</button>
     </form>
   </div>
@@ -18,3 +18,5 @@
     prof pic
     username/password maybe?
     Suspend account -->
+
+    <!-- pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}' -->

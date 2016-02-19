@@ -10,7 +10,6 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     giblets: function () {
-
       return Giblets.find({});
     }
   });
@@ -38,11 +37,30 @@ if (Meteor.isClient) {
       };
 
       Meteor.call('addGiblet', giblet);
+    }
+  });
 
+  Template.userSettings.events({
+    "submit .userSettings": function (event) {
+
+      // Prevent default browser form submit
+      event.preventDefault();
+
+      // Get value from form element
+      var chosenName = event.target.name.value;
+      var chosenPhoneNumber = event.target.phone.value;
+      var chosenEmail = event.target.email.value;
+
+      var userSettings = {
+        chosenName: chosenName,
+        chosenPhoneNumber: chosenPhoneNumber,
+        chosenEmail: chosenEmail
+      }
+
+      Meteor.call('addUserSettings', userSettings);
     }
 
   });
-
 
   Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY',
