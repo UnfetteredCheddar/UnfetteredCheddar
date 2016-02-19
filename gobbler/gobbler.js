@@ -1,24 +1,28 @@
 Meteor.methods({
-  addTask: function (text) {
-    console.log('add task tset');
+  addGiblet: function ( giblet ) {
     // Make sure the user is logged in before inserting a task
     // if (! Meteor.userId()) {
     //   throw new Meteor.Error("not-authorized");
     // }
  
-    Tasks.insert({
-      text: text,
+    Giblets.insert({
       createdAt: new Date(),
-      // owner: Meteor.userId(),
-      // username: Meteor.user().username
+      owner: Meteor.userId(),
+      taskname: giblet.taskname,
+      url: giblet.url,
+      keywords: giblet.keywords,
+      SMS: giblet.SMS,
+      email: giblet.email,
+      frequency: giblet.frequency
     });
+    
   },
-  deleteTask: function (taskId) {
-    Tasks.remove(taskId);
-  },
-  setChecked: function (taskId, setChecked) {
-    Tasks.update(taskId, { $set: { checked: setChecked} });
+  deleteGiblet: function ( gibletID ) {
+    Giblets.remove( gibletID );
   }
+  // setChecked: function (taskId, setChecked) {
+  //   Giblets.update(taskId, { $set: { checked: setChecked} });
+  // }
 });
 
-Tasks = new Mongo.Collection("tasks");
+Giblets = new Mongo.Collection("giblets");
