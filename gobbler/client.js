@@ -22,7 +22,7 @@ if (Meteor.isClient) {
 
       // // Get values from form
       var taskname = event.target.taskname.value;
-      var url = event.target.url.value;
+      var url = event.target.url.value.trim();
       var keywords  = event.target.keywords.value.split(', ');
       var SMS = event.target.SMS.checked;
       var email = event.target.email.checked;
@@ -38,7 +38,7 @@ if (Meteor.isClient) {
       };
 
       Meteor.call('addGiblet', giblet);
-      
+
     }
 
   });
