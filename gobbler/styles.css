@@ -1,0 +1,58 @@
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+}
+.container {
+  height:100%;
+
+  border: 1px red solid;
+}
+
+nav {
+  background-color: lightgrey;
+}
+
+.header {
+  background-color: white;
+  border: 1px green solid;
+  clear: none;
+}
+
+.welcome {
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid red;
+}
+
+.main-body {
+  border: 1px solid blue;
+}
+
+.gibletView {
+  border: 1px solid red;
+}
+
+.giblet {
+  margin: 15px;
+  border: 1px solid green;
+}
+
+.userSettingsView {
+  margin: 15px;
+  border: 1px red solid;
+}
+
+.login {
+  border: 1px solid yellow;
+}
+
+.footer {  
+  text-align: center;
+  border: .8px blue solid;
+}

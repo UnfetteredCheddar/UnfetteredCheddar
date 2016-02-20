@@ -1,0 +1,9 @@
+<template name="dashboard">
+  <div class='dashboard'>
+    {{>navBar}}
+    {{> gibletForm }}
+    {{#each giblets}}
+      {{> giblet}}
+    {{/each}}
+  </div>
+</template>
