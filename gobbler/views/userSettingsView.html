@@ -1,8 +1,6 @@
 <template name="userSettings">
+  {{>navBar}}
   <div class='userSettingsView'>
-    <nav>
-      {{>navBar}}
-    </nav>
     <form action="/" class="userSettings"> 
       <label for="name">Name<input name="name" class='name-input'></label>
       <label for="phone">Phone:<input name="phone" type='tel' pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}'></label>
