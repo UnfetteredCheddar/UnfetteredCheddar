@@ -27,19 +27,19 @@ loggedIn.route('/', {
   name: 'dashboard',
   action: function () {
     console.log('arrived at dashboard!');
-    BlazeLayout.render('app_body', {header: 'headerTemplate', main: 'dashboardTemplate', footer: 'footerTemplate'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'dashboard', footer: 'footer'});
   }
 });
 
 loggedIn.route('/userSettings', {
   action: function () {
-    BlazeLayout.render('app_body', {header: 'headerTemplate', main: 'userSettingsTemplate', footer: 'footerTemplate'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'userSettings', footer: 'footer'});
   }
 });
 
 loggedIn.route('/notifications', {
   action: function () {
-    BlazeLayout.render('app_body', {header: 'headerTemplate', main: 'notificationsTemplate', footer: 'footerTemplate'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'notifications', footer: 'footer'});
   }
 });
 

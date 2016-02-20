@@ -2,13 +2,13 @@ if (Meteor.isClient) {
 
   Meteor.subscribe('giblets');
 
-  Template.dashboardTemplate.helpers({
+  Template.dashboard.helpers({
     giblets: function() {
       return Giblets.find().fetch();
     }
   });
 
-  Template.dashboardTemplate.events({
+  Template.dashboard.events({
     "submit .addGiblet": function (event) {
 
       event.preventDefault();
