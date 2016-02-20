@@ -1,12 +1,12 @@
 //Public routes:
 exposed = FlowRouter.group({
-  prefix:'/front'
+  prefix:'/welcome'
 });
 
 exposed.route('/', {
-  name:'front',
+  name:'welcome',
   action: function () {
-    BlazeLayout.render('app_body', {header: 'header', main: 'main', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'welcome', footer: 'footer'});
   }
 })
 
@@ -15,38 +15,38 @@ loggedIn = FlowRouter.group({
   triggersEnter: [ function () {
     if(!Meteor.userId()) {
       route = FlowRouter.current();
-      if(route.route.name != 'front') {
+      if(route.route.name != 'welcome') {
        Session.set('redirectAfterLogin', route.path);
       }
-      FlowRouter.go('front');
+      FlowRouter.go('welcome');
     }
   }]
 })
 
 loggedIn.route('/', {
-  name: 'home',
+  name: 'dashboard',
   action: function () {
-    console.log('arrived at home!');
-    BlazeLayout.render('app_body', {header: 'header', main: 'addGiblet', footer: 'footer'});
+    console.log('arrived at dashboard!');
+    BlazeLayout.render('app_body', {header: 'headerTemplate', main: 'dashboardTemplate', footer: 'footerTemplate'});
   }
 });
 
 loggedIn.route('/userSettings', {
   action: function () {
-    BlazeLayout.render('app_body', {header: 'header', main: 'userSettings', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'headerTemplate', main: 'userSettingsTemplate', footer: 'footerTemplate'});
   }
 });
 
 loggedIn.route('/notifications', {
   action: function () {
-    BlazeLayout.render('app_body', {header: 'header', main: 'notificationsView', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'headerTemplate', main: 'notificationsTemplate', footer: 'footerTemplate'});
   }
 });
 
 //Handle log in and log out
 // Accounts.onLogin(function () {
 //   var redirect = Session.get('redirectAfterLogin');
-//   if(redirect && redirect !== '/front') {
+//   if(redirect && redirect !== '/welcome') {
 //     FlowRouter.go(redirect);
 //   } else {
 //     FlowRouter.go('home');
@@ -58,7 +58,7 @@ loggedIn.route('/notifications', {
 //   if (started && !Meteor.userId()) {
 //     console.log('I logged out!');
 //     Meteor.logout(function () {
-//     FlowRouter.go('front');
+//     FlowRouter.go('welcome');
 //     });
 //   }
 //   started = true;
