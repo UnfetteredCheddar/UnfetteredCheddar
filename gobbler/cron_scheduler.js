@@ -23,4 +23,7 @@ if (Meteor.isServer) {
     }
 
   });
+  
+  SyncedCron.start();
+
 }
