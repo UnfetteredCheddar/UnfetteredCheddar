@@ -36,8 +36,3 @@ Meteor.methods({
   }
 
 });
-
-
-
-
-SyncedCron.start();
