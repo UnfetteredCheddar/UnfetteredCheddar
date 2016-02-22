@@ -15,8 +15,7 @@ Meteor.methods({
       active: true
     });
 
-    // console.log(Meteor)
-    Meteor.call('scheduleGiblet', gibletId, giblet.frequency);
+    Meteor.call('scheduleGiblet', gibletId, giblet.frequency, giblet.url);
   },
 
   deleteGiblet: function ( gibletID ) {
@@ -34,5 +33,4 @@ Meteor.methods({
       }
     });
   }
-
 });
