@@ -1,17 +1,31 @@
+var expect = chai.expect;
+var assert = chai.assert;
+var oldGiblets, oldLength, gibletData;
+
 if (!(typeof MochaWeb === 'undefined')){
   MochaWeb.testOnly(function(){
     describe("Giblet Methods", function(){
       before(function(done) {
-        var gibletData = {
+        oldGiblets = Giblets.find().fetch();
+        oldLength = oldGiblets.length;
+        gibletData = {
           taskname: 'Find tandem bike',
           url: 'https://sfbay.craigslist.org/search/bik',
-          keywords: 'tandem'
+          keywords: 'tandem',
+          SMS: true,
+          email: true,
+          frequency: '1'
         };
         done();
       });
-
-      it("should add new Giblet when addGiblet is called", function(){
-        chai.assert.equal(5,5);
+      it('should be able to fetch Giblets from collection', function() {
+        console.log(gibletData);
+        expect(oldGiblets).to.exist;
+      });
+      it('should add new Giblet when addGiblet is called', function(){
+        Meteor.call('addGiblet', gibletData);
+        var newLength = Giblets.find().fetch().length;
+        assert.equal(newLength, oldLength + 1);
       });
 
     });
