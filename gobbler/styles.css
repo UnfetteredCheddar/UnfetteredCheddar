@@ -34,12 +34,22 @@ nav {
   border: 1px solid blue;
 }
 
+.bodyView {
+  border: 1px green dotted;
+  margin: 10px;
+}
+
+.addGiblet {
+  margin: 5px;
+  border: red 1px solid;
+}
+
 .gibletView {
   border: 1px solid red;
 }
 
 .giblet {
-  margin: 15px;
+  margin: 5px;
   border: 1px solid green;
 }
 
