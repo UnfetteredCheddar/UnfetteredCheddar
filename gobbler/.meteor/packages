@@ -24,3 +24,4 @@ service-configuration
 accounts-google
 accounts-ui
 percolate:synced-cron
+http
