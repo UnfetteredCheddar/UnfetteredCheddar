@@ -2,28 +2,25 @@ if (Meteor.isServer) {
 
   console.log('CRON JOBS SCHEDULER+++++++++++++++++++++++++++');
 
-  var scheduleGiblet = function(mongoId, frequency) {
-    console.log('schdule giblet fires!');
+  Meteor.methods({
+    scheduleGiblet: function(mongoId, frequency) {
+      console.log('schdule giblet fires!', frequency);
 
-    SyncedCron.add({
-      name: '12345',
-      schedule: function(parser) {
-        // parser is a later.parse object
-        // later.parse.recur().on(1).minute();
-        return parser.recur().every(1).minute();
+      frequency = parseInt(frequency);
 
-        // return parser.text('every 10 seconds');
-      },
-      job: function() {
-        
-        // var numbersCrunched = CrushSomeNumbers();
-        // return numbersCrunched;
-      }
-    });
-  }
+      SyncedCron.add({
+        name: mongoId,
+        schedule: function(parser) {
+          return parser.recur().every(frequency).minute();
+        },
+        job: function() {
+          console.log('do the thing on schdule');
+        }
+      });
+    },
+    stopGiblet: function(id) {
+      // SyncedCron.remove(id);
+    }
 
-  scheduleGiblet();
-
-  SyncedCron.start();
-
+  });
 }
