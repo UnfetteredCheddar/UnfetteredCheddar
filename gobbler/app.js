@@ -30,4 +30,5 @@ Meteor.methods({
 
 });
 
-Giblets = new Mongo.Collection("giblets");
+Giblets = new Mongo.Collection('giblets');
+Notifications = new Mongo.Collection('notifications')
