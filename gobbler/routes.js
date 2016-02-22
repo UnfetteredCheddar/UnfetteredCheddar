@@ -39,7 +39,7 @@ loggedIn.route('/userSettings', {
 
 loggedIn.route('/notifications', {
   action: function () {
-    BlazeLayout.render('app_body', {header: 'header', main: 'notifications', footer: 'footer'});
+    BlazeLayout.render('app_body', {header: 'header', main: 'viewNotifications', footer: 'footer'});
   }
 });
 
