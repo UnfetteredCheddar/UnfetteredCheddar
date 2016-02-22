@@ -4,7 +4,8 @@ var assert = chai.assert;
 if (!(typeof MochaWeb === 'undefined')){
   MochaWeb.testOnly(function(){
     describe("Giblet Methods", function(){
-      before(function(done) {
+
+      beforeEach(function(done) {
         Giblets.find().fetch().forEach(function(giblet) {
           Giblets.remove(giblet._id);
         });
