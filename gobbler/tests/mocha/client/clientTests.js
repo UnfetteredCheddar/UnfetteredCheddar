@@ -2,7 +2,7 @@ if (!(typeof MochaWeb === 'undefined')){
   MochaWeb.testOnly(function(){
     describe("Giblet Methods", function(){
       before(function(done) {
-        var exampleGiblet = {
+        var gibletData = {
           taskname: 'Find tandem bike',
           url: 'https://sfbay.craigslist.org/search/bik',
           keywords: 'tandem'
