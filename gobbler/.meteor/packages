@@ -26,3 +26,7 @@ accounts-ui
 percolate:synced-cron
 http
 underscore
+fermuch:cheerio
+anonyfox:scrape
+bobbigmac:scrape-parser
+peerlibrary:fs

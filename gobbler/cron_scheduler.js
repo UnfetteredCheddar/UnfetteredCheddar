@@ -14,7 +14,9 @@ if (Meteor.isServer) {
           return parser.recur().every(frequency).minute();
         },
         job: function() {
-          console.log('do the thing on schdule');
+          var currentGiblet = Giblets.find({ id: mongoId });
+          console.log( currentGiblet );
+          Meteor.call('scrapePage', currentGiblet.url);
         }
       });
     },
