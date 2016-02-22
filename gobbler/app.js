@@ -8,7 +8,8 @@ Meteor.methods({
       keywords: giblet.keywords,
       SMS: giblet.SMS,
       email: giblet.email,
-      frequency: giblet.frequency
+      frequency: giblet.frequency,
+      active: true
     });    
   },
 
