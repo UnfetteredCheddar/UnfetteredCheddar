@@ -25,4 +25,10 @@ if (Meteor.isClient) {
       Meteor.call('addGiblet', giblet);
     }
   });
+  
+  Template.giblet.events({
+    "change input:radio": function(event) {
+      console.log('test');
+    }
+  });
 };
