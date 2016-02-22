@@ -23,7 +23,6 @@ if (Meteor.isClient) {
         frequency: frequency
       };
       Meteor.call('addGiblet', giblet);
-      // Meteor.call('scrapePage', giblet.url);
     }
   });
 };

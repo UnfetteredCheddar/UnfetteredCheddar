@@ -3,7 +3,7 @@ if (Meteor.isServer) {
   console.log('CRON JOBS SCHEDULER+++++++++++++++++++++++++++');
 
   Meteor.methods({
-    scheduleGiblet: function(mongoId, frequency) {
+    scheduleGiblet: function(mongoId, frequency, url) {
       console.log('schdule giblet fires!', frequency);
 
       frequency = parseInt(frequency);
@@ -14,9 +14,7 @@ if (Meteor.isServer) {
           return parser.recur().every(frequency).minute();
         },
         job: function() {
-          var currentGiblet = Giblets.find({ id: mongoId });
-          console.log( currentGiblet );
-          Meteor.call('scrapePage', currentGiblet.url);
+          Meteor.call('scrapePage', url);
         }
       });
     },
