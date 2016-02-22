@@ -24,3 +24,5 @@ service-configuration
 accounts-google
 accounts-ui
 percolate:synced-cron
+mike:mocha
+practicalmeteor:chai
