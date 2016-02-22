@@ -1,31 +1,62 @@
 var expect = chai.expect;
 var assert = chai.assert;
-var oldGiblets, oldLength, gibletData;
 
 if (!(typeof MochaWeb === 'undefined')){
   MochaWeb.testOnly(function(){
     describe("Giblet Methods", function(){
       before(function(done) {
-        oldGiblets = Giblets.find().fetch();
-        oldLength = oldGiblets.length;
-        gibletData = {
+        Giblets.find().fetch().forEach(function(giblet) {
+          Giblets.remove(giblet._id);
+        });
+        gibletData = [
+        {
           taskname: 'Find tandem bike',
           url: 'https://sfbay.craigslist.org/search/bik',
           keywords: 'tandem',
           SMS: true,
           email: true,
           frequency: '1'
-        };
+        },
+        {
+          taskname: 'Find Fender',
+          url: 'https://www.reddit.com/r/Guitar/',
+          keywords: 'Fender',
+          SMS: false,
+          email: false,
+          frequency: '1'
+        },
+        {
+          taskname: 'Find job',
+          url: 'http://www.indeed.com/jobs?q=engineer&l=San+Francisco%2C+CA',
+          keywords: 'javascript, front-end',
+          SMS: true,
+          email: false,
+          frequency: '1'
+        }];
+        gibletData.forEach(function(giblet) {
+          Meteor.call('addGiblet', giblet);
+        });
         done();
       });
+
       it('should be able to fetch Giblets from collection', function() {
-        console.log(gibletData);
-        expect(oldGiblets).to.exist;
+        var giblets = Giblets.find().fetch();
+        expect(giblets).to.be.a('array');
+        expect(giblets).to.have.length(3);
       });
-      it('should add new Giblet when addGiblet is called', function(){
-        Meteor.call('addGiblet', gibletData);
-        var newLength = Giblets.find().fetch().length;
-        assert.equal(newLength, oldLength + 1);
+      it('should add new Giblet when addGiblet method is invoked', function(){
+        Meteor.call('addGiblet', {
+          taskname: 'Pass test',
+          url: 'http://www.test.com/',
+          keywords: 'pass, testing',
+          SMS: false,
+          email: false,
+          frequency: '1'
+        });
+        var giblets = Giblets.find().fetch();
+        var newGib = Giblets.find({taskname:'Pass test'}).fetch();
+        assert.equal(giblets.length, 4);
+        expect(newGib).to.have.length(1);
       });
 
     });
