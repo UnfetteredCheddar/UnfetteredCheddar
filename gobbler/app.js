@@ -2,20 +2,20 @@ Giblets = new Mongo.Collection('giblets');
 Notifications = new Mongo.Collection('notifications');
 
 Meteor.methods({
-  addGiblet: function ( giblet ) {
+  addGiblet: function () {
     var gibletId = Giblets.insert({
       createdAt: new Date(),
       owner: Meteor.userId(),
-      taskname: giblet.taskname,
-      url: giblet.url,
-      keywords: giblet.keywords,
-      SMS: giblet.SMS,
-      email: giblet.email,
-      frequency: giblet.frequency,
-      active: true
+      taskname: 'New Giblet',
+      url: [undefined],
+      keywords: [],
+      SMS: '0',
+      email: '0',
+      frequency: 1,
+      active: false
     });
 
-    Meteor.call('scheduleGiblet', gibletId, giblet.frequency, giblet.url);
+    // Meteor.call('scheduleGiblet', gibletId, giblet.frequency, giblet.url);
   },
 
   updateGiblet: function( gibletID, data ) {

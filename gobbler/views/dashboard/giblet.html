@@ -1,6 +1,6 @@
 <template name="giblet">
-  <div class='giblet'>
-  <input class="gibletTitleInput" type="text" value="{{taskname}}">
+  <div class='giblet' gibletId="{{_id}}">
+    <input class="gibletTitleInput" type="text" value="{{taskname}}">
 
     {{url.length}}
     {{#each url}}
@@ -9,20 +9,60 @@
         <input type="text" value="{{this}}" size="50">   
 
         <!-- minus button -->
-        <img
+        <svg
           class="subtractUrlButton"
           src="http://kb.ischool.uw.edu/wp/wp-content/uploads/2014/07/AppleMinusButton.png"
           mongoId="{{../_id}}"
           urlIndex="{{@index}}"
-          alt="">
+          alt=""
+          
+          version="1.1" x="0px" y="0px" width="10px"
+           height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
+          <style>
+
+            svg rect {
+              fill: #000000;
+            }
+            svg rect {
+              -webkit-transition: all 800ms;
+              -webkit-transform: scaleY(0);
+              -webkit-transform-origin: 50% 50%;
+            }
+          </style>
+        <g id="Layer_2">
+          <rect y="175" fill="#575fcf" width="400" height="50"/>
+        </g>
+        </svg>
         
         <!-- plus button -->
         {{#if compareIndexLength @index ../url.length}}
-          <img
-            class="addUrlButton"
-            src="http://s3.amazonaws.com/www.linnareacu.org/blog/wp-content/uploads/2011/07/Plus-Button.jpg"
-            mongoId="{{../_id}}"
-            alt="">
+
+        <svg
+          class="addUrlButton"
+          src="http://s3.amazonaws.com/www.linnareacu.org/blog/wp-content/uploads/2011/07/Plus-Button.jpg"
+          mongoId="{{../_id}}"
+          alt=""
+          
+          version="1.1" x="0px" y="0px" width="10px"
+           height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
+          <style>
+            svg rect {
+              fill: #000000;
+            }
+            svg rect {
+              -webkit-transition: all 800ms;
+              -webkit-transform: scaleY(1);
+              -webkit-transform-origin: 50% 50%;
+            }
+          </style>
+        <g id="Layer_1">
+          <rect x="175" width="50" height="400"/>
+        </g>
+        <g id="Layer_2">
+          <rect y="175" fill="#575fcf" width="400" height="50"/>
+        </g>
+        </svg>
+        {{/if}}
       </div>
     {{/each}}
 
@@ -30,6 +70,7 @@
     <label for="SMS">SMS <input type="checkbox" checked="{{SMS}}"></label>
     <label for="email">Email <input type="checkbox" checked="{{email}}"></label>
     <label for="on/off">
+
       {{#if active}}
         <span><input type="radio" name="active{{_id}}" value="true" checked> On</span>
         <span><input type="radio" name="active{{_id}}" value="false"> Off</span>
@@ -37,6 +78,7 @@
         <span><input type="radio" name="active{{_id}}" value="true"> On</span>
         <span><input type="radio" name="active{{_id}}" value="false" checked> Off</span>
       {{/if}}
+
     </label>
   </div>
 </template>
