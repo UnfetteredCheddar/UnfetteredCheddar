@@ -4,6 +4,7 @@ if (Meteor.isClient) {
       return Giblets.find().fetch();
     }
   });
+
   Template.dashboard.events({
     "submit .addGiblet": function (event) {
       event.preventDefault();
@@ -23,6 +24,12 @@ if (Meteor.isClient) {
         frequency: frequency
       };
       Meteor.call('addGiblet', giblet);
+    }
+  });
+
+  Template.giblet.events({
+    "change input:radio": function(event) {
+      Meteor.call('updateGiblet', this._id, {active: JSON.parse(event.target.value)});
     }
   });
 };

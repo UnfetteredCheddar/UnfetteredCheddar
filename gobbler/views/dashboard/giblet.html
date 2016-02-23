@@ -5,5 +5,14 @@
     <div><input type="text" value="{{keywords}}"></div>
     <label for="SMS">SMS <input type="checkbox" checked="{{SMS}}"></label>
     <label for="email">Email <input type="checkbox" checked="{{email}}"></label>
+    <label for="on/off">
+      {{#if active}}
+        <span><input type="radio" name="active{{_id}}" value="true" checked> On</span>
+        <span><input type="radio" name="active{{_id}}" value="false"> Off</span>
+      {{else}}
+        <span><input type="radio" name="active{{_id}}" value="true"> On</span>
+        <span><input type="radio" name="active{{_id}}" value="false" checked> Off</span>
+      {{/if}}
+    </label>
   </div>
 </template>

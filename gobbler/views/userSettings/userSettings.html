@@ -1,12 +1,22 @@
 <template name="userSettings">
-  <div class='userSettingsView'>
-    {{>navBar}}
-    <form action="/" class="userSettings"> 
-      <label for="name">Name<input name="name" class='name-input'></label>
-      <label for="phone">Phone:<input name="phone" type='tel' pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}'></label>
-      <label for="email">Email:<input name="email" type='email'></label>
-      <button class='save-user-btn'>Save Changes</button>
-    </form>
+  {{>navBar}}
+  <div class='bodyView'>
+    <div class='userSettingsView'>
+      <form action="/" class="userSettings"> 
+        <p>
+          <label for="name"><input name="name" class='name-input'> Name</label>
+        </p>
+        <p>
+          <label for="phone"><input name="phone" type='tel' pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}'> Phone</label>
+        </p>
+        <p>
+          <label for="email"><input name="email" type='email'> Email</label>
+        </p>
+        <p>
+          <button class='save-user-btn'>Save Changes</button>
+        </p>
+      </form>
+    </div>
   </div>
 </template>
 
