@@ -36,5 +36,12 @@ Meteor.methods({
         chosenEmail: userSettings.chosenEmail
       }
     });
+  },
+
+  clearGibletsDB: function() {
+    Giblets.find().fetch().forEach(function(giblet) {
+      Giblets.remove(giblet._id);
+    });
   }
+
 });

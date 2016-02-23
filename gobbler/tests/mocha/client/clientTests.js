@@ -6,9 +6,7 @@ if (!(typeof MochaWeb === 'undefined')){
     describe("Giblet Methods", function(){
 
       beforeEach(function(done) {
-        Giblets.find().fetch().forEach(function(giblet) {
-          Giblets.remove(giblet._id);
-        });
+        Meteor.call('clearGibletsDB');
         gibletData = [
         {
           taskname: 'Find tandem bike',
@@ -38,6 +36,10 @@ if (!(typeof MochaWeb === 'undefined')){
           Meteor.call('addGiblet', giblet);
         });
         done();
+      });
+
+      afterEach(function() {
+        Meteor.call('clearGibletsDB');
       });
 
       it('should be able to fetch Giblets from collection', function() {
