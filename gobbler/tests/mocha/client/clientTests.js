@@ -3,7 +3,7 @@ var assert = chai.assert;
 
 if (!(typeof MochaWeb === 'undefined')){
   MochaWeb.testOnly(function(){
-    xdescribe("Giblet Methods", function(){
+    describe("Giblet Methods", function(){
 
       beforeEach(function(done) {
         Meteor.call('clearGibletsDB');
@@ -61,6 +61,42 @@ if (!(typeof MochaWeb === 'undefined')){
         var newGib = Giblets.find({taskname:'Pass test'}).fetch();
         assert.equal(giblets.length, 4);
         expect(newGib).to.have.length(1);
+      });
+
+      it('should update a Giblet by using the updateGiblet method', function(){
+        var obj = {
+          taskname: 'Pass test',
+          url: 'http://www.test.com/',
+          keywords: 'pass, testing',
+          SMS: false,
+          email: false,
+          frequency: '1'
+        };
+
+        var id = Giblets.insert(obj);
+        Meteor.call('updateGiblet', id, {taskname:'Updated test'});
+        var newGib = Giblets.find({taskname:'Updated test'}).fetch();
+        expect(newGib).to.have.length(1);
+      });
+
+      it('should delete a Giblet by using the deleteGiblet method', function(){
+        var obj = {
+          taskname: 'Pass test',
+          url: 'http://www.test.com/',
+          keywords: 'pass, testing',
+          SMS: false,
+          email: false,
+          frequency: '1'
+        };
+
+        var id = Giblets.insert(obj);
+        Meteor.call('deleteGiblet', id);
+        var newGib = Giblets.find({taskname:'Pass test'}).fetch();
+        var giblets = Giblets.find().fetch();
+        // TODO solve the length issue for the test
+        // Also do comparison before and after delete
+        assert.equal(giblets.length, 4);
+        expect(newGib).to.have.length(0);
       });
 
       xit('should only display Giblets for current user', function() {
