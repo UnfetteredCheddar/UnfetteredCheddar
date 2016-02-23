@@ -23,6 +23,12 @@ nav {
   clear: none;
 }
 
+.gibletTitleInput
+{
+    height:100px;
+    font-size:30pt;
+}
+
 .welcome {
   margin: 10px;
   padding: 10px;
