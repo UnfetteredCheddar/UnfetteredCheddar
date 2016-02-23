@@ -1,8 +1,25 @@
 <template name="giblet">
   <div class='giblet'>
-    <h1>{{taskname}}</h1>
-    <div><input type="url" value="{{url}}"></div>
-    <div><input type="text" value="{{keywords}}"></div>
+  <input class="gibletTitleInput" type="text" value="{{taskname}}">
+
+    {{url.length}}
+    {{#each url}}
+      <div>
+        <input type="text" value="{{this}}" size="50">
+        {{@index}}
+        
+        <!-- minus button -->
+        <img class="minusButton {{_id}}" src="http://kb.ischool.uw.edu/wp/wp-content/uploads/2014/07/AppleMinusButton.png" alt="">
+        
+        {{#if @index}}
+          <!-- plus button -->
+          <img class="plusButton {{_id}}" src="http://s3.amazonaws.com/www.linnareacu.org/blog/wp-content/uploads/2011/07/Plus-Button.jpg" alt="">
+        {{/if}}
+
+      </div>
+    {{/each}}
+
+    <div><input type="text" value="{{keywords}}" size="35"> Keywords</div>
     <label for="SMS">SMS <input type="checkbox" checked="{{SMS}}"></label>
     <label for="email">Email <input type="checkbox" checked="{{email}}"></label>
     <label for="on/off">

@@ -1,20 +1,25 @@
 <template name='gibletForm'>
   <div class='addGiblet'>
     <form action="/" class="gibletForm">
-      <input type="text" name="taskname" placeholder="Title for this job/giblet">
-      <input type="url" name="url" placeholder="Url to search">
-      <input type="text" name="keywords" placeholder="Keywords to search for, eg. keyword1, keyword2">
-      <div>
-        <span>Notifications
-         <br/>
-         <label for="SMS">Text Updates<input type="checkbox" name="SMS"></label>
-         <label for="Email">Email Updates<input type="checkbox" name="email"></label>
-        </span>
-      </div>
-      <span>Check the website...
-       <input type="number" name="frequency" placeholder="Number of times">
-       Per Day
-      </span>
+      <p>
+        <input type="text" name="taskname" placeholder="Title for this job/giblet">
+      </p>
+      <p class="urlInput">
+        <input type="url" urlCount="1" name="url" placeholder="Url to search">
+
+        <img class="addUrlButton" src="https://cdn1.iconfinder.com/data/icons/freeline/32/add_cross_new_plus_create-128.png" height="20px" alt="">
+
+      </p>
+      <p>
+        <input type="text" name="keywords" placeholder="Keywords to search for, eg. keyword1, keyword2">
+      </p>
+      <p>
+        <label for="SMS"><input type="checkbox" name="SMS"> Text Me!</label>
+      </p>  
+      <p> 
+        <label for="Email"><input type="checkbox" name="email"> Email Me!</label>
+      </p>
+       <input type="number" name="frequency" placeholder="Search Frequency min">
       <p>
         <button>Submit</button>
       </p>
