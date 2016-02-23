@@ -10,19 +10,31 @@ if (Meteor.isServer) {
       console.log('Update confirm: ', updateConfirm);
     },
 
-    // addUrlToArray: function(id) {
-    //   console.log('add url to array server side!');
-    //   console.log('Add url to array!');
-    //   var giblet = Giblets.findOne({'_id': id});
-    //   console.log(giblet);
-    //   var urlArray = giblet.url;
-    //   console.log('Url array: ', urlArray, urlArray.length);
-    //   urlArray[urlArray.length] = undefined;
+    addUrlToArray: function(id) {
+      console.log('add url to array server side!');
+      console.log('Add url to array!');
+      var giblet = Giblets.findOne({'_id': id});
+      console.log(giblet);
+      var urlArray = giblet.url;
+      console.log('Url array: ', urlArray, urlArray.length);
+      urlArray[urlArray.length] = undefined;
 
-    //   Giblets.update({'_id': id}, {$set: {url: urlArray}});
-    //   var newGiblet = Giblets.findOne({'_id': id});
-    //   console.log('Update happens!', newGiblet);
-    // }
+      Giblets.update({'_id': id}, {$set: {url: urlArray}});
+      var newGiblet = Giblets.findOne({'_id': id});
+      console.log('Update happens!', newGiblet);
+    },
+    removeUrlFromArray: function(id, urlIndex) {
+      console.log('kjkjkjkj');
+      var giblet = Giblets.findOne({'_id': id});
+      var urlArray = giblet.url;
+      // console.log(id, urlIndex)
+      console.log( urlArray );
+      urlArray.splice(urlIndex, 1);
+      console.log( urlArray );
+      var key = 'url';
+      Meteor.call('updateGibletValue', id, key, urlArray);
+    }
+
   });
 }
 
@@ -37,6 +49,9 @@ if (Meteor.isClient) {
 
   Template.giblet.events({
     'input .gibletTitleInput': function(event) {
+      // TODO: clean this up... this is crazy
+      // The id should be stored on every elemet so we don't have to
+      // look around so much with the jquery selectors...
       var gibletId = event.target.parentNode.attributes.gibletId.value;
       var newTitle = event.target.value;
       var dbTarget = 'taskname';
@@ -44,6 +59,8 @@ if (Meteor.isClient) {
     },
 
     'input .keywordInput': function(event) {
+      // TODO: this also needs to be cleaned up.
+      // No referencing parent nodes !!
       var gibletId = event.target.parentNode.parentNode.attributes.gibletId.value;
       var newKeywords = event.target.value;
 
@@ -68,22 +85,24 @@ if (Meteor.isClient) {
       Meteor.call('updateGibletValue', gibletId, dbTarget, keywordArray);
     },
 
-    'click .addUrlButton': function(event) {
+    'click div.addUrlButton': function(event) {
       // code goes here
       console.log('Click Add', event);
       // console.log(event.currentTarget.classList[1]);
-      var id = event.target.attributes['mongoid'].value;
+      var id = event.currentTarget.attributes['mongoid'].value;
       console.log('id from button', id);
 
       Meteor.call('addUrlToArray', id);
     },
 
-    'click .subtractUrlButton': function(event) {
+    'click div.subtractUrlButton': function(event) {
       console.log('Click Subtract', event);
-      var id = event.target.attributes['mongoid'].value;
-      var urlIndex = event.target.attributes['urlindex'].value;
+      var id = event.currentTarget.attributes['mongoid'].value;
+      var urlIndex = event.currentTarget.attributes['urlindex'].value;
       console.log(id, urlIndex);
-    },
+
+      Meteor.call('removeUrlFromArray', id, urlIndex);
+    }
 
 
 

@@ -70,3 +70,12 @@ nav {
   text-align: center;
   border: .8px blue solid;
 }
+
+svg rect {
+  fill: #000000;
+}
+svg rect {
+  -webkit-transition: all 800ms;
+  -webkit-transform: scaleY(1);
+  -webkit-transform-origin: 50% 50%;
+}

@@ -6,7 +6,7 @@ Meteor.methods({
     var gibletId = Giblets.insert({
       createdAt: new Date(),
       owner: Meteor.userId(),
-      taskname: 'New Giblet',
+      taskname: '',
       url: [undefined],
       keywords: [],
       SMS: '0',
