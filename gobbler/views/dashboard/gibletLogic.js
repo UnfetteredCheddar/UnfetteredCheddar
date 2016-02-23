@@ -2,6 +2,8 @@ if (Meteor.isServer) {
   Meteor.methods({
 
     updateGibletValue: function(id, key, val) {
+      console.log('trying to update: ', id, key, val);
+
       var updateObj = {};
       updateObj[key] = val;
       var updateConfirm = Giblets.update({'_id': id}, {$set: updateObj});
@@ -41,7 +43,30 @@ if (Meteor.isClient) {
       Meteor.call('updateGibletValue', gibletId, dbTarget, newTitle);
     },
 
-    'input .'
+    'input .keywordInput': function(event) {
+      var gibletId = event.target.parentNode.parentNode.attributes.gibletId.value;
+      var newKeywords = event.target.value;
+
+      var dbTarget = 'keywords';
+
+      var cleanCommaSeperatedString = function(string) {
+        console.log(string);
+        var finalKeywords = [];
+        var stringArray = string.split(',');
+        for( var i = 0; i < stringArray.length; i++ ) {
+          var thisEntry = stringArray[i];
+          if (thisEntry === '') {
+          } else {
+            finalKeywords.push( thisEntry.trim() );
+          }
+        }
+        return finalKeywords;
+      };
+
+      var keywordArray = cleanCommaSeperatedString(newKeywords);
+      console.log(keywordArray)
+      Meteor.call('updateGibletValue', gibletId, dbTarget, keywordArray);
+    },
 
     'click .addUrlButton': function(event) {
       // code goes here
