@@ -28,5 +28,13 @@ dist/
 node_modules/
 bower_components/
 
-# Ignore Mac DS_Store files
+# OS generated files #
+######################
 **/.DS_Store
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
