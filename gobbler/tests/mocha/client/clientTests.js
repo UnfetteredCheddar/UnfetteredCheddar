@@ -95,8 +95,14 @@ if (!(typeof MochaWeb === 'undefined')){
         var giblets = Giblets.find().fetch();
         // TODO solve the length issue for the test
         // Also do comparison before and after delete
-        assert.equal(giblets.length, 4);
+        assert.equal(giblets.length, 3);
         expect(newGib).to.have.length(0);
+      });
+
+      it('should empty the collection of giblets', function(){
+        Meteor.call('clearGibletsDB');
+        var giblets = Giblets.find().fetch();
+        expect(giblets).to.have.length(0);
       });
 
       xit('should only display Giblets for current user', function() {
