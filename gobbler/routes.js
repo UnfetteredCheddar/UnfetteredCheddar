@@ -43,15 +43,20 @@ loggedIn.route('/notifications', {
   }
 });
 
+//default:
+FlowRouter.notFound = {
+  action: FlowRouter.go('dashboard')
+};
+
 //Handle log in and log out
-// Accounts.onLogin(function () {
-//   var redirect = Session.get('redirectAfterLogin');
-//   if(redirect && redirect !== '/welcome') {
-//     FlowRouter.go(redirect);
-//   } else {
-//     FlowRouter.go('home');
-//   }
-// });
+Accounts.onLogin(function () {
+  var redirect = Session.get('redirectAfterLogin');
+  if(redirect && redirect !== '/welcome') {
+    FlowRouter.go(redirect);
+  } else {
+    FlowRouter.go('dashboard');
+  }
+});
 
 // var started = false;
 // Deps.autorun(function () {
