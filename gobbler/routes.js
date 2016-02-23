@@ -43,25 +43,31 @@ loggedIn.route('/notifications', {
   }
 });
 
-//Handle log in and log out
-// Accounts.onLogin(function () {
-//   var redirect = Session.get('redirectAfterLogin');
-//   if(redirect && redirect !== '/welcome') {
-//     FlowRouter.go(redirect);
-//   } else {
-//     FlowRouter.go('home');
-//   }
-// });
+//default:
+FlowRouter.notFound = {
+  action: FlowRouter.go('dashboard')
+};
 
-// var started = false;
-// Deps.autorun(function () {
-//   if (started && !Meteor.userId()) {
-//     console.log('I logged out!');
-//     Meteor.logout(function () {
-//     FlowRouter.go('welcome');
-//     });
-//   }
-//   started = true;
-// });
+//Handle log in and log out
+Accounts.onLogin(function () {
+  var redirect = Session.get('redirectAfterLogin');
+  if(redirect && redirect !== '/welcome') {
+    FlowRouter.go(redirect);
+  } else {
+    FlowRouter.go('dashboard');
+  }
+});
+
+Meteor.methods({
+  checkForUser: function () {
+    if(!Meteor.userId()) {
+      FlowRouter.go('welcome');
+    }
+  }
+});
+
+Tracker.autorun(function () {
+  Meteor.call('checkForUser');
+});
 
 

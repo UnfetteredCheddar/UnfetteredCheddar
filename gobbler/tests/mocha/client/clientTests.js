@@ -61,7 +61,7 @@ if (!(typeof MochaWeb === 'undefined')){
         expect(newGib).to.have.length(1);
       });
 
-      it('should only display Giblets for current user', function() {
+      xit('should only display Giblets for current user', function() {
         var currentUser = Meteor.userId();
         Giblets.insert({
           createdAt: new Date(),
