@@ -58,15 +58,17 @@ Accounts.onLogin(function () {
   }
 });
 
-// var started = false;
-// Deps.autorun(function () {
-//   if (started && !Meteor.userId()) {
-//     console.log('I logged out!');
-//     Meteor.logout(function () {
-//     FlowRouter.go('welcome');
-//     });
-//   }
-//   started = true;
-// });
+Meteor.methods({
+  checkForUser: function () {
+    console.log('%%%%% USER:', Meteor.userId());
+    if(!Meteor.userId()) {
+      FlowRouter.go('welcome');
+    }
+  }
+});
+
+Tracker.autorun(function () {
+  Meteor.call('checkForUser');
+});
 
 
