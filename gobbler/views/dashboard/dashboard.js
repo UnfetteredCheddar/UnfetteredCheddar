@@ -7,11 +7,6 @@ if (Meteor.isClient) {
 
 
   UI.registerHelper('compareIndexLength', function (a, b) {
-    console.log('COmparing!!!!!!!!!!!!!!!!!!');
-    console.log('A: ', a);
-    console.log('B: ', b);
-
-
     return a === b - 1;
   });
 
