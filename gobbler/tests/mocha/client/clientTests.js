@@ -3,7 +3,7 @@ var assert = chai.assert;
 
 if (!(typeof MochaWeb === 'undefined')){
   MochaWeb.testOnly(function(){
-    describe("Giblet Methods", function(){
+    xdescribe("Giblet Methods", function(){
 
       beforeEach(function(done) {
         Meteor.call('clearGibletsDB');
