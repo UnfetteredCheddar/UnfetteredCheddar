@@ -11,7 +11,7 @@
         <!-- minus button -->
         <img class="minusButton {{_id}}" src="http://kb.ischool.uw.edu/wp/wp-content/uploads/2014/07/AppleMinusButton.png" alt="">
         
-        {{#if @index}}
+        {{#if compareIndexLength @index ../url.length}}
           <!-- plus button -->
           <img class="plusButton {{_id}}" src="http://s3.amazonaws.com/www.linnareacu.org/blog/wp-content/uploads/2011/07/Plus-Button.jpg" alt="">
         {{/if}}
