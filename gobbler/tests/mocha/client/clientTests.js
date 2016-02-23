@@ -45,6 +45,7 @@ if (!(typeof MochaWeb === 'undefined')){
         expect(giblets).to.be.a('array');
         expect(giblets).to.have.length(3);
       });
+
       it('should add new Giblet when addGiblet method is invoked', function(){
         Meteor.call('addGiblet', {
           taskname: 'Pass test',
@@ -60,6 +61,22 @@ if (!(typeof MochaWeb === 'undefined')){
         expect(newGib).to.have.length(1);
       });
 
+      it('should only display Giblets for current user', function() {
+        var currentUser = Meteor.userId();
+        Giblets.insert({
+          createdAt: new Date(),
+          owner: 'Something else',
+          taskname: 'Should not be visible',
+          url: 'http://www.noThanks.com',
+          keywords: 'bad, not permissioned',
+          SMS: true,
+          email: false,
+          frequency: 4,
+          active: true
+        });
+        var badGib = Giblets.find({taskname:'Should not be visible'}).fetch();
+        expect(badGib).to.have.length(0);
+      });
     });
   });
 }
