@@ -39,10 +39,14 @@ if (Meteor.isServer) {
       var foundKeywords = [];
       tagRegexArr.forEach( function( tagRegex ) {
         var matchingArr = pageText.match(tagRegex);
-        foundKeywords = foundKeywords.concat( matchingArr );
+        foundKeywords.push( matchingArr );
       });
-
-      return foundKeywords.length;
+      var keywords = {}
+      foundKeywords.forEach(function(array) {
+        keywords[array[0]] = array.length;
+      });
+      console.log(keywords);
+      return keywords;
     }
   });
 }
