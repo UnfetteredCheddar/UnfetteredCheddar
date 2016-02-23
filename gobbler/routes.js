@@ -60,7 +60,6 @@ Accounts.onLogin(function () {
 
 Meteor.methods({
   checkForUser: function () {
-    console.log('%%%%% USER:', Meteor.userId());
     if(!Meteor.userId()) {
       FlowRouter.go('welcome');
     }
