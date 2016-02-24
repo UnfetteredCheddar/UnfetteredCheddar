@@ -54,6 +54,11 @@ nav {
   /*border: 1px solid green;*/
 }
 
+.enterToSave {
+  visibility: hidden;
+  color: red;
+}
+
 .addGiblet {
   margin: 5px;
   /*border: red 1px solid;*/

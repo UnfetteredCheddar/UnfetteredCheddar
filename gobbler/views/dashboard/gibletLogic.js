@@ -34,6 +34,13 @@ if (Meteor.isServer) {
       var giblet = Giblets.findOne({'_id': id});
       Giblets.update({'_id': id}, {$set: {taskname: value}});
     },
+    modifyUrlInArray: function(id, urlIndex, value) {
+      console.log('modify url server side', id, urlIndex, value);
+      var giblet = Giblets.findOne({'_id': id});
+      var urlArray = giblet.url;
+      urlArray[urlIndex] = value;
+      Giblets.update({'_id': id}, {$set: {url: urlArray}});
+    },
     addUrlToArray: function(id) {
       var giblet = Giblets.findOne({'_id': id});
       var urlArray = giblet.url;
@@ -41,17 +48,14 @@ if (Meteor.isServer) {
       Giblets.update({'_id': id}, {$set: {url: urlArray}});
     },
     removeUrlFromArray: function(id, urlIndex) {
-      var giblet = Giblets.findOne({'_id': id});
-      var urlArray = giblet.url;
-      urlArray.splice(urlIndex, 1);
-      var key = 'url';
-      Meteor.call('updateGibletValue', id, key, urlArray);
+      // var giblet = Giblets.findOne({'_id': id});
+      // var urlArray = giblet.url;
+      // urlArray.splice(urlIndex, 1);
+      // var key = 'url';
+      // Meteor.call('updateGibletValue', id, key, urlArray);
     },
-    modifyUrlInArray: function(id, urlIndex, value) {
-      var giblet = Giblets.findOne({'_id': id});
-      var urlArray = giblet.url;
-      urlArray[urlIndex] = value;
-      Giblets.update({'_id': id}, {$set: {url: urlArray}});
+    updateKeywordArray: function() {
+      // DO all this
     },
     toggleSmsStatus: function(id) {
       var giblet = Giblets.findOne({'_id': id});
@@ -82,25 +86,40 @@ if (Meteor.isClient) {
     }
   });
 
+  var enterReminderShow = function(event) {
+    var reminder = event.target.form.children[0];
+    reminder.style.visibility = 'unset';
+  };
+  var enterReminderHide = function(event) {
+    var reminder = event.target.form.children[0];
+    reminder.style.visibility = 'hidden';
+  };
+
   Template.giblet.events({
     // Possibly throttle some of this
     'input .gibletTitleInput, change .gibletTitleInput, paste .gibletTitleInput, mouseup .gibletTitleInput, keyup .gibletTitleInput': function(event) {
       console.log('Title modify client side');
-      // if (event.which === 13) {        
+      enterReminderShow(event);
+
+      if (event.which === 13) {        
         var gibletId = event.currentTarget.form.attributes['mongoid'].value;
         var newTitle = event.currentTarget.value;
         // console.log(gibletId, newTitle);
         Meteor.call('updateTitle', gibletId, newTitle);
-      // }
+        enterReminderHide(event);
+      }
     },
     'input .urlTextInput, change .urlTextInput, paste .urlTextInput, mouseup .urlTextInput, keyup .urlTextInput': function(event) {
       console.log('url modify client side');
-      // if (event.which === 13) {
-        var id = event.currentTarget.attributes['mongoid'].value;
-        var urlIndex = event.currentTarget.attributes['urlIndex'].value;
-        var input = event.target.value;
-        Meteor.call('modifyUrlInArray', id, urlIndex, input);
-      // }
+      enterReminderShow(event);
+      if (event.which === 13) {
+        var id = event.currentTarget.form.attributes['mongoid'].value;
+        var urlIndex = event.currentTarget.parentNode.attributes['urlIndex'].value;
+        var value = event.target.value;
+        // console.log('urlindex:', id, urlIndex, value)
+        Meteor.call('modifyUrlInArray', id, urlIndex, value);
+        enterReminderHide(event);
+      }
     },
     'click div.addUrlButton': function(event) {
       var id = event.currentTarget.attributes['mongoid'].value;
@@ -134,10 +153,10 @@ if (Meteor.isClient) {
           return finalKeywords;
         };
         var keywordArray = cleanCommaSeperatedString(newKeywords);
-        Meteor.call('updateGibletValue', gibletId, dbTarget, keywordArray);
+        // Meteor.call('updateKeywordArray', gibletId, keywordArray);
       }
     },
-    'input, change, paste, mouseup, keyup, .cronJobTimer': function(event) {
+    'input .cronJobTimer, change .cronJobTimer, paste .cronJobTimer, mouseup .cronJobTimer, keyup .cronJobTimer': function(event) {
       var id = event.currentTarget.attributes['mongoid'].value;
       var input = event.target.value;
       console.log('cron change', id, input);

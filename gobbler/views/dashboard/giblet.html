@@ -1,13 +1,18 @@
 <template name="giblet">
   <div class='giblet' gibletId="{{_id}}">
     <form mongoId="{{_id}}">
+
+      <!-- Enter to save reminder -->
+      <div class="enterToSave">
+        Press Enter to Save!
+      </div>
       <!-- Title -->
       <input class="gibletTitleInput" type="text" placeholder="Title">
 
       <div class="urlDiv">
         <!-- Url list -->
         {{#each url}}    
-          <div  class="urlLine">
+          <div  class="urlLine" urlIndex="{{@index}}">
             <input class="urlTextInput" type="text" placeholder="Url here...">
 
             <!-- Subtract Url Button -->
