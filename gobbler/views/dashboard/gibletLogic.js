@@ -58,7 +58,6 @@ if (Meteor.isServer) {
     toggleGibletRunningStatus: function(id) {
         var giblet = Giblets.findOne({'_id': id});
         Giblets.update({'_id': id}, {$set: {active: !giblet.active}});
-
     },
     updateCronTimer: function(id, cronTime, url) {
       console.log('Update cron timer', id, cronTime);
@@ -141,6 +140,7 @@ if (Meteor.isClient) {
       Meteor.call('toggleEmailStatus', id);
     },
     'click .gibletRunningStatusForm': function(event) {
+      // console.log('click client side', event);
       var id = event.currentTarget.attributes['mongoid'].value;      
       Meteor.call('toggleGibletRunningStatus', id)
     },

@@ -58,17 +58,10 @@
     <label for="SMS">Alert via: SMS <input class="smsStatus" mongoId="{{_id}}" type="checkbox" checked="{{SMS}}"></label>
     <label for="email">Email <input class="emailStatus" mongoId="{{_id}}" type="checkbox" checked="{{email}}"></label>
 
-
-    <form class="gibletRunningStatusForm" mongoId="{{_id}}">
-      {{# if active}}
-        <label><input type="radio" name="running" value="true" checked/> On </label>
-        <label><input type="radio" name="running" value="false"/> Off </label>
-      {{else}}
-        <label><input type="radio" name="running" value="true"/> On </label>
-        <label><input type="radio" name="running" value="false" checked/> Off </label>
-      {{/if}}
-    </form>
-
+    <div>
+      On / Off
+      <input class="gibletRunningStatusForm" mongoId="{{_id}}" type="checkbox"/>
+    </div>
 
     <div class="removeGibletButton" mongoId="{{_id}}">
       <img src="https://www.onx.ms/images/close.png">
