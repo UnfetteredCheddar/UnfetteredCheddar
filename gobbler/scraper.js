@@ -55,7 +55,6 @@ if (Meteor.isServer) {
           keywords[array[0]] = array.length;
         }
       });
-      console.log(keywords);
       return keywords;
     },
     createNotification: function(gibletID, notificationKeys, url, owner) {
