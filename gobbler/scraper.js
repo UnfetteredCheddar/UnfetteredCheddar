@@ -13,8 +13,8 @@ if (Meteor.isServer) {
     }, 
     checkPageUpdates: function( gibletID, url, hash, pageText, urlIndex ) {
       var giblet = Giblets.findOne({_id: gibletID});
-      var regExURL = url.replace(/\./g, '');
-      if ( !giblet.webData[regExURL] || giblet.webData[regExURL].hash !== hash ) {
+      var urlNoDots = regExURL( url );
+      if ( !giblet.webData[urlNoDots] || giblet.webData[urlNoDots].hash !== hash ) {
         var keywordObj = Meteor.call('findKeywords', giblet._id, pageText);
         var oldKeywords = giblet.keywordCounts || {};
         var notificationKeys = [];
@@ -35,8 +35,8 @@ if (Meteor.isServer) {
       };
       var giblet = Giblets.findOne({_id: id});
       var gibletWebData = giblet.webData;
-      var regExURL = url.replace(/\./g, '');;
-      gibletWebData[regExURL] = gibletUpdates;
+      var urlNoDots = regExURL( url );
+      gibletWebData[urlNoDots] = gibletUpdates;
       Giblets.update({_id: id}, 
         {$set: {
           webData: gibletWebData
