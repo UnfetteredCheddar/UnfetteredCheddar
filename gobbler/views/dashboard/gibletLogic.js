@@ -53,10 +53,10 @@ if (Meteor.isServer) {
       urlArray.splice(urlIndex, 1);
       var key = 'url';
       Giblets.update({'_id': id}, {$set: {url: urlArray}});
-      // Meteor.call('updateGibletValue', id, key, urlArray);
     },
-    updateKeywordArray: function() {
-      // DO all this
+    updateKeywordArray: function(id, keywordArray) {
+      var giblet = Giblets.findOne({'_id': id});
+      Giblets.update({'_id': id}, {$set: {keywords: keywordArray}})
     },
     toggleSmsStatus: function(id) {
       var giblet = Giblets.findOne({'_id': id});
@@ -133,14 +133,13 @@ if (Meteor.isClient) {
       Meteor.call('removeUrlFromArray', id, urlIndex);
     },
     'input .keywordInput, change .keywordInput, paste .keywordInput, mouseup .keywordInput, keyup .keywordInput': function(event) {
+      enterReminderShow(event);
+      
       if (event.which === 13) {        
         console.log('keypress enter keyword');
-        // TODO: this also needs to be cleaned up.
-        // No referencing parent nodes !!
-        var gibletId = event.target.parentNode.parentNode.attributes.gibletId.value;
-        var newKeywords = event.target.value;
 
-        var dbTarget = 'keywords';
+        var id = event.currentTarget.form.attributes['mongoid'].value;
+        var newKeywords = event.currentTarget.value;
 
         var cleanCommaSeperatedString = function(string) {
           var finalKeywords = [];
@@ -155,7 +154,8 @@ if (Meteor.isClient) {
           return finalKeywords;
         };
         var keywordArray = cleanCommaSeperatedString(newKeywords);
-        // Meteor.call('updateKeywordArray', gibletId, keywordArray);
+        Meteor.call('updateKeywordArray', id, keywordArray);
+        enterReminderHide(event);
       }
     },
     'input .cronJobTimer, change .cronJobTimer, paste .cronJobTimer, mouseup .cronJobTimer, keyup .cronJobTimer': function(event) {
