@@ -40,6 +40,7 @@ Meteor.methods({
 
   clearGibletsDB: function() {
     Giblets.remove({});
+    SyncedCron.stop();
   }
 
 });
