@@ -14,40 +14,24 @@ if (Meteor.isServer) {
       });
       // Meteor.call('scheduleGiblet', gibletId, giblet.frequency, giblet.url);
     },
-
     removeGiblet: function ( gibletID ) {
       Giblets.remove( gibletID );
     },
-
     updateGibletValue: function(id, key, val) {
-      console.log('trying to update: ', id, key, val);
-
       var updateObj = {};
       updateObj[key] = val;
       var updateConfirm = Giblets.update({'_id': id}, {$set: updateObj});
-      console.log('Update confirm: ', updateConfirm);
     },
     addUrlToArray: function(id) {
-      console.log('add url to array server side!');
-      console.log('Add url to array!');
       var giblet = Giblets.findOne({'_id': id});
-      console.log(giblet);
       var urlArray = giblet.url;
-      console.log('Url array: ', urlArray, urlArray.length);
       urlArray[urlArray.length] = undefined;
-
       Giblets.update({'_id': id}, {$set: {url: urlArray}});
-      var newGiblet = Giblets.findOne({'_id': id});
-      console.log('Update happens!', newGiblet);
     },
     removeUrlFromArray: function(id, urlIndex) {
-      console.log('kjkjkjkj');
       var giblet = Giblets.findOne({'_id': id});
       var urlArray = giblet.url;
-      // console.log(id, urlIndex)
-      console.log( urlArray );
       urlArray.splice(urlIndex, 1);
-      console.log( urlArray );
       var key = 'url';
       Meteor.call('updateGibletValue', id, key, urlArray);
     },
@@ -56,12 +40,12 @@ if (Meteor.isServer) {
       Giblets.update({'_id': id}, {$set: {SMS: !giblet.SMS}});
     },
     toggleEmailStatus: function(id) {
-      console.log('email')
       var giblet = Giblets.findOne({'_id': id});
       Giblets.update({'_id': id}, {$set: {email: !giblet.email}});
     },
     toggleGibletRunningStatus: function(id) {
-      console.log('toggle running', id)
+      var giblet = Giblets.findOne({'_id': id});
+      Giblets.update({'_id': id}, {$set: {active: !giblet.active}});
     }
 
   });
@@ -119,7 +103,6 @@ if (Meteor.isClient) {
       var id = event.currentTarget.attributes['mongoid'].value;
       Meteor.call('addUrlToArray', id);
     },
-
     'click div.subtractUrlButton': function(event) {
       var id = event.currentTarget.attributes['mongoid'].value;
       var urlIndex = event.currentTarget.attributes['urlindex'].value;

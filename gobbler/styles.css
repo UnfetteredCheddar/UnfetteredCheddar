@@ -82,6 +82,8 @@ nav {
 }
 .subtractUrlButton {
   float: left;
+  margin-left: 4px;
+  
 }
 
 .keywordDiv {
