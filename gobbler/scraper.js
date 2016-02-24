@@ -10,7 +10,7 @@ if (Meteor.isServer) {
           var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
           var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
           if (keywordDiffs.length) {
-            Meteor.call('createNotification', gibletID, keywordDiffs, url, giblet.owner);
+            Meteor.call('createNotification', giblet, url, keywordDiffs);
           }
           Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
         }
@@ -34,11 +34,11 @@ if (Meteor.isServer) {
       });
     },
 
-    createNotification: function ( gibletID, notificationKeys, url, owner ) {
+    createNotification: function ( giblet, url, notificationKeys) {
       Notifications.insert({
         createdAt: new Date(),
-        owner: owner,
-        giblet: gibletID,
+        owner: giblet.owner,
+        gibletID: giblet._id,
         keywords: notificationKeys,
         url: url
       });
