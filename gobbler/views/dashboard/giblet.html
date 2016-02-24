@@ -1,32 +1,28 @@
 <template name="giblet">
   <div class='giblet' gibletId="{{_id}}">
     <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
-
-    {{url.length}}
     {{#each url}}
-
-      <div>
+      <div class="urlLine">
         <!-- Url Text input -->
-        <input type="text" placeholder="url..." value="{{this}}" size="50">   
+        <input class="urlTextInput" type="text" placeholder="url..." value="{{this}}" size="50">   
 
-        <!-- minus button -->
+        <!-- minus button --> 
+        {{#if subtractOne ../url.length}}
+          <div class="subtractUrlButton" mongoId="{{../_id}}" urlIndex="{{@index}}">
+            <svg
+              src="http://kb.ischool.uw.edu/wp/wp-content/uploads/2014/07/AppleMinusButton.png"
               
-      {{#if subtractOne ../url.length}}
-        <div class="subtractUrlButton" mongoId="{{../_id}}" urlIndex="{{@index}}">
-          <svg
-            src="http://kb.ischool.uw.edu/wp/wp-content/uploads/2014/07/AppleMinusButton.png"
-            
-            alt=""
-            
-            version="1.1" x="0px" y="0px" width="10px"
-             height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
-          <g id="Layer_2">
-            <rect y="175" fill="#575fcf" width="400" height="50"/>
-          </g>
-          </svg>
+              alt=""
+              
+              version="1.1" x="0px" y="0px" width="10px"
+               height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
+              <g id="Layer_2">
+                <rect y="175" fill="#575fcf" width="400" height="50"/>
+              </g>
+            </svg>
           </div>
         {{/if}}
-        
+          
         <!-- plus button -->
         {{#if compareIndexLength @index ../url.length}}
           <div class="addUrlButton" mongoId="{{../_id}}">
@@ -35,11 +31,11 @@
               alt=""
               
               version="1.1" x="0px" y="0px" width="10px"
-               height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
-            <g id="Layer_1">
-              <rect x="175" width="50" height="400"/>
-            </g>
-            <g id="Layer_2">
+              height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
+              <g id="Layer_1">
+                <rect x="175" width="50" height="400"/>
+              </g>
+              <g id="Layer_2">
               <rect y="175" fill="#575fcf" width="400" height="50"/>
             </g>
             </svg>
@@ -48,19 +44,25 @@
       </div>
     {{/each}}
 
-    <div><input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35"> Keywords</div>
-    <label for="SMS">SMS <input type="checkbox" checked="{{SMS}}"></label>
-    <label for="email">Email <input type="checkbox" checked="{{email}}"></label>
-    <label for="on/off">
+    <div class="keywordDiv">
+      <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35"> Keywords
+    </div>
+    <label for="SMS">SMS <input class="smsStatus" mongoId="{{_id}}" type="checkbox" checked="{{SMS}}"></label>
+    <label for="email">Email <input class="emailStatus" mongoId="{{_id}}" type="checkbox" checked="{{email}}"></label>
 
-      {{#if active}}
-        <span><input type="radio" name="active{{_id}}" value="true" checked> On</span>
-        <span><input type="radio" name="active{{_id}}" value="false"> Off</span>
+    <form class="gibletRunningStatusForm" mongoId="{{_id}}">
+      {{# if active}}
+        <label><input type="radio" name="running" value="true" checked/> On </label>
+        <label><input type="radio" name="running" value="false"/> Off </label>
       {{else}}
-        <span><input type="radio" name="active{{_id}}" value="true"> On</span>
-        <span><input type="radio" name="active{{_id}}" value="false" checked> Off</span>
+        <label><input type="radio" name="running" value="true"/> On </label>
+        <label><input type="radio" name="running" value="false" checked/> Off </label>
       {{/if}}
+    </form>
 
-    </label>
+    <div class="removeGibletButton" mongoId="{{_id}}">
+      <img src="https://www.onx.ms/images/close.png">
+    </div>
+
   </div>
 </template>

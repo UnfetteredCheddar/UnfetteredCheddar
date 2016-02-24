@@ -10,7 +10,7 @@ html, body {
 .container {
   height:100%;
 
-  border: 1px red solid;
+  /*border: 1px red solid;*/
 }
 
 nav {
@@ -19,7 +19,7 @@ nav {
 
 .header {
   background-color: white;
-  border: 1px green solid;
+  /*border: 1px green solid;*/
   clear: none;
 }
 
@@ -29,46 +29,72 @@ nav {
 }
 
 .big_plus_div {
-  width: 100px;
+  width: 30px;
 }
 
 .welcome {
   margin: 10px;
   padding: 10px;
   text-align: center;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 .main-body {
-  border: 1px solid blue;
+  /*border: 1px solid blue;*/
 }
 
 .bodyView {
-  border: 1px green dotted;
+  /*border: 1px green dotted;*/
   margin: 10px;
+}
+
+.giblet {
+  position: relative;
+  margin: 5px;
+  /*border: 1px solid green;*/
 }
 
 .addGiblet {
   margin: 5px;
-  border: red 1px solid;
+  /*border: red 1px solid;*/
+}
+.removeGibletButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  float: right;
 }
 
 .gibletView {
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
-.giblet {
-  margin: 5px;
-  border: 1px solid green;
+
+.urlLine {
+  clear: both;
+}
+.urlTextInput {
+  float: left;
+}
+.addUrlButton {
+  float: left;
+  margin-left: 4px;
+}
+.subtractUrlButton {
+  float: left;
+}
+
+.keywordDiv {
+  clear: both;
 }
 
 .login {
-  border: 1px solid yellow;
+  /*border: 1px solid yellow;*/
 }
 
 .footer {  
   text-align: center;
-  border: .8px blue solid;
+  /*border: .8px blue solid;*/
 }
 
 svg rect {

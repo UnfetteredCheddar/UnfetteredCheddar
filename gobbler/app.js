@@ -2,28 +2,8 @@ Giblets = new Mongo.Collection('giblets');
 Notifications = new Mongo.Collection('notifications');
 
 Meteor.methods({
-  addGiblet: function () {
-    var gibletId = Giblets.insert({
-      createdAt: new Date(),
-      owner: Meteor.userId(),
-      taskname: '',
-      url: [undefined],
-      keywords: [],
-      SMS: '0',
-      email: '0',
-      frequency: 1,
-      active: false
-    });
-
-    // Meteor.call('scheduleGiblet', gibletId, giblet.frequency, giblet.url);
-  },
-
   updateGiblet: function( gibletID, data ) {
     Giblets.update({_id: gibletID}, {$set: data});
-  },
-
-  deleteGiblet: function ( gibletID ) {
-    Giblets.remove( gibletID );
   },
 
   addUserSettings: function( userSettings ) {

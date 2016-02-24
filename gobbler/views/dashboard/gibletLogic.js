@@ -1,5 +1,23 @@
 if (Meteor.isServer) {
   Meteor.methods({
+    addGiblet: function () {
+      var gibletId = Giblets.insert({
+        createdAt: new Date(),
+        owner: Meteor.userId(),
+        taskname: '',
+        url: [undefined],
+        keywords: [],
+        SMS: false,
+        email: false,
+        frequency: 1,
+        active: false
+      });
+      // Meteor.call('scheduleGiblet', gibletId, giblet.frequency, giblet.url);
+    },
+
+    removeGiblet: function ( gibletID ) {
+      Giblets.remove( gibletID );
+    },
 
     updateGibletValue: function(id, key, val) {
       console.log('trying to update: ', id, key, val);
@@ -9,7 +27,6 @@ if (Meteor.isServer) {
       var updateConfirm = Giblets.update({'_id': id}, {$set: updateObj});
       console.log('Update confirm: ', updateConfirm);
     },
-
     addUrlToArray: function(id) {
       console.log('add url to array server side!');
       console.log('Add url to array!');
@@ -33,6 +50,18 @@ if (Meteor.isServer) {
       console.log( urlArray );
       var key = 'url';
       Meteor.call('updateGibletValue', id, key, urlArray);
+    },
+    toggleSmsStatus: function(id) {
+      var giblet = Giblets.findOne({'_id': id});
+      Giblets.update({'_id': id}, {$set: {SMS: !giblet.SMS}});
+    },
+    toggleEmailStatus: function(id) {
+      console.log('email')
+      var giblet = Giblets.findOne({'_id': id});
+      Giblets.update({'_id': id}, {$set: {email: !giblet.email}});
+    },
+    toggleGibletRunningStatus: function(id) {
+      console.log('toggle running', id)
     }
 
   });
@@ -86,22 +115,32 @@ if (Meteor.isClient) {
     },
 
     'click div.addUrlButton': function(event) {
-      // code goes here
       console.log('Click Add', event);
-      // console.log(event.currentTarget.classList[1]);
       var id = event.currentTarget.attributes['mongoid'].value;
-      console.log('id from button', id);
-
       Meteor.call('addUrlToArray', id);
     },
 
     'click div.subtractUrlButton': function(event) {
-      console.log('Click Subtract', event);
       var id = event.currentTarget.attributes['mongoid'].value;
       var urlIndex = event.currentTarget.attributes['urlindex'].value;
-      console.log(id, urlIndex);
-
       Meteor.call('removeUrlFromArray', id, urlIndex);
+    },
+    'click .smsStatus': function(event) {
+      var id = event.currentTarget.attributes['mongoid'].value;
+      Meteor.call('toggleSmsStatus', id);
+    },
+    'click .emailStatus': function(event) {
+      console.log('email')
+      var id = event.currentTarget.attributes['mongoid'].value;
+      Meteor.call('toggleEmailStatus', id);
+    },
+    'click .gibletRunningStatusForm': function(event) {
+      var id = event.currentTarget.attributes['mongoid'].value;      
+      Meteor.call('toggleGibletRunningStatus', id)
+    },
+    'click .removeGibletButton': function(event) {
+      var id = event.currentTarget.attributes['mongoid'].value;
+      Meteor.call('removeGiblet', id);
     }
 
 
