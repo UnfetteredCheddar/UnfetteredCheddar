@@ -2,7 +2,7 @@ if (Meteor.isServer) {
   Meteor.methods({
     addGiblet: function () {
       var initActive = false;
-      var initFrequency = 1;
+      var initFrequency = "1";
 
       var gibletId = Giblets.insert({
         createdAt: new Date(),
@@ -24,11 +24,6 @@ if (Meteor.isServer) {
       Meteor.call('stopGiblet', id);
       Giblets.remove(id);
     },
-    // updateGibletValue: function(id, key, val) {
-    //   var updateObj = {};
-    //   updateObj[key] = val;
-    //   var updateConfirm = Giblets.update({'_id': id}, {$set: updateObj});
-    // },
     updateTitle: function(id, value) {
       console.log('update title');
       var giblet = Giblets.findOne({'_id': id});
@@ -70,10 +65,14 @@ if (Meteor.isServer) {
         var giblet = Giblets.findOne({'_id': id});
         Giblets.update({'_id': id}, {$set: {active: !giblet.active}});
     },
-    updateCronTimer: function(id, cronTime, url) {
+    updateCronTimer: function(id, cronTime) {
       console.log('Update cron timer', id, cronTime);
       Giblets.update({'_id': id}, {$set: {frequency: cronTime}});
-      Meteor.call('scheduleGiblet', id, cronTime);
+      var giblet = Giblets.findOne({'_id': id});
+      var active = giblet.active;
+      if (active) {
+        Meteor.call('updateGibletTimer', id, cronTime);
+      };
     }
   });
 }
@@ -99,7 +98,7 @@ if (Meteor.isClient) {
   Template.giblet.events({
     // Possibly throttle some of this
     'input .gibletTitleInput, change .gibletTitleInput, paste .gibletTitleInput, mouseup .gibletTitleInput, keyup .gibletTitleInput': function(event) {
-      console.log('Title modify client side');
+      // console.log('Title modify client side');
       enterReminderShow(event);
 
       if (event.which === 13) {        
@@ -111,7 +110,7 @@ if (Meteor.isClient) {
       }
     },
     'input .urlTextInput, change .urlTextInput, paste .urlTextInput, mouseup .urlTextInput, keyup .urlTextInput': function(event) {
-      console.log('url modify client side');
+      // console.log('url modify client side');
       enterReminderShow(event);
       if (event.which === 13) {
         var id = event.currentTarget.form.attributes['mongoid'].value;
@@ -159,13 +158,17 @@ if (Meteor.isClient) {
       }
     },
     'input .cronJobTimer, change .cronJobTimer, paste .cronJobTimer, mouseup .cronJobTimer, keyup .cronJobTimer': function(event) {
-      var id = event.currentTarget.form.attributes['mongoid'].value;
-      var input = event.currentTarget.value;
-      console.log('cron change', id, input);
-      if (!input) {
-        input = undefined;
+      enterReminderShow(event);
+      if (event.which === 13) {        
+        var id = event.currentTarget.form.attributes['mongoid'].value;
+        var input = event.currentTarget.value;
+        console.log('cron change', id, input);
+        if (!input) {
+          input = undefined;
+        }
+        Meteor.call('updateCronTimer', id, input);
+        enterReminderHide(event);
       }
-      Meteor.call('updateCronTimer', id, input);
     },
     'click .smsStatus': function(event) {
       var id = event.currentTarget.form.attributes['mongoid'].value;
