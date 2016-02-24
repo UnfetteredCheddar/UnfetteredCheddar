@@ -11,17 +11,21 @@ if (Meteor.isServer) {
     checkPageUpdates: function( gibletID, hash, pageText ) {
       var giblet = Giblets.findOne({_id: gibletID});
       if ( giblet.hash !== hash ) {
-        Meteor.call('updateSingleGiblet', giblet._id, hash, pageText);
+        var keywordObj = Meteor.call('findKeywords', giblet._id, pageText);
+        var oldKeywords = giblet.keywordCounts;
+        if(!(_.isEqual(keywordObj, oldKeywords))) {
+          //if different, create notification          
+        }
+        Meteor.call('updateGiblet', giblet._id, hash, keywordObj);
       }
     },
-    updateSingleGiblet: function( id, hash, pageText ) {
+    updateGiblet: function( id, hash, keywordObj ) {
       Giblets.update({_id: id}, 
         {$set: {
           hash: hash,
-          fullText: pageText
+          keywordCounts: keywordObj
         }
       });
-      Meteor.call('findKeywords', id, pageText);
     },
     hashText: function ( pageText ) {
       return CryptoJS.SHA1(pageText).toString();
