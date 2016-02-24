@@ -5,6 +5,6 @@ if (Meteor.isServer) {
   });
   Meteor.publish('notifications', function(){
     var currentUser = this.userId;
-    return Giblets.find({ owner: currentUser });
+    return Notifications.find({ owner: currentUser });
   });
 }
