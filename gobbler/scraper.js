@@ -1,13 +1,10 @@
 if (Meteor.isServer) {
   Meteor.methods({
-    scrapePage: function ( urls, gibletID ) {
+    runGiblet: function ( urls, gibletID ) {
       var giblet = Giblets.findOne({_id: gibletID});
       urls.forEach( function ( url, urlIndex ) {
-        var webpage = Scrape.url(url);
-        var $ = cheerio.load(webpage);
-        $('script').remove();
-        var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
-        var hash = Meteor.call('hashText', webpageText);
+        var webpageText = Meteor.call('scrapePage', url);
+        var hash = hashText(webpageText);
         var pageChanged = Meteor.call('compareHash', gibletID, url, hash);
         if (pageChanged) {
           var newKeywordObj = Meteor.call('findKeywords', gibletID, webpageText);
@@ -19,6 +16,14 @@ if (Meteor.isServer) {
         }
       });
     }, 
+
+    scrapePage: function (url) {
+      var webpage = Scrape.url(url);
+      var $ = cheerio.load(webpage);
+      $('script').remove();
+      var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
+      return webpageText;
+    },
 
     compareHash: function( gibletID, url, hash ) {
       var giblet = Giblets.findOne({_id: gibletID});
@@ -61,10 +66,6 @@ if (Meteor.isServer) {
       });
     },
 
-    hashText: function ( pageText ) {
-      return CryptoJS.SHA1(pageText).toString();
-    },
-
     findKeywords: function( gibletID, pageText ) {
       var giblet = Giblets.findOne({_id: gibletID});
       var goodTags = Tags.clean( giblet.keywords );
@@ -101,9 +102,13 @@ if (Meteor.isServer) {
       });
     }
   });
-}
+};
 
 function removeDots( url ) {
   var dots = /\./g;
   return url.replace(/\./g, '');
-}
+};
+
+function hashText( pageText ) {
+  return CryptoJS.SHA1(pageText).toString();
+};

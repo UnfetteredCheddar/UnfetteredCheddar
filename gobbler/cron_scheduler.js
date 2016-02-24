@@ -15,7 +15,7 @@ if (Meteor.isServer) {
         },
         job: function() {
           var urlArr = [url];
-          Meteor.call('scrapePage', urlArr, mongoId);
+          Meteor.call('runGiblet', urlArr, mongoId);
         }
       });
     },
