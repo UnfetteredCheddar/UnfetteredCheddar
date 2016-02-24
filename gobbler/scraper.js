@@ -7,21 +7,29 @@ if (Meteor.isServer) {
       var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
       var hash = Meteor.call('hashText', webpageText);
       Meteor.call('checkPageUpdates', gibletID, hash, webpageText);
-    },
+    }, 
     checkPageUpdates: function( gibletID, hash, pageText ) {
       var giblet = Giblets.findOne({_id: gibletID});
       if ( giblet.hash !== hash ) {
-        Meteor.call('updateSingleGiblet', giblet._id, hash, pageText);
+        var keywordObj = Meteor.call('findKeywords', giblet._id, pageText);
+        var oldKeywords = giblet.keywordCounts || {};
+        var notificationKeys = [];
+        for (var key in keywordObj) {
+          if (!(key in oldKeywords) || keywordsObj[key] > oldKeywords[key]) {
+            notificationKeys.push(key);
+          }
+        }
+        Meteor.call('createNotification', giblet._id, notificationKeys, giblet.url, giblet.owner);
+        Meteor.call('updateSingleGiblet', giblet._id, hash, keywordObj);
       }
     },
-    updateSingleGiblet: function( id, hash, pageText ) {
+    updateSingleGiblet: function( id, hash, keywordObj ) {
       Giblets.update({_id: id}, 
         {$set: {
           hash: hash,
-          fullText: pageText
+          keywordCounts: keywordObj
         }
       });
-      Meteor.call('findKeywords', id, pageText);
     },
     hashText: function ( pageText ) {
       return CryptoJS.SHA1(pageText).toString();
@@ -39,10 +47,26 @@ if (Meteor.isServer) {
       var foundKeywords = [];
       tagRegexArr.forEach( function( tagRegex ) {
         var matchingArr = pageText.match(tagRegex);
-        foundKeywords = foundKeywords.concat( matchingArr );
+        foundKeywords.push( matchingArr );
       });
-
-      return foundKeywords.length;
+      var keywords = {}
+      foundKeywords.forEach(function(array) {
+        if (array) {
+          keywords[array[0]] = array.length;
+        }
+      });
+      return keywords;
+    },
+    createNotification: function(gibletID, notificationKeys, url, owner) {
+      Notifications.insert({
+        createdAt: new Date(),
+        owner: owner,
+        giblet: gibletID,
+        keywords: notificationKeys,
+        url: url
+        // SMS: giblet.SMS,
+        // email: giblet.email,
+      });
     }
   });
 }
