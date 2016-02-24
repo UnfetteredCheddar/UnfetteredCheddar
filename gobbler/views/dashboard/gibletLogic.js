@@ -52,10 +52,12 @@ if (Meteor.isServer) {
     toggleGibletRunningStatus: function(id) {
         var giblet = Giblets.findOne({'_id': id});
         Giblets.update({'_id': id}, {$set: {active: !giblet.active}});
+
     },
-    updateCronTimer: function(id, cronTime) {
+    updateCronTimer: function(id, cronTime, url) {
       console.log('Update cron timer', id, cronTime);
       Giblets.update({'_id': id}, {$set: {frequency: cronTime}});
+      Meteor.call('scheduleGiblet', id, cronTime);
     }
   });
 }
@@ -81,7 +83,6 @@ if (Meteor.isClient) {
         Meteor.call('updateGibletValue', gibletId, dbTarget, newTitle);
       }
     },
-
     'keypress input.keywordInput': function(event) {
       if (event.which === 13) {        
         console.log('keypress enter keyword');
