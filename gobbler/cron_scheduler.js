@@ -14,7 +14,8 @@ if (Meteor.isServer) {
           return parser.recur().every(frequency).minute();
         },
         job: function() {
-          Meteor.call('scrapePage', url, mongoId);
+          var urlArr = [url];
+          Meteor.call('scrapePage', urlArr, mongoId);
         }
       });
     },
