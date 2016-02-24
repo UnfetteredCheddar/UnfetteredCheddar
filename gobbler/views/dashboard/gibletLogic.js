@@ -130,7 +130,7 @@ if (Meteor.isClient) {
       var urlIndex = event.currentTarget.attributes['urlindex'].value;
       Meteor.call('removeUrlFromArray', id, urlIndex);
     },
-    'input, change, paste, mouseup, keyup, input.keywordInput': function(event) {
+    'input .keywordInput, change .keywordInput, paste .keywordInput, mouseup .keywordInput, keyup .keywordInput': function(event) {
       if (event.which === 13) {        
         console.log('keypress enter keyword');
         // TODO: this also needs to be cleaned up.

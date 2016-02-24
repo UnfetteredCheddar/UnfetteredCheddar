@@ -7,13 +7,13 @@
         Press Enter to Save!
       </div>
       <!-- Title -->
-      <input class="gibletTitleInput" type="text" placeholder="Title">
+      <input class="gibletTitleInput" type="text" placeholder="Title" value="taskname">
 
       <div class="urlDiv">
         <!-- Url list -->
         {{#each url}}    
           <div  class="urlLine" urlIndex="{{@index}}">
-            <input class="urlTextInput" type="text" placeholder="Url here...">
+            <input class="urlTextInput" value="{{this}}" type="text" placeholder="Url here...">
 
             <!-- Subtract Url Button -->
             {{#if subtractOne ../url.length}}
