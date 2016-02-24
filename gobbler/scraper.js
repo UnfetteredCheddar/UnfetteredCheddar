@@ -88,7 +88,7 @@ if (Meteor.isServer) {
         keywords: notificationKeys,
         url: url
       });
-    },
+    }
   });
 }
 
