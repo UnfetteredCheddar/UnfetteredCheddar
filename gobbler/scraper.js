@@ -5,33 +5,31 @@ if (Meteor.isServer) {
       urls.forEach( function ( url, urlIndex ) {
         var webpageText = scrapePage(url);
         var hash = hashText(webpageText);
-        var pageChanged = compareHash(giblet, url, hash);
-        if (pageChanged) {
+        var pageHasChanged = compareHash(giblet, url, hash);
+        if (pageHasChanged) {
           var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
           var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
           if (keywordDiffs.length) {
             Meteor.call('createNotification', gibletID, keywordDiffs, url, giblet.owner);
           }
-          Meteor.call('updateSingleGiblet', gibletID, url, hash, newKeywordCounts);
+          Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
         }
-      });
+      }); 
     }, 
 
-    updateSingleGiblet: function( id, url, hash, keywordObj ) {
-      var gibletUpdates = {
+    updateWebData: function( giblet, url, hash, keywordObj ) {
+      var updatedUrlObj = {
         url: url,
         hash: hash,
         keywordCounts: keywordObj
       };
-
-      var giblet = Giblets.findOne({_id: id});
-      var gibletWebData = giblet.webData;
+      var webDataCopy = giblet.webData;
       var urlProp = removeDots( url );
-      gibletWebData[urlProp] = gibletUpdates;
+      webDataCopy[urlProp] = updatedUrlObj;
 
-      Giblets.update({_id: id}, 
+      Giblets.update({_id: giblet._id}, 
         {$set: {
-          webData: gibletWebData
+          webData: webDataCopy
         }
       });
     },
