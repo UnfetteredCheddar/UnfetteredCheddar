@@ -17,8 +17,7 @@ Meteor.methods({
     });
   },
   clearGibletsDB: function() {
-    Giblets.find().fetch().forEach(function(giblet) {
-      Giblets.remove(giblet._id);
-    });
+    Giblets.remove({});
+    SyncedCron.stop();
   }
 });

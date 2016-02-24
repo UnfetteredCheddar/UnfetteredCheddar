@@ -63,25 +63,68 @@ var assert = chai.assert;
 //         expect(newGib).to.have.length(1);
 //       });
 
-//       xit('should only display Giblets for current user', function() {
-//         var currentUser = Meteor.userId();
-//         Giblets.insert({
-//           createdAt: new Date(),
-//           owner: 'Something else',
-//           taskname: 'Should not be visible',
-//           url: 'http://www.noThanks.com',
-//           keywords: 'bad, not permissioned',
-//           SMS: true,
-//           email: false,
-//           frequency: 4,
-//           active: true
-//         });
-//         var badGib = Giblets.find({taskname:'Should not be visible'}).fetch();
-//         expect(badGib).to.have.length(0);
-//       });
-//     });
-//   });
-// }
+
+      it('should update a Giblet by using the updateGiblet method', function(){
+        var obj = {
+          taskname: 'Pass test',
+          url: 'http://www.test.com/',
+          keywords: 'pass, testing',
+          SMS: false,
+          email: false,
+          frequency: '1'
+        };
+
+        var id = Giblets.insert(obj);
+        Meteor.call('updateGiblet', id, {taskname:'Updated test'});
+        var newGib = Giblets.find({taskname:'Updated test'}).fetch();
+        expect(newGib).to.have.length(1);
+      });
+
+      it('should delete a Giblet by using the deleteGiblet method', function(){
+        var obj = {
+          taskname: 'Pass test',
+          url: 'http://www.test.com/',
+          keywords: 'pass, testing',
+          SMS: false,
+          email: false,
+          frequency: '1'
+        };
+
+        var id = Giblets.insert(obj);
+        Meteor.call('deleteGiblet', id);
+        var newGib = Giblets.find({taskname:'Pass test'}).fetch();
+        var giblets = Giblets.find().fetch();
+        // TODO solve the length issue for the test
+        // Also do comparison before and after delete
+        assert.equal(giblets.length, 3);
+        expect(newGib).to.have.length(0);
+      });
+
+      it('should empty the collection of giblets', function(){
+        Meteor.call('clearGibletsDB');
+        var giblets = Giblets.find().fetch();
+        expect(giblets).to.have.length(0);
+      });
+
+      xit('should only display Giblets for current user', function() {
+        var currentUser = Meteor.userId();
+        Giblets.insert({
+          createdAt: new Date(),
+          owner: 'Something else',
+          taskname: 'Should not be visible',
+          url: 'http://www.noThanks.com',
+          keywords: 'bad, not permissioned',
+          SMS: true,
+          email: false,
+          frequency: 4,
+          active: true
+        });
+        var badGib = Giblets.find({taskname:'Should not be visible'}).fetch();
+        expect(badGib).to.have.length(0);
+      });
+    });
+  });
+}
 
 
 

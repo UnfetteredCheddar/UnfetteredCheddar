@@ -28,3 +28,6 @@ mike:mocha
 practicalmeteor:chai
 anonyfox:scrape
 jparker:crypto-sha1
+anonyfox:tags
+fermuch:cheerio
+underscore
