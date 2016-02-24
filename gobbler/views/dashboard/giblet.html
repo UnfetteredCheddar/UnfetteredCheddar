@@ -12,18 +12,18 @@
       <div class="urlDiv">
         <!-- Url list -->
         {{#each url}}    
-          <div  class="urlLine" urlIndex="{{@index}}">
+          <div class="urlLine" urlIndex="{{@index}}">
             <input class="urlTextInput" value="{{this}}" type="text" placeholder="Url here...">
 
             <!-- Subtract Url Button -->
             {{#if subtractOne ../url.length}}
-              <div class="subtractUrlButton">
+              <div class="subtractUrlButton" mongoId="{{../_id}}">
                 <img src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="10px">
               </div>
             {{/if}}
             <!-- Add Url Button -->
             {{#if compareIndexLength @index ../url.length}}
-              <div class="addUrlButton">
+              <div class="addUrlButton" mongoId="{{../_id}}">
                 <img src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="10px">
               </div>
             {{/if}}

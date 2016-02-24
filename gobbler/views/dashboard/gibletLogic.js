@@ -122,6 +122,7 @@ if (Meteor.isClient) {
       }
     },
     'click div.addUrlButton': function(event) {
+      // console.log(event);
       var id = event.currentTarget.attributes['mongoid'].value;
       Meteor.call('addUrlToArray', id);
     },
