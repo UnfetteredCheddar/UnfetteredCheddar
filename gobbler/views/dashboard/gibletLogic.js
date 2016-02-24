@@ -1,6 +1,9 @@
 if (Meteor.isServer) {
   Meteor.methods({
     addGiblet: function () {
+      var initActive = false;
+      var initFrequency = 1;
+
       var gibletId = Giblets.insert({
         createdAt: new Date(),
         owner: Meteor.userId(),
@@ -9,12 +12,15 @@ if (Meteor.isServer) {
         keywords: [],
         SMS: false,
         email: false,
-        frequency: 1,
-        active: false
+        frequency: initFrequency,
+        active: initActive
       });
-      // Meteor.call('scheduleGiblet', gibletId, giblet.frequency, giblet.url);
+      if (initActive) {
+        Meteor.call('scheduleGiblet', gibletId, initFrequency);
+      }
     },
     removeGiblet: function(id) {
+      Meteor.call('stopGiblet', id);
       Giblets.remove(id);
     },
     updateGibletValue: function(id, key, val) {
