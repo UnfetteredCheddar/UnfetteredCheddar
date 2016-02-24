@@ -63,7 +63,18 @@ if (Meteor.isServer) {
     },
     toggleGibletRunningStatus: function(id) {
         var giblet = Giblets.findOne({'_id': id});
-        Giblets.update({'_id': id}, {$set: {active: !giblet.active}});
+        var id = giblet._id;
+        var frequency = giblet.frequency;
+        var newActiveValue = !giblet.active
+        console.log('toggle: ', id, frequency, newActiveValue);
+
+        Giblets.update({'_id': id}, {$set: {active: newActiveValue}});
+        
+        if (newActiveValue) {
+          Meteor.call('scheduleGiblet', id, frequency );
+        } else {
+          Meteor.call('stopGiblet', id);
+        }
     },
     updateCronTimer: function(id, cronTime) {
       console.log('Update cron timer', id, cronTime);
@@ -181,7 +192,7 @@ if (Meteor.isClient) {
     'click .gibletRunningStatusForm': function(event) {
       // console.log('click client side', event);
       var id = event.currentTarget.form.attributes['mongoid'].value;      
-      Meteor.call('toggleGibletRunningStatus', id)
+      Meteor.call('toggleGibletRunningStatus', id);
     },
     'click .removeGibletButton': function(event) {
       var id = event.currentTarget.attributes['mongoid'].value;
