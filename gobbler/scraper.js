@@ -7,31 +7,15 @@ if (Meteor.isServer) {
         var hash = hashText(webpageText);
         var pageChanged = compareHash(giblet, url, hash);
         if (pageChanged) {
-          var newKeywordObj = findKeywords(giblet.keywords, webpageText);
-          var keywordChanges = Meteor.call('compareKeywordObjects', gibletID, newKeywordObj, url);
-          if (keywordChanges.length) {
-            Meteor.call('createNotification', gibletID, keywordChanges, url, giblet.owner);
+          var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
+          var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
+          if (keywordDiffs.length) {
+            Meteor.call('createNotification', gibletID, keywordDiffs, url, giblet.owner);
           }
-          Meteor.call('updateSingleGiblet', gibletID, url, hash, newKeywordObj);
+          Meteor.call('updateSingleGiblet', gibletID, url, hash, newKeywordCounts);
         }
       });
     }, 
-
-    compareKeywordObjects: function (gibletID, newKeywordObj, url) {
-      var giblet = Giblets.findOne({_id: gibletID});
-      var urlProp = removeDots( url );
-      var oldKeywords = {};
-      if (giblet.webData[urlProp]) {
-        oldKeywords = giblet.webData[urlProp].keywordCounts;
-      }
-      var notificationKeys = [];
-      for (var key in newKeywordObj) {
-        if ( !(key in oldKeywords) || newKeywordObj[key] > oldKeywords[key] ) {
-          notificationKeys.push(key);
-        }
-      }
-      return notificationKeys;
-    },
 
     updateSingleGiblet: function( id, url, hash, keywordObj ) {
       var gibletUpdates = {
@@ -108,4 +92,19 @@ function findKeywords( keywordsArray, pageText ) {
   });
 
   return keywordsObj;
+}; 
+
+function compareKeywordCounts(giblet, url, newKeywordCounts) {
+  var urlProp = removeDots( url );
+  var oldKeywordCounts = {};
+  if (giblet.webData[urlProp]) {
+    oldKeywordCounts = giblet.webData[urlProp].keywordCounts;
+  }
+  var keywordDiffs = [];
+  for (var key in newKeywordCounts) {
+    if ( !(key in oldKeywordCounts) || newKeywordCounts[key] > oldKeywordCounts[key] ) {
+      keywordDiffs.push(key);
+    }
+  }
+  return keywordDiffs;
 };
