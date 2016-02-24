@@ -7,7 +7,7 @@
         Press Enter to Save!
       </div>
       <!-- Title -->
-      <input class="gibletTitleInput" type="text" placeholder="Title" value="taskname">
+      <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
 
       <div class="urlDiv">
         <!-- Url list -->
@@ -43,13 +43,13 @@
 
       <div>
         Alert me via: SMS
-        <input type="checkbox" class="smsStatus">
+        <input type="checkbox" class="smsStatus" checked="{{SMS}}">
         Email
-        <input type="checkbox" class="emailStatus">
+        <input type="checkbox" class="emailStatus" checked="{{email}}">
       </div>
       <div>
         Giblet On / Off
-        <input class="gibletRunningStatusForm" type="checkbox"/>
+        <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
       </div>
       <div class="removeGibletButton" mongoId="{{_id}}">
         <img src="https://www.onx.ms/images/close.png">

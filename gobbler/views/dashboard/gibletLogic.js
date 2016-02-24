@@ -168,16 +168,16 @@ if (Meteor.isClient) {
       Meteor.call('updateCronTimer', id, input);
     },
     'click .smsStatus': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
+      var id = event.currentTarget.form.attributes['mongoid'].value;
       Meteor.call('toggleSmsStatus', id);
     },
     'click .emailStatus': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
+      var id = event.currentTarget.form.attributes['mongoid'].value;
       Meteor.call('toggleEmailStatus', id);
     },
     'click .gibletRunningStatusForm': function(event) {
       // console.log('click client side', event);
-      var id = event.currentTarget.attributes['mongoid'].value;      
+      var id = event.currentTarget.form.attributes['mongoid'].value;      
       Meteor.call('toggleGibletRunningStatus', id)
     },
     'click .removeGibletButton': function(event) {
