@@ -11,6 +11,7 @@ Meteor.methods({
       keywords: giblet.keywords,
       SMS: giblet.SMS,
       email: giblet.email,
+      webData: {},
       frequency: giblet.frequency,
       active: true
     });
