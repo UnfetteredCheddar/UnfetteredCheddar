@@ -1,37 +1,48 @@
 if (Meteor.isServer) {
   Meteor.methods({
     scrapePage: function ( urls, gibletID ) {
+      var giblet = Giblets.findOne({_id: gibletID});
       urls.forEach( function ( url, urlIndex ) {
         var webpage = Scrape.url(url);
         var $ = cheerio.load(webpage);
         $('script').remove();
         var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
         var hash = Meteor.call('hashText', webpageText);
-        Meteor.call('checkPageUpdates', gibletID, url, hash, webpageText, urlIndex);
+        var pageChanged = Meteor.call('compareHash', gibletID, url, hash);
+        if (pageChanged) {
+          var newKeywordObj = Meteor.call('findKeywords', gibletID, webpageText);
+          var keywordChanges = Meteor.call('compareKeywordObjects', gibletID, newKeywordObj, url);
+          if (keywordChanges.length) {
+            Meteor.call('createNotification', gibletID, keywordChanges, url, giblet.owner);
+          }
+          Meteor.call('updateSingleGiblet', gibletID, url, hash, newKeywordObj);
+        }
       });
     }, 
 
-    checkPageUpdates: function( gibletID, url, hash, pageText, urlIndex ) {
+    compareHash: function( gibletID, url, hash ) {
       var giblet = Giblets.findOne({_id: gibletID});
-      var urlNoDots = regExURL( url );
-
-      if ( !giblet.webData[urlNoDots] || giblet.webData[urlNoDots].hash !== hash ) {
-        var keywordObj = Meteor.call('findKeywords', giblet._id, pageText);
-        var oldKeywords = giblet.keywordCounts || {};
-        var notificationKeys = [];
-        
-        for (var key in keywordObj) {
-          if ( !(key in oldKeywords) || keywordsObj[key] > oldKeywords[key] ) {
-            notificationKeys.push(key);
-          }
-        }
-
-        Meteor.call('createNotification', giblet._id, notificationKeys, url, giblet.owner);
-        Meteor.call('updateSingleGiblet', giblet._id, urlIndex, url, hash, keywordObj);
-      }
+      var urlProp = removeDots( url );
+      return ( !giblet.webData[urlProp] || giblet.webData[urlProp].hash !== hash );
     },
 
-    updateSingleGiblet: function( id, urlIndex, url, hash, keywordObj ) {
+    compareKeywordObjects: function (gibletID, newKeywordObj, url) {
+      var giblet = Giblets.findOne({_id: gibletID});
+      var urlProp = removeDots( url );
+      var oldKeywords = {};
+      if (giblet.webData[urlProp]) {
+        oldKeywords = giblet.webData[urlProp].keywordCounts;
+      }
+      var notificationKeys = [];
+      for (var key in newKeywordObj) {
+        if ( !(key in oldKeywords) || newKeywordObj[key] > oldKeywords[key] ) {
+          notificationKeys.push(key);
+        }
+      }
+      return notificationKeys;
+    },
+
+    updateSingleGiblet: function( id, url, hash, keywordObj ) {
       var gibletUpdates = {
         url: url,
         hash: hash,
@@ -40,8 +51,8 @@ if (Meteor.isServer) {
 
       var giblet = Giblets.findOne({_id: id});
       var gibletWebData = giblet.webData;
-      var urlNoDots = regExURL( url );
-      gibletWebData[urlNoDots] = gibletUpdates;
+      var urlProp = removeDots( url );
+      gibletWebData[urlProp] = gibletUpdates;
 
       Giblets.update({_id: id}, 
         {$set: {
@@ -92,7 +103,7 @@ if (Meteor.isServer) {
   });
 }
 
-function regExURL( url ) {
+function removeDots( url ) {
   var dots = /\./g;
   return url.replace(/\./g, '');
 }
