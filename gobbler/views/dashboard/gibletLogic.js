@@ -48,10 +48,11 @@ if (Meteor.isServer) {
       Giblets.update({'_id': id}, {$set: {url: urlArray}});
     },
     removeUrlFromArray: function(id, urlIndex) {
-      // var giblet = Giblets.findOne({'_id': id});
-      // var urlArray = giblet.url;
-      // urlArray.splice(urlIndex, 1);
-      // var key = 'url';
+      var giblet = Giblets.findOne({'_id': id});
+      var urlArray = giblet.url;
+      urlArray.splice(urlIndex, 1);
+      var key = 'url';
+      Giblets.update({'_id': id}, {$set: {url: urlArray}});
       // Meteor.call('updateGibletValue', id, key, urlArray);
     },
     updateKeywordArray: function() {
@@ -122,13 +123,13 @@ if (Meteor.isClient) {
       }
     },
     'click div.addUrlButton': function(event) {
-      // console.log(event);
       var id = event.currentTarget.attributes['mongoid'].value;
       Meteor.call('addUrlToArray', id);
     },
     'click div.subtractUrlButton': function(event) {
       var id = event.currentTarget.attributes['mongoid'].value;
       var urlIndex = event.currentTarget.attributes['urlindex'].value;
+      // console.log(event);
       Meteor.call('removeUrlFromArray', id, urlIndex);
     },
     'input .keywordInput, change .keywordInput, paste .keywordInput, mouseup .keywordInput, keyup .keywordInput': function(event) {
