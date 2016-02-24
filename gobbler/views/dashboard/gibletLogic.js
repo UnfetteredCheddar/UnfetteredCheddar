@@ -159,11 +159,11 @@ if (Meteor.isClient) {
       }
     },
     'input .cronJobTimer, change .cronJobTimer, paste .cronJobTimer, mouseup .cronJobTimer, keyup .cronJobTimer': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
-      var input = event.target.value;
+      var id = event.currentTarget.form.attributes['mongoid'].value;
+      var input = event.currentTarget.value;
       console.log('cron change', id, input);
       if (!input) {
-        input = 1;
+        input = undefined;
       }
       Meteor.call('updateCronTimer', id, input);
     },
