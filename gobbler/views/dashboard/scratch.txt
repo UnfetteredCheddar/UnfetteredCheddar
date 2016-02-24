@@ -1,0 +1,68 @@
+    <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
+    {{#each url}}
+      <div class="urlLine">
+        <!-- Url Text input -->
+        <input class="urlTextInput" mongoId="{{../_id}}" urlIndex="{{@index}}" type="text" placeholder="url..." value="{{this}}" size="50">   
+
+        <!-- minus button --> 
+        {{#if subtractOne ../url.length}}
+          <div class="subtractUrlButton" mongoId="{{../_id}}" urlIndex="{{@index}}">
+            <svg
+              src="http://kb.ischool.uw.edu/wp/wp-content/uploads/2014/07/AppleMinusButton.png"
+              
+              alt=""
+              
+              version="1.1" x="0px" y="0px" width="10px"
+               height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
+              <g id="Layer_2">
+                <rect y="175" fill="#575fcf" width="400" height="50"/>
+              </g>
+            </svg>
+          </div>
+        {{/if}}
+          
+        <!-- plus button -->
+        {{#if compareIndexLength @index ../url.length}}
+          <div class="addUrlButton" mongoId="{{../_id}}">
+            <svg
+              src="http://s3.amazonaws.com/www.linnareacu.org/blog/wp-content/uploads/2011/07/Plus-Button.jpg"
+              alt=""
+              
+              version="1.1" x="0px" y="0px" width="10px"
+              height="10px" viewBox="0 0 400 400" enable-background="new 0 0 400 400">
+              <g id="Layer_1">
+                <rect x="175" width="50" height="400"/>
+              </g>
+              <g id="Layer_2">
+              <rect y="175" fill="#575fcf" width="400" height="50"/>
+            </g>
+            </svg>
+          </div>
+        {{/if}}
+      </div>
+    {{/each}}
+
+    
+    <div class="keywordDiv">
+      <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35"> Keywords
+    </div>
+
+    <div>
+      Check every: 
+      <input class="cronJobTimer" value="{{frequency}}" type="number" mongoId="{{_id}}"/>
+      minutes!
+    </div>
+
+    <label for="SMS">Alert via: SMS <input class="smsStatus" mongoId="{{_id}}" type="checkbox" checked="{{SMS}}"></label>
+    <label for="email">Email <input class="emailStatus" mongoId="{{_id}}" type="checkbox" checked="{{email}}"></label>
+
+    <div>
+      On / Off
+      <input class="gibletRunningStatusForm" mongoId="{{_id}}" type="checkbox"/>
+    </div>
+
+    <div class="removeGibletButton" mongoId="{{_id}}">
+      <img src="https://www.onx.ms/images/close.png">
+    </div>
+
+    <hr/>

@@ -12,6 +12,7 @@ if (Meteor.isServer) {
         keywords: [],
         SMS: false,
         email: false,
+        webData: {},
         frequency: initFrequency,
         active: initActive
       });
@@ -23,10 +24,15 @@ if (Meteor.isServer) {
       Meteor.call('stopGiblet', id);
       Giblets.remove(id);
     },
-    updateGibletValue: function(id, key, val) {
-      var updateObj = {};
-      updateObj[key] = val;
-      var updateConfirm = Giblets.update({'_id': id}, {$set: updateObj});
+    // updateGibletValue: function(id, key, val) {
+    //   var updateObj = {};
+    //   updateObj[key] = val;
+    //   var updateConfirm = Giblets.update({'_id': id}, {$set: updateObj});
+    // },
+    updateTitle: function(id, value) {
+      console.log('update title');
+      var giblet = Giblets.findOne({'_id': id});
+      Giblets.update({'_id': id}, {$set: {taskname: value}});
     },
     addUrlToArray: function(id) {
       var giblet = Giblets.findOne({'_id': id});
@@ -77,18 +83,35 @@ if (Meteor.isClient) {
   });
 
   Template.giblet.events({
-    'keypress input.gibletTitleInput': function(event) {
-      if (event.which === 13) {        
-        // TODO: clean this up... this is crazy
-        // The id should be stored on every elemet so we don't have to
-        // look around so much with the jquery selectors...
-        var gibletId = event.target.parentNode.attributes.gibletId.value;
-        var newTitle = event.target.value;
-        var dbTarget = 'taskname';
-        Meteor.call('updateGibletValue', gibletId, dbTarget, newTitle);
-      }
+    // Possibly throttle some of this
+    'input .gibletTitleInput, change .gibletTitleInput, paste .gibletTitleInput, mouseup .gibletTitleInput, keyup .gibletTitleInput': function(event) {
+      console.log('Title modify client side');
+      // if (event.which === 13) {        
+        var gibletId = event.currentTarget.form.attributes['mongoid'].value;
+        var newTitle = event.currentTarget.value;
+        // console.log(gibletId, newTitle);
+        Meteor.call('updateTitle', gibletId, newTitle);
+      // }
     },
-    'keypress input.keywordInput': function(event) {
+    'input .urlTextInput, change .urlTextInput, paste .urlTextInput, mouseup .urlTextInput, keyup .urlTextInput': function(event) {
+      console.log('url modify client side');
+      // if (event.which === 13) {
+        var id = event.currentTarget.attributes['mongoid'].value;
+        var urlIndex = event.currentTarget.attributes['urlIndex'].value;
+        var input = event.target.value;
+        Meteor.call('modifyUrlInArray', id, urlIndex, input);
+      // }
+    },
+    'click div.addUrlButton': function(event) {
+      var id = event.currentTarget.attributes['mongoid'].value;
+      Meteor.call('addUrlToArray', id);
+    },
+    'click div.subtractUrlButton': function(event) {
+      var id = event.currentTarget.attributes['mongoid'].value;
+      var urlIndex = event.currentTarget.attributes['urlindex'].value;
+      Meteor.call('removeUrlFromArray', id, urlIndex);
+    },
+    'input, change, paste, mouseup, keyup, input.keywordInput': function(event) {
       if (event.which === 13) {        
         console.log('keypress enter keyword');
         // TODO: this also needs to be cleaned up.
@@ -114,22 +137,14 @@ if (Meteor.isClient) {
         Meteor.call('updateGibletValue', gibletId, dbTarget, keywordArray);
       }
     },
-    'keypress input.urlTextInput': function(event) {
-      if (event.which === 13) {
-        var id = event.currentTarget.attributes['mongoid'].value;
-        var urlIndex = event.currentTarget.attributes['urlIndex'].value;
-        var input = event.target.value;
-        Meteor.call('modifyUrlInArray', id, urlIndex, input);
+    'input, change, paste, mouseup, keyup, .cronJobTimer': function(event) {
+      var id = event.currentTarget.attributes['mongoid'].value;
+      var input = event.target.value;
+      console.log('cron change', id, input);
+      if (!input) {
+        input = 1;
       }
-    },
-    'click div.addUrlButton': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
-      Meteor.call('addUrlToArray', id);
-    },
-    'click div.subtractUrlButton': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
-      var urlIndex = event.currentTarget.attributes['urlindex'].value;
-      Meteor.call('removeUrlFromArray', id, urlIndex);
+      Meteor.call('updateCronTimer', id, input);
     },
     'click .smsStatus': function(event) {
       var id = event.currentTarget.attributes['mongoid'].value;
@@ -147,15 +162,6 @@ if (Meteor.isClient) {
     'click .removeGibletButton': function(event) {
       var id = event.currentTarget.attributes['mongoid'].value;
       Meteor.call('removeGiblet', id);
-    },
-    'input .cronJobTimer': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
-      var input = event.target.value;
-      console.log('cron change', id, input);
-      if (!input) {
-        input = 1;
-      }
-      Meteor.call('updateCronTimer', id, input);
     }
   });
 }
