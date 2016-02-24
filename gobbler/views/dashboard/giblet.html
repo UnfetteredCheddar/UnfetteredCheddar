@@ -4,7 +4,7 @@
     {{#each url}}
       <div class="urlLine">
         <!-- Url Text input -->
-        <input class="urlTextInput" type="text" placeholder="url..." value="{{this}}" size="50">   
+        <input class="urlTextInput" mongoId="{{../_id}}" urlIndex="{{@index}}" type="text" placeholder="url..." value="{{this}}" size="50">   
 
         <!-- minus button --> 
         {{#if subtractOne ../url.length}}
@@ -44,11 +44,20 @@
       </div>
     {{/each}}
 
+    
     <div class="keywordDiv">
       <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35"> Keywords
     </div>
-    <label for="SMS">SMS <input class="smsStatus" mongoId="{{_id}}" type="checkbox" checked="{{SMS}}"></label>
+
+    <div>
+      Check every: 
+      <input class="cronJobTimer" value="{{frequency}}" type="number" mongoId="{{_id}}"/>
+      minutes!
+    </div>
+
+    <label for="SMS">Alert via: SMS <input class="smsStatus" mongoId="{{_id}}" type="checkbox" checked="{{SMS}}"></label>
     <label for="email">Email <input class="emailStatus" mongoId="{{_id}}" type="checkbox" checked="{{email}}"></label>
+
 
     <form class="gibletRunningStatusForm" mongoId="{{_id}}">
       {{# if active}}
@@ -60,9 +69,11 @@
       {{/if}}
     </form>
 
+
     <div class="removeGibletButton" mongoId="{{_id}}">
       <img src="https://www.onx.ms/images/close.png">
     </div>
 
+    <hr/>
   </div>
 </template>

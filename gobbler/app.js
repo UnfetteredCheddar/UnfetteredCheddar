@@ -5,7 +5,6 @@ Meteor.methods({
   updateGiblet: function( gibletID, data ) {
     Giblets.update({_id: gibletID}, {$set: data});
   },
-
   addUserSettings: function( userSettings ) {
     var currentUser = Meteor.users.find().fetch();
     var userId = currentUser[0]._id;
@@ -17,11 +16,9 @@ Meteor.methods({
       }
     });
   },
-
   clearGibletsDB: function() {
     Giblets.find().fetch().forEach(function(giblet) {
       Giblets.remove(giblet._id);
     });
   }
-
 });
