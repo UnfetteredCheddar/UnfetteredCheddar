@@ -15,7 +15,7 @@ if (Meteor.isServer) {
         job: function() {
           console.log('Get rolling!', urlArray, id);
           // var urlArr = [url];
-          // Meteor.call('scrapePage', urlArr, id);
+          // Meteor.call('scrapePage', urlArray, id);
         }
       });
     },

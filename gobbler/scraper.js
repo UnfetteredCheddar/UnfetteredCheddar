@@ -1,98 +1,108 @@
 if (Meteor.isServer) {
   Meteor.methods({
-    scrapePage: function ( urls, gibletID ) {
+    runGiblet: function ( urls, gibletID ) {
+      var giblet = Giblets.findOne({_id: gibletID});
       urls.forEach( function ( url, urlIndex ) {
-        var webpage = Scrape.url(url);
-        var $ = cheerio.load(webpage);
-        $('script').remove();
-        var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
-        var hash = Meteor.call('hashText', webpageText);
-        Meteor.call('checkPageUpdates', gibletID, url, hash, webpageText, urlIndex);
-      });
+        var webpageText = scrapePage(url);
+        var hash = hashText(webpageText);
+        var pageHasChanged = compareHash(giblet, url, hash);
+        if (pageHasChanged) {
+          var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
+          var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
+          if (keywordDiffs.length) {
+            Meteor.call('createNotification', giblet, url, keywordDiffs);
+          }
+          Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
+        }
+      }); 
     }, 
 
-    checkPageUpdates: function( gibletID, url, hash, pageText, urlIndex ) {
-      var giblet = Giblets.findOne({_id: gibletID});
-      var urlNoDots = regExURL( url );
-
-      if ( !giblet.webData[urlNoDots] || giblet.webData[urlNoDots].hash !== hash ) {
-        var keywordObj = Meteor.call('findKeywords', giblet._id, pageText);
-        var oldKeywords = giblet.keywordCounts || {};
-        var notificationKeys = [];
-        
-        for (var key in keywordObj) {
-          if ( !(key in oldKeywords) || keywordsObj[key] > oldKeywords[key] ) {
-            notificationKeys.push(key);
-          }
-        }
-
-        Meteor.call('createNotification', giblet._id, notificationKeys, url, giblet.owner);
-        Meteor.call('updateSingleGiblet', giblet._id, urlIndex, url, hash, keywordObj);
-      }
-    },
-
-    updateSingleGiblet: function( id, urlIndex, url, hash, keywordObj ) {
-      var gibletUpdates = {
+    updateWebData: function( giblet, url, hash, keywordObj ) {
+      var updatedUrlObj = {
         url: url,
         hash: hash,
         keywordCounts: keywordObj
       };
+      var webDataCopy = giblet.webData;
+      var urlProp = removeDots( url );
+      webDataCopy[urlProp] = updatedUrlObj;
 
-      var giblet = Giblets.findOne({_id: id});
-      var gibletWebData = giblet.webData;
-      var urlNoDots = regExURL( url );
-      gibletWebData[urlNoDots] = gibletUpdates;
-
-      Giblets.update({_id: id}, 
+      Giblets.update({_id: giblet._id}, 
         {$set: {
-          webData: gibletWebData
+          webData: webDataCopy
         }
       });
     },
 
-    hashText: function ( pageText ) {
-      return CryptoJS.SHA1(pageText).toString();
-    },
-
-    findKeywords: function( gibletID, pageText ) {
-      var giblet = Giblets.findOne({_id: gibletID});
-      var goodTags = Tags.clean( giblet.keywords );
-
-      // convert tags to case-insensitive regular expressions
-      var tagRegexArr = [];
-      goodTags.forEach( function( tag ) {
-        tagRegexArr.push( new RegExp(tag, 'gi'));
-      });
-
-      var foundKeywords = [];
-      tagRegexArr.forEach( function( tagRegex ) {
-        var matchingArr = pageText.match(tagRegex);
-        foundKeywords.push( matchingArr );
-      });
-
-      var keywords = {}
-      foundKeywords.forEach(function(array) {
-        if (array) {
-          keywords[array[0]] = array.length;
-        }
-      });
-
-      return keywords;
-    },
-
-    createNotification: function ( gibletID, notificationKeys, url, owner ) {
+    createNotification: function ( giblet, url, notificationKeys) {
       Notifications.insert({
         createdAt: new Date(),
-        owner: owner,
-        giblet: gibletID,
+        owner: giblet.owner,
+        gibletID: giblet._id,
         keywords: notificationKeys,
         url: url
       });
     }
   });
-}
+};
 
-function regExURL( url ) {
+function removeDots( url ) {
   var dots = /\./g;
   return url.replace(/\./g, '');
-}
+};
+
+function scrapePage(url) {
+  var webpage = Scrape.url(url);
+  var $ = cheerio.load(webpage);
+  $('script').remove();
+  var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
+  return webpageText;
+};
+
+function hashText( pageText ) {
+  return CryptoJS.SHA1(pageText).toString();
+};
+
+function compareHash( giblet, url, newHash ) {
+  var urlProp = removeDots( url );
+  return ( !giblet.webData[urlProp] || giblet.webData[urlProp].hash !== newHash );
+};
+
+function findKeywords( keywordsArray, pageText ) {
+  var cleanTags = Tags.clean( keywordsArray );
+  // convert tags to case-insensitive regular expressions
+  var tagRegexArr = [];
+  cleanTags.forEach( function( tag ) {
+    tagRegexArr.push( new RegExp(tag, 'gi'));
+  });
+
+  var foundKeywords = [];
+  tagRegexArr.forEach( function( tagRegex ) {
+    var matchingArr = pageText.match(tagRegex);
+    foundKeywords.push( matchingArr );
+  });
+
+  var keywordsObj = {}
+  foundKeywords.forEach(function(array) {
+    if (array) {
+      keywordsObj[array[0]] = array.length;
+    }
+  });
+
+  return keywordsObj;
+}; 
+
+function compareKeywordCounts(giblet, url, newKeywordCounts) {
+  var urlProp = removeDots( url );
+  var oldKeywordCounts = {};
+  if (giblet.webData[urlProp]) {
+    oldKeywordCounts = giblet.webData[urlProp].keywordCounts;
+  }
+  var keywordDiffs = [];
+  for (var key in newKeywordCounts) {
+    if ( !(key in oldKeywordCounts) || newKeywordCounts[key] > oldKeywordCounts[key] ) {
+      keywordDiffs.push(key);
+    }
+  }
+  return keywordDiffs;
+};
