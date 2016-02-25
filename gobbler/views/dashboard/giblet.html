@@ -1,6 +1,6 @@
 <template name="giblet">
   <div class='giblet' gibletId="{{_id}}">
-    <form mongoId="{{_id}}">
+    <form gibletID="{{_id}}">
 
       <!-- Enter to save reminder -->
       <div class="enterToSave">
@@ -17,13 +17,13 @@
 
             <!-- Subtract Url Button -->
             {{#if subtractOne ../url.length}}
-              <div class="subtractUrlButton" mongoId="{{../_id}}" urlIndex="{{@index}}">
+              <div class="subtractUrlButton" gibletID="{{../_id}}" urlIndex="{{@index}}">
                 <img src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="10px">
               </div>
             {{/if}}
             <!-- Add Url Button -->
             {{#if compareIndexLength @index ../url.length}}
-              <div class="addUrlButton" mongoId="{{../_id}}">
+              <div class="addUrlButton" gibletID="{{../_id}}">
                 <img src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="10px">
               </div>
             {{/if}}
@@ -37,7 +37,7 @@
 
       <div>
         Check every: 
-        <input class="cronJobTimer" value="{{frequency}}" type="number" mongoId="{{_id}}"/>
+        <input class="cronJobTimer" value="{{frequency}}" type="number" gibletID="{{_id}}"/>
         minutes!
       </div>
 
@@ -51,7 +51,7 @@
         Giblet On / Off
         <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
       </div>
-      <div class="removeGibletButton" mongoId="{{_id}}">
+      <div class="removeGibletButton" gibletID="{{_id}}">
         <img src="https://www.onx.ms/images/close.png">
       </div>
     </form>
