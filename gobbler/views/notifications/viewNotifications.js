@@ -6,7 +6,6 @@ if (Meteor.isClient) {
 
   Template.viewNotifications.helpers({
     notifications: function() {
-      console.log(Notifications.find({}, {sort : {createdAt: -1}, limit:25 }).fetch());
       return Notifications.find({}, {sort : {createdAt: -1}, limit:25 }).fetch();
     }
   });
