@@ -1,11 +1,7 @@
 if (Meteor.isClient) {
   Template.dashboard.helpers({
     giblets: function() {
-<<<<<<< HEAD
-      return Giblets.find().fetch();
-=======
       return Giblets.find({}, {sort : {createdAt: -1}}).fetch();
->>>>>>> Renders giblets in reverse chronological order
     }
   });
 
