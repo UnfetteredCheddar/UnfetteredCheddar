@@ -1,8 +1,10 @@
 if (Meteor.isServer) {
   Meteor.methods({
-    runGiblet: function ( urls, gibletID ) {
+    runGiblet: function ( gibletID ) {
       var giblet = Giblets.findOne({_id: gibletID});
-      urls.forEach( function ( url, urlIndex ) {
+      var urlArray = giblet.url;
+      urlArray.forEach( function ( url ) {
+        console.log("each url in array", url);
         var webpageText = scrapePage(url);
         var hash = hashText(webpageText);
         var pageHasChanged = compareHash(giblet, url, hash);
