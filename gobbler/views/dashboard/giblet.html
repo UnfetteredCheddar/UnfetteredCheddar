@@ -1,18 +1,61 @@
 <template name="giblet">
-  <div class='giblet'>
-    <h1>{{taskname}}</h1>
-    <div><input type="url" value="{{url}}"></div>
-    <div><input type="text" value="{{keywords}}"></div>
-    <label for="SMS">SMS <input type="checkbox" checked="{{SMS}}"></label>
-    <label for="email">Email <input type="checkbox" checked="{{email}}"></label>
-    <label for="on/off">
-      {{#if active}}
-        <span><input type="radio" name="active{{_id}}" value="true" checked> On</span>
-        <span><input type="radio" name="active{{_id}}" value="false"> Off</span>
-      {{else}}
-        <span><input type="radio" name="active{{_id}}" value="true"> On</span>
-        <span><input type="radio" name="active{{_id}}" value="false" checked> Off</span>
-      {{/if}}
-    </label>
+  <div class='giblet' gibletId="{{_id}}">
+    <form mongoId="{{_id}}">
+
+      <!-- Enter to save reminder -->
+      <div class="enterToSave">
+        Press Enter to Save!
+      </div>
+      <!-- Title -->
+      <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
+
+      <div class="urlDiv">
+        <!-- Url list -->
+        {{#each url}}    
+          <div class="urlLine" urlIndex="{{@index}}">
+            <input class="urlTextInput" value="{{this}}" type="text" placeholder="Url here...">
+
+            <!-- Subtract Url Button -->
+            {{#if subtractOne ../url.length}}
+              <div class="subtractUrlButton" mongoId="{{../_id}}" urlIndex="{{@index}}">
+                <img src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="10px">
+              </div>
+            {{/if}}
+            <!-- Add Url Button -->
+            {{#if compareIndexLength @index ../url.length}}
+              <div class="addUrlButton" mongoId="{{../_id}}">
+                <img src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="10px">
+              </div>
+            {{/if}}
+          </div>
+        {{/ each}}
+      </div>
+
+      <div class="keywordDiv">
+        <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35"> Keywords
+      </div>
+
+      <div>
+        Check every: 
+        <input class="cronJobTimer" value="{{frequency}}" type="number" mongoId="{{_id}}"/>
+        minutes!
+      </div>
+
+      <div>
+        Alert me via: SMS
+        <input type="checkbox" class="smsStatus" checked="{{SMS}}">
+        Email
+        <input type="checkbox" class="emailStatus" checked="{{email}}">
+      </div>
+      <div>
+        Giblet On / Off
+        <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
+      </div>
+      <div class="removeGibletButton" mongoId="{{_id}}">
+        <img src="https://www.onx.ms/images/close.png">
+      </div>
+    </form>
+
+    <hr/>
   </div>
 </template>

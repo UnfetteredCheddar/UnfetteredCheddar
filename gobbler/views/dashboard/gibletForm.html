@@ -1,23 +1,5 @@
 <template name='gibletForm'>
   <div class='addGiblet'>
-    <form action="/" class="gibletForm">
-      <input type="text" name="taskname" placeholder="Title for this job/giblet">
-      <input type="url" name="url" placeholder="Url to search">
-      <input type="text" name="keywords" placeholder="Keywords to search for, eg. keyword1, keyword2">
-      <div>
-        <span>Notifications
-         <br/>
-         <label for="SMS">Text Updates<input type="checkbox" name="SMS"></label>
-         <label for="Email">Email Updates<input type="checkbox" name="email"></label>
-        </span>
-      </div>
-      <span>Check the website...
-       <input type="number" name="frequency" placeholder="Number of times">
-       Per Day
-      </span>
-      <p>
-        <button>Submit</button>
-      </p>
-    </form>
+    {{> big_plus}}
   </div>
 </template>
