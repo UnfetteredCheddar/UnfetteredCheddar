@@ -3,7 +3,6 @@ if (Meteor.isServer) {
     addGiblet: function () {
       var initActive = false;
       var initFrequency = "1";
-
       var gibletId = Giblets.insert({
         createdAt: new Date(),
         owner: Meteor.userId(),
@@ -62,19 +61,19 @@ if (Meteor.isServer) {
       Giblets.update({'_id': id}, {$set: {email: !giblet.email}});
     },
     toggleGibletRunningStatus: function(id) {
-        var giblet = Giblets.findOne({'_id': id});
-        var id = giblet._id;
-        var frequency = giblet.frequency;
-        var newActiveValue = !giblet.active
-        console.log('toggle: ', id, frequency, newActiveValue);
+      var giblet = Giblets.findOne({'_id': id});
+      var id = giblet._id;
+      var frequency = giblet.frequency;
+      var newActiveValue = !giblet.active
+      console.log('toggle: ', id, frequency, newActiveValue);
 
-        Giblets.update({'_id': id}, {$set: {active: newActiveValue}});
-        
-        if (newActiveValue) {
-          Meteor.call('scheduleGiblet', id, frequency );
-        } else {
-          Meteor.call('stopGiblet', id);
-        }
+      Giblets.update({'_id': id}, {$set: {active: newActiveValue}});
+      
+      if (newActiveValue) {
+        Meteor.call('scheduleGiblet', id, frequency );
+      } else {
+        Meteor.call('stopGiblet', id);
+      }
     },
     updateCronTimer: function(id, cronTime) {
       console.log('Update cron timer', id, cronTime);
@@ -108,29 +107,19 @@ if (Meteor.isClient) {
 
   Template.giblet.events({
     // Possibly throttle some of this
-    'input .gibletTitleInput, change .gibletTitleInput, paste .gibletTitleInput, mouseup .gibletTitleInput, keyup .gibletTitleInput': function(event) {
+    'change .gibletTitleInput': function(event) {
       // console.log('Title modify client side');
-      enterReminderShow(event);
-
-      if (event.which === 13) {        
-        var gibletId = event.currentTarget.form.attributes['gibletID'].value;
-        var newTitle = event.currentTarget.value;
-        // console.log(gibletId, newTitle);
-        Meteor.call('updateTitle', gibletId, newTitle);
-        enterReminderHide(event);
-      }
+      var gibletId = event.currentTarget.form.attributes['gibletID'].value;
+      var newTitle = event.currentTarget.value;
+      // console.log(gibletId, newTitle);
+      Meteor.call('updateTitle', gibletId, newTitle);
     },
-    'input .urlTextInput, change .urlTextInput, paste .urlTextInput, mouseup .urlTextInput, keyup .urlTextInput': function(event) {
-      // console.log('url modify client side');
-      enterReminderShow(event);
-      if (event.which === 13) {
-        var id = event.currentTarget.form.attributes['gibletID'].value;
-        var urlIndex = event.currentTarget.parentNode.attributes['urlIndex'].value;
-        var value = event.target.value;
-        // console.log('urlindex:', id, urlIndex, value)
-        Meteor.call('modifyUrlInArray', id, urlIndex, value);
-        enterReminderHide(event);
-      }
+    'change .urlTextInput': function(event) {
+      var id = event.currentTarget.form.attributes['gibletID'].value;
+      var urlIndex = event.currentTarget.parentNode.attributes['urlIndex'].value;
+      var value = event.target.value;
+      // console.log('urlindex:', id, urlIndex, value)
+      Meteor.call('modifyUrlInArray', id, urlIndex, value);
     },
     'click div.addUrlButton': function(event) {
       var id = event.currentTarget.attributes['gibletID'].value;
@@ -142,44 +131,20 @@ if (Meteor.isClient) {
       // console.log(event);
       Meteor.call('removeUrlFromArray', id, urlIndex);
     },
-    'input .keywordInput, change .keywordInput, paste .keywordInput, mouseup .keywordInput, keyup .keywordInput': function(event) {
-      enterReminderShow(event);
-      
-      if (event.which === 13) {        
-        console.log('keypress enter keyword');
-
-        var id = event.currentTarget.form.attributes['gibletID'].value;
-        var newKeywords = event.currentTarget.value;
-
-        var cleanCommaSeperatedString = function(string) {
-          var finalKeywords = [];
-          var stringArray = string.split(',');
-          for( var i = 0; i < stringArray.length; i++ ) {
-            var thisEntry = stringArray[i];
-            if (thisEntry === '') {
-            } else {
-              finalKeywords.push( thisEntry.trim() );
-            }
-          }
-          return finalKeywords;
-        };
-        var keywordArray = cleanCommaSeperatedString(newKeywords);
-        Meteor.call('updateKeywordArray', id, keywordArray);
-        enterReminderHide(event);
-      }
+    'change .keywordInput': function(event) {
+      var id = event.currentTarget.form.attributes['gibletID'].value;
+      var newKeywords = event.currentTarget.value;
+      var keywordArray = newKeywords.split(',');
+      Meteor.call('updateKeywordArray', id, keywordArray);
     },
-    'input .cronJobTimer, change .cronJobTimer, paste .cronJobTimer, mouseup .cronJobTimer, keyup .cronJobTimer': function(event) {
-      enterReminderShow(event);
-      if (event.which === 13) {        
-        var id = event.currentTarget.form.attributes['gibletID'].value;
-        var input = event.currentTarget.value;
-        console.log('cron change', id, input);
-        if (!input) {
-          input = undefined;
-        }
-        Meteor.call('updateCronTimer', id, input);
-        enterReminderHide(event);
+    'change .cronJobTimer': function(event) {       
+      var id = event.currentTarget.form.attributes['gibletID'].value;
+      var input = event.currentTarget.value;
+      console.log('cron change', id, input);
+      if (!input) {
+        input = undefined;
       }
+      Meteor.call('updateCronTimer', id, input);
     },
     'click .smsStatus': function(event) {
       var id = event.currentTarget.form.attributes['gibletID'].value;
