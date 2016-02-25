@@ -113,7 +113,7 @@ if (Meteor.isClient) {
       enterReminderShow(event);
 
       if (event.which === 13) {        
-        var gibletId = event.currentTarget.form.attributes['mongoid'].value;
+        var gibletId = event.currentTarget.form.attributes['gibletID'].value;
         var newTitle = event.currentTarget.value;
         // console.log(gibletId, newTitle);
         Meteor.call('updateTitle', gibletId, newTitle);
@@ -124,7 +124,7 @@ if (Meteor.isClient) {
       // console.log('url modify client side');
       enterReminderShow(event);
       if (event.which === 13) {
-        var id = event.currentTarget.form.attributes['mongoid'].value;
+        var id = event.currentTarget.form.attributes['gibletID'].value;
         var urlIndex = event.currentTarget.parentNode.attributes['urlIndex'].value;
         var value = event.target.value;
         // console.log('urlindex:', id, urlIndex, value)
@@ -133,11 +133,11 @@ if (Meteor.isClient) {
       }
     },
     'click div.addUrlButton': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
+      var id = event.currentTarget.attributes['gibletID'].value;
       Meteor.call('addUrlToArray', id);
     },
     'click div.subtractUrlButton': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
+      var id = event.currentTarget.attributes['gibletID'].value;
       var urlIndex = event.currentTarget.attributes['urlindex'].value;
       // console.log(event);
       Meteor.call('removeUrlFromArray', id, urlIndex);
@@ -148,7 +148,7 @@ if (Meteor.isClient) {
       if (event.which === 13) {        
         console.log('keypress enter keyword');
 
-        var id = event.currentTarget.form.attributes['mongoid'].value;
+        var id = event.currentTarget.form.attributes['gibletID'].value;
         var newKeywords = event.currentTarget.value;
 
         var cleanCommaSeperatedString = function(string) {
@@ -171,7 +171,7 @@ if (Meteor.isClient) {
     'input .cronJobTimer, change .cronJobTimer, paste .cronJobTimer, mouseup .cronJobTimer, keyup .cronJobTimer': function(event) {
       enterReminderShow(event);
       if (event.which === 13) {        
-        var id = event.currentTarget.form.attributes['mongoid'].value;
+        var id = event.currentTarget.form.attributes['gibletID'].value;
         var input = event.currentTarget.value;
         console.log('cron change', id, input);
         if (!input) {
@@ -182,20 +182,20 @@ if (Meteor.isClient) {
       }
     },
     'click .smsStatus': function(event) {
-      var id = event.currentTarget.form.attributes['mongoid'].value;
+      var id = event.currentTarget.form.attributes['gibletID'].value;
       Meteor.call('toggleSmsStatus', id);
     },
     'click .emailStatus': function(event) {
-      var id = event.currentTarget.form.attributes['mongoid'].value;
+      var id = event.currentTarget.form.attributes['gibletID'].value;
       Meteor.call('toggleEmailStatus', id);
     },
     'click .gibletRunningStatusForm': function(event) {
       // console.log('click client side', event);
-      var id = event.currentTarget.form.attributes['mongoid'].value;      
+      var id = event.currentTarget.form.attributes['gibletID'].value;      
       Meteor.call('toggleGibletRunningStatus', id);
     },
     'click .removeGibletButton': function(event) {
-      var id = event.currentTarget.attributes['mongoid'].value;
+      var id = event.currentTarget.attributes['gibletID'].value;
       Meteor.call('removeGiblet', id);
     }
   });
