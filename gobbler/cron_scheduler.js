@@ -1,34 +1,34 @@
 if (Meteor.isServer) {
   
   Meteor.methods({
-    scheduleGiblet: function(id, frequency) {
+    scheduleGiblet: function(gibletID, frequency) {
       console.log('Start giblet Timer!', frequency);
       frequency = parseInt(frequency);
-      var giblet = Giblets.findOne({'_id': id});
+      var giblet = Giblets.findOne({'_id': gibletID});
       var urlArray = giblet.url;
       console.log(urlArray);
       SyncedCron.add({
-        name: id,
+        name: gibletID,
         schedule: function(parser) {
           return parser.recur().every(frequency).minute();
         },
         job: function() {
-          console.log('Get rolling!', urlArray, id);
+          console.log('Get rolling!', urlArray, gibletID);
           // var urlArr = [url];
-          // Meteor.call('scrapePage', urlArray, id);
+          Meteor.call('runGiblet', urlArray, gibletID);
         }
       });
     },
 
-    stopGiblet: function(id) {
+    stopGiblet: function(gibletID) {
       console.log('Stop Giblet Timer');
-      SyncedCron.remove(id);
+      SyncedCron.remove(gibletID);
     },
 
-    updateGibletTimer: function(id, frequency) {
-      console.log('update Giblet Timer', id, frequency);
-      Meteor.call('stopGiblet', id);
-      Meteor.call('scheduleGiblet', id, frequency);
+    updateGibletTimer: function(gibletID, frequency) {
+      console.log('update Giblet Timer', gibletID, frequency);
+      Meteor.call('stopGiblet', gibletID);
+      Meteor.call('scheduleGiblet', gibletID, frequency);
     }
 
 
