@@ -11,6 +11,7 @@
 
 html, body {
   background-color: rgb(197,50,0);
+  min-width: 425px;
 }
 
 .container {
@@ -47,8 +48,8 @@ nav > a:hover {
 
 .mainBody {
   background-color: rgb(255,139,0);
-  padding-bottom-bottom: 10px;
-  border-bottom: 3px solid rgb(84,70,0);
+  padding-bottom: 10px;
+  border-bottom: 10px solid rgb(84,70,0);
 }
 
 .bodyView {
@@ -87,6 +88,7 @@ nav > a:hover {
 
 .urlTextInput {
   float: left;
+  width: 300px;
 }
 
 .addUrlButton {
@@ -101,6 +103,14 @@ nav > a:hover {
 
 .keywordDiv {
   clear: both;
+}
+
+.keywordInput {
+  width: 215px;
+}
+
+.cronJobTimer {
+  width: 20px;
 }
 
 .notificationView {
