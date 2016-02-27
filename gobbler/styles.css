@@ -10,7 +10,7 @@
 }
 
 html, body {
-  background-color: rgb(255,139,0);
+  background-color: rgb(197,50,0);
 }
 
 .container {
@@ -18,7 +18,6 @@ html, body {
 }
 
 .header {
-  background-color: rgb(197,50,0);
   padding: 10px 0px 10px 10px;
   clear: none;
 }
@@ -46,6 +45,12 @@ nav > a:hover {
   background-color: rgb(196,150,100);
 }
 
+.mainBody {
+  background-color: rgb(255,139,0);
+  padding-bottom-bottom: 10px;
+  border-bottom: 3px solid rgb(84,70,0);
+}
+
 .bodyView {
   margin: 10px;
 }
@@ -56,11 +61,12 @@ nav > a:hover {
 
 .giblet {
   position: relative;
-  margin: 5px;
+  margin: 5px 5px 10px 5px;
   padding: 10px;
   background-color: white;
   border: 3px solid black;
   border-radius: 10px;
+  max-width: 800px;
 }
 
 .gibletTitleInput {
@@ -70,8 +76,8 @@ nav > a:hover {
 
 .removeGibletButton {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -10px;
+  right: -10px;
   float: right;
 }
 
