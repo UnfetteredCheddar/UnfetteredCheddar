@@ -20,11 +20,17 @@ html, body {
 
 nav {
   background-color: rgb(84,70,0);
-  padding: 10px 0px 10px 0px;
+  clear: ;
 }
 
 nav > a {
   color: white;
+  display: inline-block;
+  padding: 10px
+}
+
+nav > a:hover {
+  background-color: rgb(196,150,100);
 }
 
 .bodyView {
