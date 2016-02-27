@@ -1,5 +1,9 @@
 * {
   font-family: sans-serif;
+  font-family: 'Dosis', sans-serif;
+  /*font-family: 'Candal', sans-serif;*/
+  /*font-family: 'Quicksand', sans-serif;*/
+  /*font-family: 'Didact Gothic', sans-serif;*/
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -15,7 +19,17 @@ html, body {
 
 .header {
   background-color: rgb(197,50,0);
+  padding: 10px 0px 10px 10px;
   clear: none;
+}
+
+.header > h1 {
+  /*font-family: 'Lobster', cursive;*/
+  font-size: 75px;
+  /*color: rgb(82,53,37);*/
+  color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke: 2px black;
 }
 
 nav {
