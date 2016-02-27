@@ -2,10 +2,6 @@
   <div class='giblet' gibletId="{{_id}}">
     <form gibletID="{{_id}}">
 
-      <!-- Enter to save reminder -->
-      <div class="enterToSave">
-        Press Enter to Save!
-      </div>
       <!-- Title -->
       <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
 
@@ -38,7 +34,7 @@
       <div>
         Check every: 
         <input class="cronJobTimer" value="{{frequency}}" type="number" gibletID="{{_id}}"/>
-        minutes!
+        minutes
       </div>
 
       <div>
@@ -56,6 +52,5 @@
       </div>
     </form>
 
-    <hr/>
   </div>
 </template>

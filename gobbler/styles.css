@@ -34,7 +34,6 @@ html, body {
 
 nav {
   background-color: rgb(84,70,0);
-  clear: ;
 }
 
 nav > a {
@@ -51,13 +50,22 @@ nav > a:hover {
   margin: 10px;
 }
 
+.big_plus_div {
+  width: 30px;
+}
+
 .giblet {
   position: relative;
   margin: 5px;
+  padding: 10px;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 10px;
 }
 
-.big_plus_div {
-  width: 30px;
+.gibletTitleInput {
+  height:100px;
+  font-size:30pt;
 }
 
 .removeGibletButton {
@@ -65,11 +73,6 @@ nav > a:hover {
   top: 0;
   right: 0;
   float: right;
-}
-
-.gibletTitleInput {
-  height:100px;
-  font-size:30pt;
 }
 
 .urlLine {
@@ -97,21 +100,13 @@ nav > a:hover {
 .notificationView {
   margin: 5px;
   padding: 10px;
-  border: 1px black dotted;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
 .welcome {
   margin: 10px;
   padding: 10px;
   text-align: center;
-}
-
-svg rect {
-  fill: #000000;
-}
-
-svg rect {
-  -webkit-transition: all 800ms;
-  -webkit-transform: scaleY(1);
-  -webkit-transform-origin: 50% 50%;
 }
