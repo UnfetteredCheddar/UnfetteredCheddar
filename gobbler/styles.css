@@ -6,21 +6,45 @@
 }
 
 html, body {
+  background-color: rgb(255,139,0);
 }
+
 .container {
   height:100%;
-
-  /*border: 1px red solid;*/
-}
-
-nav {
-  background-color: lightgrey;
 }
 
 .header {
-  background-color: white;
-  /*border: 1px green solid;*/
+  background-color: rgb(197,50,0);
   clear: none;
+}
+
+nav {
+  background-color: rgb(84,70,0);
+  padding: 10px 0px 10px 0px;
+}
+
+nav > a {
+  color: white;
+}
+
+.bodyView {
+  margin: 10px;
+}
+
+.giblet {
+  position: relative;
+  margin: 5px;
+}
+
+.big_plus_div {
+  width: 30px;
+}
+
+.removeGibletButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  float: right;
 }
 
 .gibletTitleInput {
@@ -28,35 +52,26 @@ nav {
   font-size:30pt;
 }
 
-.big_plus_div {
-  width: 30px;
+.urlLine {
+  clear: both;
 }
 
-.welcome {
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-  /*border: 1px solid red;*/
+.urlTextInput {
+  float: left;
 }
 
-.main-body {
-  /*border: 1px solid blue;*/
+.addUrlButton {
+  float: left;
+  margin-left: 4px;
 }
 
-.bodyView {
-  /*border: 1px green dotted;*/
-  margin: 10px;
+.subtractUrlButton {
+  float: left;
+  margin-left: 4px;
 }
 
-.giblet {
-  position: relative;
-  margin: 5px;
-  /*border: 1px solid green;*/
-}
-
-.enterToSave {
-  visibility: hidden;
-  color: red;
+.keywordDiv {
+  clear: both;
 }
 
 .notificationView {
@@ -65,53 +80,16 @@ nav {
   border: 1px black dotted;
 }
 
-.addGiblet {
-  margin: 5px;
-  /*border: red 1px solid;*/
-}
-.removeGibletButton {
-  position: absolute;
-  top: 0;
-  right: 0;
-  float: right;
-}
-
-.gibletView {
-  /*border: 1px solid red;*/
-}
-
-.urlLine {
-  clear: both;
-}
-.urlTextInput {
-  float: left;
-}
-.addUrlButton {
-  float: left;
-  margin-left: 4px;
-}
-.subtractUrlButton {
-  float: left;
-  margin-left: 4px;
-
-}
-
-.keywordDiv {
-  clear: both;
-}
-
-.login {
-  /*border: 1px solid yellow;*/
-}
-
-.footer {
+.welcome {
+  margin: 10px;
+  padding: 10px;
   text-align: center;
-  /*border: .8px blue solid;*/
 }
 
 svg rect {
   fill: #000000;
 }
+
 svg rect {
   -webkit-transition: all 800ms;
   -webkit-transform: scaleY(1);
