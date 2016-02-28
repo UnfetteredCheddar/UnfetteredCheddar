@@ -1,5 +1,6 @@
 <head>
   <title>Gobbler</title>
+  <link href='https://fonts.googleapis.com/css?family=Dosis:400,800|Lobster|Candal|Quicksand:400,700|Didact+Gothic' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -8,7 +9,9 @@
 <template name="app_body">
   <div class='container'>
     {{> Template.dynamic template=header}}
-    {{> Template.dynamic template=main}}
+    <div class='mainBody'>
+      {{> Template.dynamic template=main}}
+    </div>
     {{> Template.dynamic template=footer}}
   </div>
 </template>

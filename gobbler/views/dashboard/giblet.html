@@ -2,10 +2,6 @@
   <div class='giblet' gibletId="{{_id}}">
     <form gibletID="{{_id}}">
 
-      <!-- Enter to save reminder -->
-      <div class="enterToSave">
-        Press Enter to Save!
-      </div>
       <!-- Title -->
       <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
 
@@ -31,14 +27,14 @@
         {{/ each}}
       </div>
 
-      <div class="keywordDiv">
-        <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35"> Keywords
+      <div class="keywordDiv">Keywords:
+        <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35">
       </div>
 
       <div>
         Check every: 
         <input class="cronJobTimer" value="{{frequency}}" type="number" gibletID="{{_id}}"/>
-        minutes!
+        minutes
       </div>
 
       <div>
@@ -52,10 +48,9 @@
         <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
       </div>
       <div class="removeGibletButton" gibletID="{{_id}}">
-        <img src="https://www.onx.ms/images/close.png">
+        <img src="/close-background.png">
       </div>
     </form>
 
-    <hr/>
   </div>
 </template>

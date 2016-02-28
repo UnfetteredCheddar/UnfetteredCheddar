@@ -1,26 +1,73 @@
 * {
   font-family: sans-serif;
+  font-family: 'Dosis', sans-serif;
+  /*font-family: 'Candal', sans-serif;*/
+  /*font-family: 'Quicksand', sans-serif;*/
+  /*font-family: 'Didact Gothic', sans-serif;*/
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
 html, body {
+  background-color: rgb(197,50,0);
+  min-width: 425px;
 }
+
 .container {
   height:100%;
-
-  /*border: 1px red solid;*/
-}
-
-nav {
-  background-color: lightgrey;
 }
 
 .header {
-  background-color: white;
-  /*border: 1px green solid;*/
+  padding: 10px 0px 10px 10px;
   clear: none;
+}
+
+.header > h1 {
+  /*font-family: 'Lobster', cursive;*/
+  font-size: 75px;
+  /*color: rgb(82,53,37);*/
+  color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke: 2px black;
+}
+
+nav {
+  background-color: rgb(84,70,0);
+}
+
+nav > a {
+  color: white;
+  display: inline-block;
+  padding: 10px
+}
+
+nav > a:hover {
+  background-color: rgb(196,150,100);
+}
+
+.mainBody {
+  background-color: rgb(255,139,0);
+  padding-bottom: 10px;
+  border-bottom: 10px solid rgb(84,70,0);
+}
+
+.bodyView {
+  margin: 10px;
+}
+
+.big_plus_div {
+  width: 30px;
+}
+
+.giblet {
+  position: relative;
+  margin: 5px 5px 10px 5px;
+  padding: 10px;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 10px;
+  max-width: 800px;
 }
 
 .gibletTitleInput {
@@ -28,92 +75,54 @@ nav {
   font-size:30pt;
 }
 
-.big_plus_div {
-  width: 30px;
-}
-
-.welcome {
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-  /*border: 1px solid red;*/
-}
-
-.main-body {
-  /*border: 1px solid blue;*/
-}
-
-.bodyView {
-  /*border: 1px green dotted;*/
-  margin: 10px;
-}
-
-.giblet {
-  position: relative;
-  margin: 5px;
-  /*border: 1px solid green;*/
-}
-
-.enterToSave {
-  visibility: hidden;
-  color: red;
-}
-
-.notificationView {
-  margin: 5px;
-  padding: 10px;
-  border: 1px black dotted;
-}
-
-.addGiblet {
-  margin: 5px;
-  /*border: red 1px solid;*/
-}
 .removeGibletButton {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -10px;
+  right: -10px;
   float: right;
-}
-
-.gibletView {
-  /*border: 1px solid red;*/
 }
 
 .urlLine {
   clear: both;
 }
+
 .urlTextInput {
   float: left;
+  width: 300px;
 }
+
 .addUrlButton {
   float: left;
   margin-left: 4px;
 }
+
 .subtractUrlButton {
   float: left;
   margin-left: 4px;
-
 }
 
 .keywordDiv {
   clear: both;
 }
 
-.login {
-  /*border: 1px solid yellow;*/
+.keywordInput {
+  width: 215px;
 }
 
-.footer {
+.cronJobTimer {
+  width: 20px;
+}
+
+.notificationView {
+  margin: 5px;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.welcome {
+  margin: 10px;
+  padding: 10px;
   text-align: center;
-  /*border: .8px blue solid;*/
-}
-
-svg rect {
-  fill: #000000;
-}
-svg rect {
-  -webkit-transition: all 800ms;
-  -webkit-transform: scaleY(1);
-  -webkit-transform-origin: 50% 50%;
 }
