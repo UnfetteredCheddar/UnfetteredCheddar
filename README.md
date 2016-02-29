@@ -39,7 +39,8 @@ curl https://install.meteor.com/ | sh
 ```
 
 ### Setting up the Dev Environment
-Prior to creating the settings.json file, which is used to send email notifications, enter the command 
+If you HAVE NOT set up the settings.json file:
+To start up your local server and database without creating the settings.json file, which is used to send email notifications, enter the command 
 ```sh
 meteor
 ```
@@ -47,7 +48,8 @@ from within the "gobbler" file of the directory. Please note that email notifica
 
 Follow the format of the "settings_example.json" file to set up settings.json.
 
-After creating the settings.json file, enter the following command from within the "gobbler" file of the directory:
+If you HAVE created the settings.json file and would like to enable email notifications:
+Enter the following command from within the "gobbler" file of the directory
 ```sh
 meteor run --settings settings.json
 ```
