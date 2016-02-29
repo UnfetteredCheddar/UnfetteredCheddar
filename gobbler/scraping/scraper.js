@@ -8,6 +8,9 @@ if (Meteor.isServer) {
         console.log("each url in array", url);
         if (url) {
           var webpageText = scrapePage(url);
+          if (webpageText = '') {
+            return;
+          }
           var hash = hashText(webpageText);
           var pageHasChanged = compareHash(giblet, url, hash);
           if (pageHasChanged) {
@@ -55,10 +58,12 @@ function removeDots ( url ) {
 // get all text from a url
 function scrapePage ( url ) {
   var webpage = Scrape.url(url);
-  var $ = cheerio.load(webpage);
-  $('script').remove();
-  var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
-  return webpageText;
+  if (webpage) {
+    var $ = cheerio.load(webpage);
+    $('script').remove();
+    var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
+  }
+  return webpageText || '';
 }
 
 // hash the page text for constant time checking for updates
