@@ -21,6 +21,7 @@
 ## Usage
 
 > To use Gobbler, please visit www.gobblerweb.com
+> Click [here](https://github.com/UnfetteredCheddar/UnfetteredCheddar/PRESS-RELEASE.md) for more information about the project.
 
 ## Requirements
 
