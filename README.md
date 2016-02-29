@@ -36,6 +36,14 @@ From within the root directory:
 curl https://install.meteor.com/ | sh
 ```
 
+### Setting up the Dev Environment
+Prior to creating the settings.json file, which is used to send email notifications, enter the command "meteor" from within the "gobbler" file of the directory. Please note that email notifications will not work until the settings.json file is created.
+
+Follow the format of the "settings_example.json" file to set up settings.json.
+
+After creating the settings.json file, enter the following command from within the "gobbler" file of the directory:
+meteor run --settings settings.json
+
 ### Roadmap
 
 View the project roadmap [here](https://waffle.io/UnfetteredCheddar/UnfetteredCheddar)

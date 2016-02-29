@@ -1,0 +1,6 @@
+{
+ "public": {
+
+ },
+ "MAIL_URL":"smtp://email%40gmail.com:password@smtp.gmail.com:465/"
+}
