@@ -1,0 +1,18 @@
+How to deploy the Gobbler
+================================
+-We have this system running on a Digital Ocean droplet.
+
+Prerequisites:
+  - npm install -g mupx
+  - ensure mup.json and settings.json exist in gobbler project folder
+    - if these files do not yet exist, you need to 'mupx init' inside gobbler
+
+- mup.json is filled with deployment settings. These settings may need to be modifed for your server.
+  - Settings include environment variables which will hold secret API keys and other important data.
+  
+
+
+- after setting all variables in mup.json run: "mupx setup"
+-assuming all goes well, to deploy, run: "mupx deploy"
+
+-Should be live...
