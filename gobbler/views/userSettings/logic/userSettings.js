@@ -1,6 +1,6 @@
 if (Meteor.isClient) {
   Template.userSettings.events({
-    "submit .userSettings": function (event) {
+    "submit .userSettings": function ( event ) {
       // Prevent default browser form submit
       event.preventDefault();
       // Get value from form element
