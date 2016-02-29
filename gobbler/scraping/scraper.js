@@ -8,18 +8,17 @@ if (Meteor.isServer) {
         console.log("each url in array", url);
         if (url) {
           var webpageText = scrapePage(url);
-          if (webpageText = '') {
-            return;
-          }
-          var hash = hashText(webpageText);
-          var pageHasChanged = compareHash(giblet, url, hash);
-          if (pageHasChanged) {
-            var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
-            var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
-            if (keywordDiffs.length) {
-              Meteor.call('createNotification', giblet, url, keywordDiffs);
+          if (webpageText !== '') {
+            var hash = hashText(webpageText);
+            var pageHasChanged = compareHash(giblet, url, hash);
+            if (pageHasChanged) {
+              var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
+              var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
+              if (keywordDiffs.length) {
+                Meteor.call('createNotification', giblet, url, keywordDiffs);
+              }
+              Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
             }
-            Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
           }
         }
       });

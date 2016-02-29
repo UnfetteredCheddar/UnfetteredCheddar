@@ -1,4 +1,6 @@
 if (Meteor.isServer) {
+  process.env.MAIL_URL = Meteor.settings.MAIL_URL;
+
   Meteor.methods({
     // send user an email when they get a notifcation
     createNotification: function ( giblet, url, notificationKeys ) {
