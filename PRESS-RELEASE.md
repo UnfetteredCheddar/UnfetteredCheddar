@@ -21,29 +21,6 @@ Once the project moves into development, the press release can be used as a touc
 Gobbler
 Gobble the internet at high speed
 
-Gobbler is a tool for repeatedly checking on the contents of many locations around the web.
-Sites can be searched repeatedly and the user will be notified in the event of a keyword match.
-
-Problem
-  
-Solution
-
-
-Quote from you
-  "Using Gobbler is not cheating"
-
-How to get started
-  Simply create an account and set up a few search jobs.
-  Find URL's that you check often. Enter them into the Gobbler job, set a few keywords and an update frequency. Decide how you would like to be notified and let the machine take over!
-
-Customer Quote
-  "Before Gobbler I spent nearly four hours each day checking the same websites over and over. Now I can set my search queries and live a normal life. My antique doll collection and my happiness has been growing at an exponential rate since joining Gobbler."
-
-
-Closing and Call to action
-  Thanks for reading about what Gobbler can do for you. Now get out there and get Gobbling!
-
-
 ## Let the internet check the internet for you ##
   > Gobbler is a tool that automatically checks for page updates in any url.
 
@@ -51,19 +28,19 @@ Closing and Call to action
   > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords that you'd like to check for on those pages, and Gobbler will let you know if there are any updates to it. Checking for job postings? Looking for a specific item on Craigslist? Let Gobbler check these things for you so you can spend your time doing the things you want to do.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Wasting time checking websites over and over to look for updates.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > Gobbler automatically checks for updates for you so you can get notified and check back to these websites only when it's necessary.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "Using Gobbler is not cheating"
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Simply log in at www.gobblerweb.com, enter some URLs and some keywords you'd like to search, and let the magic happen.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "Before Gobbler I spent nearly four hours each day checking the same websites over and over. Now I can set my search queries and live a normal life. My antique doll collection and my happiness has been growing at an exponential rate since joining Gobbler." - anonymous
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Visit wwww.gobblerweb.com to sign up, or check out https://github.com/UnfetteredCheddar/UnfetteredCheddar for the repository.
