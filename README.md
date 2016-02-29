@@ -1,6 +1,6 @@
-# Project Name
+# Gobbler
 
-> Pithy project description
+> Gobbler is an open-source project that allows users to receive updates whenever changes are made to the webpages they choose to follow.
 
 ## Team
 
@@ -20,7 +20,7 @@
 
 ## Usage
 
-> Some usage instructions
+> To use Gobbler, please visit www.gobblerweb.com
 
 ## Requirements
 
