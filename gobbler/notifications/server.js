@@ -15,6 +15,7 @@ if (Meteor.isServer) {
         Meteor.call('sendEmail', giblet, url, notificationKeys);
       }
       if (giblet.SMS) {
+        console.log("SMS");
         Meteor.call('sendSMS', giblet, url, notificationKeys);
       }
     },
@@ -44,30 +45,30 @@ if (Meteor.isServer) {
 		sendSMS: function( giblet, url, notificationKeys ) {
 			var user = Meteor.users.findOne({_id: giblet.owner});
 			HTTP.call(
-            "POST",
-            'https://api.twilio.com/2010-04-01/Accounts/' + 
-            process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
-                params: {
-                    From: process.env.TWILIO_NUMBER,
-                    To: user.chosenPhoneNumber,
-                    Body: outgoingMessage
-                },
-                // Set your credentials as environment variables 
-                // so that they are not loaded on the client
-                auth:
-                    process.env.TWILIO_ACCOUNT_SID + ':' +
-                    process.env.TWILIO_AUTH_TOKEN
+        "POST",
+        'https://api.twilio.com/2010-04-01/Accounts/' +
+        process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
+            params: {
+                From: process.env.TWILIO_NUMBER,
+                To: user.chosenPhoneNumber,
+                Body: outgoingMessage
             },
-            // Print error or success to console
-            function (error) {
-                if (error) {
-                    console.log(error);
-                }
-                else {
-                    console.log('SMS sent successfully.');
-                }
+            // Set your credentials as environment variables
+            // so that they are not loaded on the client
+            auth:
+                process.env.TWILIO_ACCOUNT_SID + ':' +
+                process.env.TWILIO_AUTH_TOKEN
+        },
+        // Print error or success to console
+        function (error) {
+            if (error) {
+                console.log(error);
             }
-        );
+            else {
+                console.log('SMS sent successfully.');
+            }
+        }
+      );
 		}
   });
 }
