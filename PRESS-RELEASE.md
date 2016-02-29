@@ -23,13 +23,16 @@ Gobble the internet
 ## No more time wasted checking for updates ##
   > Gobbler is a tool that automatically checks for page updates at any webpage and notifies the user when there's been an update.
 
+## The General Idea ##
   > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords to search for, and Gobbler will let you know if there have been any relevant updates to the page. Waiting for job postings? Looking for a specific item on Craigslist? Let Gobbler do the checking, so you can spend your time doing the things you want to do.
 
+  >
 
   > Have you been wasting your time checking websites over and over to look for updates?
 
-
   > Gobbler automatically checks for updates for you so you can get notified and check back to these websites only when it's necessary
+
+  >
 
   > "Using Gobbler is not cheating" - the Gobbler team
 
@@ -39,4 +42,4 @@ Gobble the internet
   > "Before Gobbler I spent nearly four hours each day checking the same websites over and over. Now I can set my search queries and live a normal life. My antique doll collection and my happiness have been growing at an exponential rate since joining Gobbler." - anonymous
 
 
-  > Visit wwww.gobblerweb.com to sign up, or check out https://github.com/UnfetteredCheddar/UnfetteredCheddar for the repository.
+  > Visit www.gobblerweb.com to sign up, or check out https://github.com/UnfetteredCheddar/UnfetteredCheddar for the repository.
