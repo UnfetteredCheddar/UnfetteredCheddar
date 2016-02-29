@@ -2,10 +2,10 @@ Giblets = new Mongo.Collection('giblets');
 Notifications = new Mongo.Collection('notifications');
 
 Meteor.methods({
-  updateGiblet: function( gibletID, data ) {
+  updateGiblet: function ( gibletID, data ) {
     Giblets.update({_id: gibletID}, {$set: data});
   },
-  addUserSettings: function( userSettings ) {
+  addUserSettings: function ( userSettings ) {
     var currentUser = Meteor.users.find().fetch();
     var userId = currentUser[0]._id;
     Meteor.users.update({_id: userId},
@@ -16,7 +16,7 @@ Meteor.methods({
       }
     });
   },
-  clearGibletsDB: function() {
+  clearGibletsDB: function () {
     Giblets.remove({});
     SyncedCron.stop();
   }
