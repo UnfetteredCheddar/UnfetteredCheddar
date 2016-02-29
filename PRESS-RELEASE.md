@@ -18,11 +18,10 @@ Once the project moves into development, the press release can be used as a touc
 
 
 
-Gobbler
 Gobble the internet at high speed
 
-## Let the internet check the internet for you ##
-  > Gobbler is a tool that automatically checks for page updates in any url.
+## No more time wasted checking for updates ##
+  > Gobbler is a tool that automatically checks for page updates at any webpage and notifies the user when there's been an update.
 
 ## Summary ##
   > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords that you'd like to check for on those pages, and Gobbler will let you know if there are any updates to it. Checking for job postings? Looking for a specific item on Craigslist? Let Gobbler check these things for you so you can spend your time doing the things you want to do.
