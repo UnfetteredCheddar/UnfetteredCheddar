@@ -1,5 +1,6 @@
 if (Meteor.isServer) {
   Meteor.methods({
+    // Instantiate an empty giblet
     addGiblet: function () {
       var initActive = false;
       var initFrequency = "1";
@@ -19,6 +20,7 @@ if (Meteor.isServer) {
         Meteor.call('scheduleGiblet', gibletId, initFrequency);
       }
     },
+    // Modify giblets
     removeGiblet: function ( id ) {
       Meteor.call('stopGiblet', id);
       Giblets.remove(id);

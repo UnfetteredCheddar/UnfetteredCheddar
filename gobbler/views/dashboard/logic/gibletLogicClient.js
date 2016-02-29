@@ -1,5 +1,6 @@
 if (Meteor.isClient) {
 
+  // Call addGiblet when plus sign is clicked
   Template.big_plus.events({
     'click .big_plus_div': function ( event ) {
       event.preventDefault();
@@ -16,8 +17,8 @@ if (Meteor.isClient) {
     reminder.style.visibility = 'hidden';
   };
 
+  // Populate giblets as user fill outs form
   Template.giblet.events({
-    // Possibly throttle some of this
     'change .gibletTitleInput': function ( event ) {
       var gibletId = event.currentTarget.form.attributes['gibletID'].value;
       var newTitle = event.currentTarget.value;

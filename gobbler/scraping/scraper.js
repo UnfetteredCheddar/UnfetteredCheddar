@@ -1,5 +1,6 @@
 if (Meteor.isServer) {
   Meteor.methods({
+    // call giblet methods to run the giblet jobs
     runGiblet: function ( gibletID ) {
       var giblet = Giblets.findOne({_id: gibletID});
       var urlArray = giblet.url;
@@ -16,9 +17,10 @@ if (Meteor.isServer) {
           }
           Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
         }
-      }); 
-    }, 
+      });
+    },
 
+    // update the database with the updated webpage data
     updateWebData: function ( giblet, url, hash, keywordObj ) {
       var updatedUrlObj = {
         url: url,
@@ -36,6 +38,7 @@ if (Meteor.isServer) {
       });
     },
 
+    // send user an email when they get a notifcation
     createNotification: function ( giblet, url, notificationKeys ) {
       Notifications.insert({
         createdAt: new Date(),
@@ -44,7 +47,7 @@ if (Meteor.isServer) {
         keywords: notificationKeys,
         url: url
       });
-      var user = Meteor.users.findOne({_id:giblet.owner});
+      var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
       var email;
@@ -52,7 +55,7 @@ if (Meteor.isServer) {
         email = user.services.facebook.email;
       }
       if (user.services.google) {
-        email = user.services.goole.email;
+        email = user.services.google.email;
       }
       if (user.chosenEmail) {
         email = user.chosenEmail;
@@ -64,14 +67,21 @@ if (Meteor.isServer) {
         text: text
       });
     }
+
   });
 }
 
+/*
+ * Scraping helper functions
+ */
+
+// remove dots from urls in order to store url strings as properties
 function removeDots ( url ) {
   var dots = /\./g;
   return url.replace(/\./g, '');
 }
 
+// get all text from a url
 function scrapePage ( url ) {
   var webpage = Scrape.url(url);
   var $ = cheerio.load(webpage);
@@ -80,15 +90,18 @@ function scrapePage ( url ) {
   return webpageText;
 }
 
+// hash the page text for constant time checking for updates
 function hashText ( pageText ) {
   return CryptoJS.SHA1(pageText).toString();
 }
 
+// compare the current webpage hash to the previous webpage hash
 function compareHash ( giblet, url, newHash ) {
   var urlProp = removeDots(url);
   return ( !giblet.webData[urlProp] || giblet.webData[urlProp].hash !== newHash );
 }
 
+// get the keyword count
 function findKeywords ( keywordsArray, pageText ) {
   var cleanTags = Tags.clean( keywordsArray );
   // convert tags to case-insensitive regular expressions
@@ -113,6 +126,7 @@ function findKeywords ( keywordsArray, pageText ) {
   return keywordsObj;
 }
 
+// compare the keyword count
 function compareKeywordCounts ( giblet, url, newKeywordCounts ) {
   var urlProp = removeDots(url);
   var oldKeywordCounts = {};
