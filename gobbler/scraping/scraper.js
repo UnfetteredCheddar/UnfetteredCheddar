@@ -1,5 +1,6 @@
 if (Meteor.isServer) {
   Meteor.methods({
+    // call giblet methods to run the giblet jobs
     runGiblet: function ( gibletID ) {
       var giblet = Giblets.findOne({_id: gibletID});
       var urlArray = giblet.url;
@@ -16,17 +17,18 @@ if (Meteor.isServer) {
           }
           Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
         }
-      }); 
-    }, 
+      });
+    },
 
-    updateWebData: function( giblet, url, hash, keywordObj ) {
+    // update the database with the updated webpage data
+    updateWebData: function ( giblet, url, hash, keywordObj ) {
       var updatedUrlObj = {
         url: url,
         hash: hash,
         keywordCounts: keywordObj
       };
       var webDataCopy = giblet.webData;
-      var urlProp = removeDots( url );
+      var urlProp = removeDots(url);
       webDataCopy[urlProp] = updatedUrlObj;
 
       Giblets.update({_id: giblet._id}, 
@@ -36,7 +38,8 @@ if (Meteor.isServer) {
       });
     },
 
-    createNotification: function ( giblet, url, notificationKeys) {
+    // send user an email when they get a notifcation
+    createNotification: function ( giblet, url, notificationKeys ) {
       Notifications.insert({
         createdAt: new Date(),
         owner: giblet.owner,
@@ -44,7 +47,7 @@ if (Meteor.isServer) {
         keywords: notificationKeys,
         url: url
       });
-      var user = Meteor.users.findOne({_id:giblet.owner});
+      var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
       var email;
@@ -52,7 +55,7 @@ if (Meteor.isServer) {
         email = user.services.facebook.email;
       }
       if (user.services.google) {
-        email = user.services.goole.email;
+        email = user.services.google.email;
       }
       if (user.chosenEmail) {
         email = user.chosenEmail;
@@ -64,43 +67,53 @@ if (Meteor.isServer) {
         text: text
       });
     }
-  });
-};
 
-function removeDots( url ) {
+  });
+}
+
+/*
+ * Scraping helper functions
+ */
+
+// remove dots from urls in order to store url strings as properties
+function removeDots ( url ) {
   var dots = /\./g;
   return url.replace(/\./g, '');
-};
+}
 
-function scrapePage(url) {
+// get all text from a url
+function scrapePage ( url ) {
   var webpage = Scrape.url(url);
   var $ = cheerio.load(webpage);
   $('script').remove();
   var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
   return webpageText;
-};
+}
 
-function hashText( pageText ) {
+// hash the page text for constant time checking for updates
+function hashText ( pageText ) {
   return CryptoJS.SHA1(pageText).toString();
-};
+}
 
-function compareHash( giblet, url, newHash ) {
-  var urlProp = removeDots( url );
+// compare the current webpage hash to the previous webpage hash
+function compareHash ( giblet, url, newHash ) {
+  var urlProp = removeDots(url);
   return ( !giblet.webData[urlProp] || giblet.webData[urlProp].hash !== newHash );
-};
+}
 
-function findKeywords( keywordsArray, pageText ) {
+// get the keyword count
+function findKeywords ( keywordsArray, pageText ) {
   var cleanTags = Tags.clean( keywordsArray );
   // convert tags to case-insensitive regular expressions
   var tagRegexArr = [];
-  cleanTags.forEach( function( tag ) {
-    tagRegexArr.push( new RegExp(tag, 'gi'));
+  cleanTags.forEach( function(tag) {
+    tagRegexArr.push(new RegExp(tag, 'gi'));
   });
 
   var foundKeywords = [];
-  tagRegexArr.forEach( function( tagRegex ) {
+  tagRegexArr.forEach( function(tagRegex) {
     var matchingArr = pageText.match(tagRegex);
-    foundKeywords.push( matchingArr );
+    foundKeywords.push(matchingArr);
   });
 
   var keywordsObj = {}
@@ -111,10 +124,11 @@ function findKeywords( keywordsArray, pageText ) {
   });
 
   return keywordsObj;
-}; 
+}
 
-function compareKeywordCounts(giblet, url, newKeywordCounts) {
-  var urlProp = removeDots( url );
+// compare the keyword count
+function compareKeywordCounts ( giblet, url, newKeywordCounts ) {
+  var urlProp = removeDots(url);
   var oldKeywordCounts = {};
   if (giblet.webData[urlProp]) {
     oldKeywordCounts = giblet.webData[urlProp].keywordCounts;
@@ -126,4 +140,4 @@ function compareKeywordCounts(giblet, url, newKeywordCounts) {
     }
   }
   return keywordDiffs;
-};
+}

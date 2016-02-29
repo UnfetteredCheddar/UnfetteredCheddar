@@ -1,9 +1,6 @@
 * {
   font-family: sans-serif;
   font-family: 'Dosis', sans-serif;
-  /*font-family: 'Candal', sans-serif;*/
-  /*font-family: 'Quicksand', sans-serif;*/
-  /*font-family: 'Didact Gothic', sans-serif;*/
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -24,9 +21,7 @@ html, body {
 }
 
 .header > h1 {
-  /*font-family: 'Lobster', cursive;*/
   font-size: 75px;
-  /*color: rgb(82,53,37);*/
   color: black;
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
   -webkit-text-stroke: 2px black;
@@ -51,6 +46,7 @@ nav > a:hover {
   padding-bottom: 10px;
   border-bottom: 10px solid rgb(84,70,0);
 }
+
 
 .bodyView {
   margin: 10px;

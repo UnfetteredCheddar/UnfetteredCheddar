@@ -1,4 +1,4 @@
-//Public routes:
+// Public routes:
 exposed = FlowRouter.group({
   prefix:'/welcome'
 });
@@ -8,16 +8,16 @@ exposed.route('/', {
   action: function () {
     BlazeLayout.render('app_body', {header: 'header', main: 'welcome', footer: 'footer'});
   }
-})
+});
 
-//Logged-in routes:
+// Logged-in routes:
 loggedIn = FlowRouter.group({
   triggersEnter: [ function () {
-    if(!Meteor.userId()) {
+    if ( !Meteor.userId() ) {
       FlowRouter.go('welcome');
     }
   }]
-})
+});
 
 loggedIn.route('/', {
   name: 'dashboard',
@@ -38,19 +38,19 @@ loggedIn.route('/notifications', {
   }
 });
 
-//default:
+// Default
 FlowRouter.notFound = {
   action: FlowRouter.go('dashboard')
 };
 
-//Handle log in and log out
+// Handle log in and log out
 Accounts.onLogin(function () {
   FlowRouter.go('dashboard');
 });
 
 Meteor.methods({
   checkForUser: function () {
-    if(!Meteor.userId()) {
+    if ( !Meteor.userId() ) {
       FlowRouter.go('welcome');
     }
   }
@@ -59,5 +59,3 @@ Meteor.methods({
 Tracker.autorun(function () {
   Meteor.call('checkForUser');
 });
-
-
