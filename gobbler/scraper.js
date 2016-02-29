@@ -44,6 +44,25 @@ if (Meteor.isServer) {
         keywords: notificationKeys,
         url: url
       });
+      var user = Meteor.users.findOne({_id:giblet.owner});
+      var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
+      var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
+      var email;
+      if (user.services.facebook) {
+        email = user.services.facebook.email;
+      }
+      if (user.services.google) {
+        email = user.services.goole.email;
+      }
+      if (user.chosenEmail) {
+        email = user.chosenEmail;
+      }
+      Email.send({
+        to: email,
+        from: 'GobblerGonnaGobble@gmail.com',
+        subject: subject,
+        text: text
+      });
     }
   });
 };

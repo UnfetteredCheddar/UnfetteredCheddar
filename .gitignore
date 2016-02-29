@@ -38,3 +38,6 @@ bower_components/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+#Others
+emailConfig.js
