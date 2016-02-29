@@ -19,14 +19,14 @@ if (Meteor.isServer) {
       }); 
     }, 
 
-    updateWebData: function( giblet, url, hash, keywordObj ) {
+    updateWebData: function ( giblet, url, hash, keywordObj ) {
       var updatedUrlObj = {
         url: url,
         hash: hash,
         keywordCounts: keywordObj
       };
       var webDataCopy = giblet.webData;
-      var urlProp = removeDots( url );
+      var urlProp = removeDots(url);
       webDataCopy[urlProp] = updatedUrlObj;
 
       Giblets.update({_id: giblet._id}, 
@@ -36,7 +36,7 @@ if (Meteor.isServer) {
       });
     },
 
-    createNotification: function ( giblet, url, notificationKeys) {
+    createNotification: function ( giblet, url, notificationKeys ) {
       Notifications.insert({
         createdAt: new Date(),
         owner: giblet.owner,
@@ -67,12 +67,12 @@ if (Meteor.isServer) {
   });
 }
 
-function removeDots( url ) {
+function removeDots ( url ) {
   var dots = /\./g;
   return url.replace(/\./g, '');
 }
 
-function scrapePage(url) {
+function scrapePage ( url ) {
   var webpage = Scrape.url(url);
   var $ = cheerio.load(webpage);
   $('script').remove();
@@ -80,27 +80,27 @@ function scrapePage(url) {
   return webpageText;
 }
 
-function hashText( pageText ) {
+function hashText ( pageText ) {
   return CryptoJS.SHA1(pageText).toString();
 }
 
-function compareHash( giblet, url, newHash ) {
-  var urlProp = removeDots( url );
+function compareHash ( giblet, url, newHash ) {
+  var urlProp = removeDots(url);
   return ( !giblet.webData[urlProp] || giblet.webData[urlProp].hash !== newHash );
 }
 
-function findKeywords( keywordsArray, pageText ) {
+function findKeywords ( keywordsArray, pageText ) {
   var cleanTags = Tags.clean( keywordsArray );
   // convert tags to case-insensitive regular expressions
   var tagRegexArr = [];
-  cleanTags.forEach( function( tag ) {
-    tagRegexArr.push( new RegExp(tag, 'gi'));
+  cleanTags.forEach( function(tag) {
+    tagRegexArr.push(new RegExp(tag, 'gi'));
   });
 
   var foundKeywords = [];
-  tagRegexArr.forEach( function( tagRegex ) {
+  tagRegexArr.forEach( function(tagRegex) {
     var matchingArr = pageText.match(tagRegex);
-    foundKeywords.push( matchingArr );
+    foundKeywords.push(matchingArr);
   });
 
   var keywordsObj = {}
@@ -113,8 +113,8 @@ function findKeywords( keywordsArray, pageText ) {
   return keywordsObj;
 }
 
-function compareKeywordCounts(giblet, url, newKeywordCounts) {
-  var urlProp = removeDots( url );
+function compareKeywordCounts ( giblet, url, newKeywordCounts ) {
+  var urlProp = removeDots(url);
   var oldKeywordCounts = {};
   if (giblet.webData[urlProp]) {
     oldKeywordCounts = giblet.webData[urlProp].keywordCounts;
