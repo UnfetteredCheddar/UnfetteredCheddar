@@ -8,7 +8,7 @@ exposed.route('/', {
   action: function () {
     BlazeLayout.render('app_body', {header: 'header', main: 'welcome', footer: 'footer'});
   }
-})
+});
 
 //Logged-in routes:
 loggedIn = FlowRouter.group({
@@ -17,7 +17,7 @@ loggedIn = FlowRouter.group({
       FlowRouter.go('welcome');
     }
   }]
-})
+});
 
 loggedIn.route('/', {
   name: 'dashboard',
@@ -59,5 +59,3 @@ Meteor.methods({
 Tracker.autorun(function () {
   Meteor.call('checkForUser');
 });
-
-

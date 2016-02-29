@@ -70,7 +70,7 @@ if (Meteor.isServer) {
 function removeDots( url ) {
   var dots = /\./g;
   return url.replace(/\./g, '');
-};
+}
 
 function scrapePage(url) {
   var webpage = Scrape.url(url);
@@ -78,16 +78,16 @@ function scrapePage(url) {
   $('script').remove();
   var webpageText = $('body').text().replace(/\n/g, ' ').replace(/\t/g, ' ').replace('  ', ' ');
   return webpageText;
-};
+}
 
 function hashText( pageText ) {
   return CryptoJS.SHA1(pageText).toString();
-};
+}
 
 function compareHash( giblet, url, newHash ) {
   var urlProp = removeDots( url );
   return ( !giblet.webData[urlProp] || giblet.webData[urlProp].hash !== newHash );
-};
+}
 
 function findKeywords( keywordsArray, pageText ) {
   var cleanTags = Tags.clean( keywordsArray );
@@ -111,7 +111,7 @@ function findKeywords( keywordsArray, pageText ) {
   });
 
   return keywordsObj;
-}; 
+}
 
 function compareKeywordCounts(giblet, url, newKeywordCounts) {
   var urlProp = removeDots( url );
@@ -126,4 +126,4 @@ function compareKeywordCounts(giblet, url, newKeywordCounts) {
     }
   }
   return keywordDiffs;
-};
+}
