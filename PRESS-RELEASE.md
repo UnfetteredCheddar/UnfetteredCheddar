@@ -1,4 +1,4 @@
-# Project Name #
+# Gobbler #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -44,17 +44,11 @@ Closing and Call to action
   Thanks for reading about what Gobbler can do for you. Now get out there and get Gobbling!
 
 
-
-
-
-
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+## Let the internet check the internet for you ##
+  > Gobbler is a tool that automatically checks for page updates in any url.
 
 ## Summary ##
+  > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords that you'd like to check for on those pages, and Gobbler will let you know if there's any updates. Are you
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
 
 ## Problem ##
