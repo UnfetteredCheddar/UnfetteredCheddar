@@ -6,16 +6,18 @@ if (Meteor.isServer) {
       var urlArray = giblet.url;
       urlArray.forEach( function ( url ) {
         console.log("each url in array", url);
-        var webpageText = scrapePage(url);
-        var hash = hashText(webpageText);
-        var pageHasChanged = compareHash(giblet, url, hash);
-        if (pageHasChanged) {
-          var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
-          var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
-          if (keywordDiffs.length) {
-            Meteor.call('createNotification', giblet, url, keywordDiffs);
+        if (url) {
+          var webpageText = scrapePage(url);
+          var hash = hashText(webpageText);
+          var pageHasChanged = compareHash(giblet, url, hash);
+          if (pageHasChanged) {
+            var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
+            var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
+            if (keywordDiffs.length) {
+              Meteor.call('createNotification', giblet, url, keywordDiffs);
+            }
+            Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
           }
-          Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
         }
       });
     },
