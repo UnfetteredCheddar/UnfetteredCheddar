@@ -28,10 +28,6 @@ Gobble the internet
 
   >
 
-  > Have you been wasting your time checking websites over and over to look for updates?
-
-  > Gobbler automatically checks for updates for you so you can get notified and check back to these websites only when it's necessary
-
   >
 
   > "Using Gobbler is not cheating" - the Gobbler team
