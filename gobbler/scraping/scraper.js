@@ -35,12 +35,7 @@ if (Meteor.isServer) {
       var webDataCopy = giblet.webData;
       var urlProp = removeDots(url);
       webDataCopy[urlProp] = updatedUrlObj;
-
-      Giblets.update({_id: giblet._id}, 
-        {$set: {
-          webData: webDataCopy
-        }
-      });
+      Giblets.update({_id: giblet._id}, {$set: { webData: webDataCopy }});
     }
   });
 }
