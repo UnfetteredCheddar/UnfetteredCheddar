@@ -1,4 +1,4 @@
-# Project Name #
+# Gobbler #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -18,59 +18,24 @@ Once the project moves into development, the press release can be used as a touc
 
 
 
-Gobbler
-Gobble the internet at high speed
+Gobble the internet
 
-Gobbler is a tool for repeatedly checking on the contents of many locations around the web.
-Sites can be searched repeatedly and the user will be notified in the event of a keyword match.
+## No more time wasted checking for updates ##
+  > Gobbler is a tool that automatically checks for page updates at any webpage and notifies the user when there's been an update.
 
-Problem
-  
-Solution
+## The General Idea ##
+  > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords to search for, and Gobbler will let you know if there have been any relevant updates to the page. Waiting for job postings? Looking for a specific item on Craigslist? Let Gobbler do the checking, so you can spend your time doing the things you want to do.
 
+  >
 
-Quote from you
-  "Using Gobbler is not cheating"
+  >
 
-How to get started
-  Simply create an account and set up a few search jobs.
-  Find URL's that you check often. Enter them into the Gobbler job, set a few keywords and an update frequency. Decide how you would like to be notified and let the machine take over!
-
-Customer Quote
-  "Before Gobbler I spent nearly four hours each day checking the same websites over and over. Now I can set my search queries and live a normal life. My antique doll collection and my happiness has been growing at an exponential rate since joining Gobbler."
-
-
-Closing and Call to action
-  Thanks for reading about what Gobbler can do for you. Now get out there and get Gobbling!
-
-
-
-
-
-
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-
-## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-
-## Problem ##
-  > Describe the problem your product solves.
-
-## Solution ##
-  > Describe how your product elegantly solves the problem.
-
-## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "Using Gobbler is not cheating" - the Gobbler team
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Simply log in at www.gobblerweb.com, enter some URLs and some keywords you'd like to search, and let the magic happen.
 
-## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "Before Gobbler I spent nearly four hours each day checking the same websites over and over. Now I can set my search queries and live a normal life. My antique doll collection and my happiness have been growing at an exponential rate since joining Gobbler." - anonymous
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+
+  > Visit www.gobblerweb.com to sign up, or check out https://github.com/UnfetteredCheddar/UnfetteredCheddar for the repository.
