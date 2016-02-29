@@ -48,8 +48,7 @@ Closing and Call to action
   > Gobbler is a tool that automatically checks for page updates in any url.
 
 ## Summary ##
-  > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords that you'd like to check for on those pages, and Gobbler will let you know if there's any updates. Are you
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords that you'd like to check for on those pages, and Gobbler will let you know if there are any updates to it. Checking for job postings? Looking for a specific item on Craigslist? Let Gobbler check these things for you so you can spend your time doing the things you want to do.
 
 ## Problem ##
   > Describe the problem your product solves.
