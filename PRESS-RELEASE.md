@@ -24,7 +24,7 @@ Gobble the internet
   > Gobbler is a tool that automatically checks for page updates at any webpage and notifies the user when there's been an update.
 
 ## Summary ##
-  > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords to search for, and Gobbler will let you know if there have been any relevant updates to the page. Waiting for job postings? Looking for a specific item on Craigslist? Let Gobbler do the checking so you can spend your time doing the things you want to do.
+  > A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does this checking for you. Enter some URLs and some keywords to search for, and Gobbler will let you know if there have been any relevant updates to the page. Waiting for job postings? Looking for a specific item on Craigslist? Let Gobbler watch for any changes, so you can spend your time doing the things you want to do.
 
 ## Problem ##
   > Wasting time checking websites over and over to look for updates
