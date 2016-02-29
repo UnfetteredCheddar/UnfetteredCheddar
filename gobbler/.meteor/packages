@@ -33,3 +33,4 @@ fermuch:cheerio
 underscore
 momentjs:moment
 email
+http
