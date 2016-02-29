@@ -65,7 +65,7 @@ if (Meteor.isServer) {
       });
     }
   });
-};
+}
 
 function removeDots( url ) {
   var dots = /\./g;

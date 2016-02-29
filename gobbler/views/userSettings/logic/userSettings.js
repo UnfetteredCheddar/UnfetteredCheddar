@@ -15,4 +15,4 @@ if (Meteor.isClient) {
       Meteor.call('addUserSettings', userSettings);
     }
   });
-};
+}
