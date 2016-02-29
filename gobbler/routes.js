@@ -14,10 +14,6 @@ exposed.route('/', {
 loggedIn = FlowRouter.group({
   triggersEnter: [ function () {
     if(!Meteor.userId()) {
-      route = FlowRouter.current();
-      if(route.route.name != 'welcome') {
-       Session.set('redirectAfterLogin', route.path);
-      }
       FlowRouter.go('welcome');
     }
   }]
@@ -26,7 +22,6 @@ loggedIn = FlowRouter.group({
 loggedIn.route('/', {
   name: 'dashboard',
   action: function () {
-    console.log('arrived at dashboard!');
     BlazeLayout.render('app_body', {header: 'header', main: 'dashboard', footer: 'footer'});
   }
 });
@@ -50,12 +45,7 @@ FlowRouter.notFound = {
 
 //Handle log in and log out
 Accounts.onLogin(function () {
-  var redirect = Session.get('redirectAfterLogin');
-  if(redirect && redirect !== '/welcome') {
-    FlowRouter.go(redirect);
-  } else {
-    FlowRouter.go('dashboard');
-  }
+  FlowRouter.go('dashboard');
 });
 
 Meteor.methods({
