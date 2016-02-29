@@ -30,11 +30,16 @@ if (Meteor.isServer) {
       var webDataCopy = giblet.webData;
       var urlProp = removeDots(url);
       webDataCopy[urlProp] = updatedUrlObj;
+      Giblets.update({_id: giblet._id}, {$set: { webData: webDataCopy }});
+    },
 
-      Giblets.update({_id: giblet._id}, 
-        {$set: {
-          webData: webDataCopy
-        }
+    createNotification: function ( giblet, url, notificationKeys) {
+      Notifications.insert({
+        createdAt: new Date(),
+        owner: giblet.owner,
+        gibletID: giblet._id,
+        keywords: notificationKeys,
+        url: url
       });
     }
   });
