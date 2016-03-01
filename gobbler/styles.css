@@ -51,7 +51,7 @@ input[type="text"] {
   border: none;
   margin: 3px;
   background: #f2f2f2;
-  width: 80%;
+  /*width: 80%;*/
 }
 
 .bodyView {
@@ -70,6 +70,31 @@ input[type="text"] {
   border: 3px solid black;
   border-radius: 10px;
   max-width: 800px;
+
+  margin: 10px;
+}
+
+.userSettingsView {
+  font-size: 30px;
+}
+.userSettingsView:input {
+  font-size: 40px;
+  height: 40px;
+}
+.userSettingsView:label {
+  margin: 50px;
+}
+
+.urlLine {
+  height: 15px;
+}
+.urlLine:input[type="text"] {
+  width: 80%;
+}
+
+.urlTextInput {
+  font-size: 15px;
+  height: 30px;
 }
 
 .gibletTitleInput {
@@ -84,13 +109,17 @@ input[type="text"] {
   float: right;
 }
 
+.littleButton {
+  margin-top: 10px;
+}
+
 .urlLine {
   clear: both;
 }
 
 .urlTextInput {
   float: left;
-  width: 300px;
+  width: 90%;
 }
 
 .addUrlButton {
@@ -106,10 +135,15 @@ input[type="text"] {
 .keywordDiv {
   clear: both;
 }
+.keywordDiv:input[type="text"] {
+  width: 80%;
+}
 
 .keywordInput {
-  width: 215px;
+  font-size: 20px;
+  width: 80%;
 }
+
 
 .cronJobTimer {
   width: 35px;
