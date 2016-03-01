@@ -46,11 +46,11 @@ if (Meteor.isServer) {
       });
     },
 
-		sendSMS: function( giblet, url, notificationKeys ) {
+    sendSMS: function( giblet, url, notificationKeys ) {
 			var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
-			HTTP.call(
+      HTTP.call(
         "POST",
         'https://api.twilio.com/2010-04-01/Accounts/' +
         process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
