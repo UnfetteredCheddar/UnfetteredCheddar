@@ -19,7 +19,6 @@ if (Meteor.isServer) {
         Meteor.call('sendEmail', giblet, url, notificationKeys);
       }
       if (giblet.SMS) {
-        console.log("SMS");
         Meteor.call('sendSMS', giblet, url, notificationKeys);
       }
     },
