@@ -56,7 +56,7 @@ if (Meteor.isServer) {
         process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
             params: {
                 From: process.env.TWILIO_NUMBER,
-                To: process.env.TEST_NUMBER,  // +19253266702
+                To: process.env.TEST_NUMBER,
                 Body: text
             },
             // Set your credentials as environment variables
