@@ -1,6 +1,25 @@
 Giblets = new Mongo.Collection('giblets');
 Notifications = new Mongo.Collection('notifications');
 
+
+if (Meteor.isServer) {
+  Meteor.methods({
+      startGibletsOnBoot: function() {
+        var giblets = Giblets.find().fetch();
+        for( var giblet in giblets ) {
+          var thisGiblet = giblets[giblet];
+          console.log(thisGiblet.active);
+          if (thisGiblet.active) {
+            // start cron job!
+            Meteor.call('scheduleGiblet', thisGiblet._id, thisGiblet.frequency)
+          }
+        }
+      }
+  });
+  Meteor.call('startGibletsOnBoot');
+}
+
+
 Meteor.methods({
   updateGiblet: function ( gibletID, data ) {
     Giblets.update({_id: gibletID}, {$set: data});
