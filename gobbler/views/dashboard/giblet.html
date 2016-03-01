@@ -14,13 +14,13 @@
             <!-- Subtract Url Button -->
             {{#if subtractOne ../url.length}}
               <div class="subtractUrlButton" gibletID="{{../_id}}" urlIndex="{{@index}}">
-                <img src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="10px">
+                <img class="littleButton" src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="15px">
               </div>
             {{/if}}
             <!-- Add Url Button -->
             {{#if compareIndexLength @index ../url.length}}
               <div class="addUrlButton" gibletID="{{../_id}}">
-                <img src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="10px">
+                <img class="littleButton" src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="15px">
               </div>
             {{/if}}
           </div>
@@ -28,7 +28,7 @@
       </div>
 
       <div class="keywordDiv">Keywords:
-        <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" size="35">
+        <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" >
       </div>
 
       <div>
