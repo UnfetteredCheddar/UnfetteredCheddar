@@ -19,7 +19,6 @@ if (Meteor.isServer) {
         Meteor.call('sendEmail', giblet, url, notificationKeys);
       }
       if (giblet.SMS) {
-        console.log("SMS");
         Meteor.call('sendSMS', giblet, url, notificationKeys);
       }
     },
@@ -50,13 +49,14 @@ if (Meteor.isServer) {
       var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
+      var TO_NUMBER = user.chosenPhoneNumber || process.env.TEST_NUMBER;
       HTTP.call(
         "POST",
         'https://api.twilio.com/2010-04-01/Accounts/' +
         process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
             params: {
                 From: process.env.TWILIO_NUMBER,
-                To: process.env.TEST_NUMBER,  // +19253266702
+                To: TO_NUMBER,
                 Body: text
             },
             // Set your credentials as environment variables
