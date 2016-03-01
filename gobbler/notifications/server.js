@@ -49,13 +49,14 @@ if (Meteor.isServer) {
       var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
+      var TO_NUMBER = user.chosenPhoneNumber || process.env.TEST_NUMBER;
       HTTP.call(
         "POST",
         'https://api.twilio.com/2010-04-01/Accounts/' +
         process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
             params: {
                 From: process.env.TWILIO_NUMBER,
-                To: process.env.TEST_NUMBER,
+                To: TO_NUMBER,
                 Body: text
             },
             // Set your credentials as environment variables
