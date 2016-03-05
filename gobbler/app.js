@@ -25,8 +25,7 @@ Meteor.methods({
     Giblets.update({_id: gibletID}, {$set: data});
   },
   addUserSettings: function ( userSettings ) {
-    var currentUser = Meteor.users.find().fetch();
-    var userId = currentUser[0]._id;
+    var userId = Meteor.userId();
     Meteor.users.update({_id: userId},
       {$set: {
         chosenName: userSettings.chosenName,
