@@ -8,15 +8,6 @@ if (Meteor.isClient) {
     }
   });
 
-  var enterReminderShow = function ( event ) {
-    var reminder = event.target.form.children[0];
-    reminder.style.visibility = 'unset';
-  };
-  var enterReminderHide = function ( event ) {
-    var reminder = event.target.form.children[0];
-    reminder.style.visibility = 'hidden';
-  };
-
   // Populate giblets as user fill outs form
   Template.giblet.events({
     'change .gibletTitleInput': function ( event ) {

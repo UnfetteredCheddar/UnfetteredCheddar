@@ -2,8 +2,10 @@
 {{>navBar}}
   <div class='bodyView'>
     {{> gibletForm }}
-    {{#each giblets}}
-      {{> giblet}}
-    {{/each}}
+    {{#momentum plugin='slide-height'}}
+      {{#each giblets}}
+        {{> giblet}}
+      {{/each}}
+    {{/momentum}}
   </div>
 </template>
