@@ -5,6 +5,11 @@
       <!-- Title -->
       <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
 
+      <div>
+        Giblet On / Off
+        <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
+      </div>
+
       <div class="urlDiv">
         <!-- Url list -->
         {{#each url}}
@@ -46,12 +51,7 @@
         <span class="fa fa-email"></span>
         <input type="checkbox" class="emailStatus" checked="{{email}}">
       </div>
-      <div>
-        Giblet On / Off
-        <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
-      </div>
       <div class="removeGibletButton" gibletID="{{_id}}">
-        <img src="/close-background.png">
         <span class="fa fa-times-circle"></span>
       </div>
     </form>
