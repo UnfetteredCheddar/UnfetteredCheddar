@@ -55,11 +55,11 @@ if (Meteor.isClient) {
           }
         }
       });
-      appendSavedMessage();
       // Get values from form element
       var chosenName = event.target.name.value;
       var chosenPhoneNumber = formatPhoneNumber(event.target.phone.value);
       var chosenEmail = event.target.email.value;
+      appendSavedMessage();
       var userSettings = {
         chosenName: chosenName,
         chosenPhoneNumber: chosenPhoneNumber,
@@ -75,6 +75,7 @@ function formatPhoneNumber(num) {
   if (!num.length) {
     return '';
   }
+  var validChars = /[^\d|\+]/g;
   var newNum = num.split(' ').join('').split('-').join('').split('(').join('').split(')').join('').split('+');
   if (newNum[0][0] === '1' || newNum[1] && newNum[1][0] === '1') {
     newNum.splice(0, 0, '+');
@@ -82,11 +83,25 @@ function formatPhoneNumber(num) {
     newNum.splice(0, 0, '+1');
   }
   newNum = newNum.join('');
-  return newNum;
+
+  if (newNum.search(validChars) === -1) {
+    if ( $('#changesSaved').has('#invalid-phone').length ) {
+      $('#invalid-phone').remove();
+    }
+    return newNum;
+  } else {
+    if ( ! $('#changesSaved').has('#invalid-phone').length ) {
+      if ( $('#changesSaved').has('#saved-changes-message').length ) {
+        $('#saved-changes-message').remove();
+      }
+      $('#changesSaved').append('<p id="invalid-phone">Please enter a valid phone number</p>');
+    }
+    return '';
+  }
 }
 
 function appendSavedMessage() {
   if ( ! $('#changesSaved').has('p').length ) {
-    $('#changesSaved').append('<p>Your settings have been saved</p>');
+    $('#changesSaved').append('<p id="saved-changes-message">Your settings have been saved</p>');
   }
 }
