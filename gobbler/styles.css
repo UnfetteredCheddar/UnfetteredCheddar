@@ -69,6 +69,10 @@ input[type="text"] {
   border: 3px solid black;
   border-radius: 10px;
   max-width: 800px;
+<<<<<<< HEAD
+=======
+  font-size: 1.25rem;
+>>>>>>> 2ed44e9ccba33daace599df95b3c8fb5dd184921
 }
 
 .userSettingsView {
