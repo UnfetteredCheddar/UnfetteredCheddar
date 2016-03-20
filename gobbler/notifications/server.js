@@ -56,34 +56,31 @@ if (Meteor.isServer) {
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
       if ( user.chosenPhoneNumber ) {
-        // send SMS
         var TO_NUMBER = user.chosenPhoneNumber || process.env.TEST_NUMBER;
         HTTP.call(
           "POST",
           'https://api.twilio.com/2010-04-01/Accounts/' +
           process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
-              params: {
-                  From: process.env.TWILIO_NUMBER,
-                  To: TO_NUMBER,
-                  Body: text
-              },
-              // Set your credentials as environment variables
-              // so that they are not loaded on the client
-              auth:
-                  process.env.TWILIO_ACCOUNT_SID + ':' +
-                  process.env.TWILIO_AUTH_TOKEN
+            params: {
+              From: process.env.TWILIO_NUMBER,
+              To: TO_NUMBER,
+              Body: text
+            },
+            // Set your credentials as environment variables
+            // so that they are not loaded on the client
+            auth:
+              process.env.TWILIO_ACCOUNT_SID + ':' +
+              process.env.TWILIO_AUTH_TOKEN
           },
           // Print error or success to console
           function (error) {
-              if (error) {
-                  console.log('Twilio Error: ', error);
-              }
-              else {
-                  console.log('SMS sent successfully.');
-              }
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('SMS sent successfully.');
+            }
           }
         );
-
       } else {
         // no phone number on file
         console.log('User has no phone number in settings!');

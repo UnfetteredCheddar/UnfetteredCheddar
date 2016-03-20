@@ -1,7 +1,7 @@
 if (Meteor.isServer) {
   Meteor.publish("usersChosenData", function () {
     var output = Meteor.users.find(
-      { _id: this.userId}, 
+      { _id: this.userId},
       { fields:
         { 'services': 1,
           'chosenName': 1,
@@ -37,7 +37,7 @@ if (Meteor.isClient) {
       event.preventDefault();
       // Get values from form element
       var chosenName = event.target.name.value;
-      var chosenPhoneNumber = event.target.phone.value;
+      var chosenPhoneNumber = formatPhoneNumber(event.target.phone.value);
       var chosenEmail = event.target.email.value;
       var userSettings = {
         chosenName: chosenName,
@@ -48,3 +48,16 @@ if (Meteor.isClient) {
     }
   });
 }
+
+// helper function to format number correctly for Twilio SMS
+function formatPhoneNumber(num) {
+  var newNum = num.split(' ').join('').split('-').join('').split('(').join('').split(')').join('').split('+');
+  if (newNum[0][0] === '1' || newNum[1] && newNum[1][0] === '1') {
+    newNum.splice(0, 0, '+');
+  } else {
+    newNum.splice(0, 0, '+1');
+  }
+  newNum = newNum.join('');
+  return newNum;
+}
+
