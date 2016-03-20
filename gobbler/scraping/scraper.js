@@ -4,21 +4,38 @@ if (Meteor.isServer) {
     runGiblet: function ( gibletID ) {
       var giblet = Giblets.findOne({_id: gibletID});
       var urlArray = giblet.url;
+      
+      // console.log('Run giblet: ---------------- ', giblet);
+      // console.log('urlArray: ', urlArray);
+
       urlArray.forEach( function ( url ) {
-        console.log("each url in array", url);
+        // checks if urlArray is truthy. Don't proceed without truthy url data
         if (url) {
+          console.log('Run giblet on: ', url);
+          
           var webpageText = scrapePage(url);
           if (webpageText !== '') {
+            
+            console.log('2 webpage text: ', url);
+
             var hash = hashText(webpageText);
             var pageHasChanged = compareHash(giblet, url, hash);
-            if (pageHasChanged) {
-              var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
-              var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
-              if (keywordDiffs.length) {
-                Meteor.call('createNotification', giblet, url, keywordDiffs);
-              }
-              Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
-            }
+
+
+            // temporary placing this here to get it done faster
+            var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
+
+            // if (pageHasChanged) {
+            //   console.log('3 page has changed: ', url);
+
+            //   var newKeywordCounts = findKeywords(giblet.keywords, webpageText);
+            //   var keywordDiffs = compareKeywordCounts(giblet, url, newKeywordCounts);
+            //   if (keywordDiffs.length) {
+            //     console.log('4 Keywords diff : ', url);
+            //     Meteor.call('createNotification', giblet, url, keywordDiffs);
+            //   }
+            //   Meteor.call('updateWebData', giblet, url, hash, newKeywordCounts);
+            // }
           }
         }
       });
@@ -73,7 +90,11 @@ function compareHash ( giblet, url, newHash ) {
 
 // get the keyword count
 function findKeywords ( keywordsArray, pageText ) {
-  var cleanTags = Tags.clean( keywordsArray );
+  console.log('Keywords array', keywordsArray);
+  // var cleanTags = Tags.clean( keywordsArray );
+  var cleanTags = keywordsArray;
+  console.log('Clean tags: ================= ', cleanTags);
+
   // convert tags to case-insensitive regular expressions
   var tagRegexArr = [];
   cleanTags.forEach( function(tag) {

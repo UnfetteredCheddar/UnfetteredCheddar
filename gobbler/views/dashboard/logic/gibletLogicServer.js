@@ -72,6 +72,9 @@ if (Meteor.isServer) {
       Giblets.update({'_id': id}, {$set: {active: newActiveValue}});
       
       if (newActiveValue) {
+        // run giblet once on start
+        Meteor.call('runGiblet', id);
+        // schdedule giblet for recurring future jobs
         Meteor.call('scheduleGiblet', id, frequency );
       } else {
         Meteor.call('stopGiblet', id);

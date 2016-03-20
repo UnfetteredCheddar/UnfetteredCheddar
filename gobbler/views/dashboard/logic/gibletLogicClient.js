@@ -34,6 +34,8 @@ if (Meteor.isClient) {
       var id = event.currentTarget.form.attributes['gibletID'].value;
       var newKeywords = event.currentTarget.value;
       var keywordArray = newKeywords.split(',');
+      console.log('Keyword array client side: ', keywordArray);
+
       Meteor.call('updateKeywordArray', id, keywordArray);
     },
     'change .cronJobTimer': function ( event ) {       
