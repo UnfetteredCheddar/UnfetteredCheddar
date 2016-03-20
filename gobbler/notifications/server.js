@@ -24,15 +24,10 @@ if (Meteor.isServer) {
     },
 
     sendEmail: function( giblet, url, notificationKeys ) {
-      console.log('Attempt sending of email: ----------------------------------------------------');
-      console.log('Mail Url env', process.env.MAIL_URL)
-
       var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
       var email;
-
-      console.log('About to send email!: ', user);
 
       // TODO: un comment these when google/facebook auth are working
       // if (user.services.facebook) {
@@ -44,7 +39,6 @@ if (Meteor.isServer) {
 
       if (user.chosenEmail) {
         email = user.chosenEmail;
-        
         Email.send({
           to: email,
           from: 'GobblerGonnaGobble@gmail.com',
