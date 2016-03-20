@@ -157,8 +157,7 @@ input[type="text"] {
   border-radius: 5px;
 }
 
-.welcome {
-  margin: 10px;
+.welcomeBodyView {
+  border-top: 10px solid rgb(84,70,0);
   padding: 10px;
-  text-align: center;
 }
