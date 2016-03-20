@@ -7,20 +7,20 @@
 
       <div class="urlDiv">
         <!-- Url list -->
-        {{#each url}}    
+        {{#each url}}
           <div class="urlLine" urlIndex="{{@index}}">
             <input class="urlTextInput" value="{{this}}" type="text" placeholder="Url here...">
 
             <!-- Subtract Url Button -->
             {{#if subtractOne ../url.length}}
               <div class="subtractUrlButton" gibletID="{{../_id}}" urlIndex="{{@index}}">
-                <img src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="10px">
+                <span class="fa fa-minus-square"></span>
               </div>
             {{/if}}
             <!-- Add Url Button -->
             {{#if compareIndexLength @index ../url.length}}
               <div class="addUrlButton" gibletID="{{../_id}}">
-                <img src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="10px">
+                <span class="fa fa-plus-square"></span>
               </div>
             {{/if}}
           </div>
@@ -32,7 +32,7 @@
       </div>
 
       <div>
-        Check every: 
+        Check every:
         <input class="cronJobTimer" value="{{frequency}}" type="number" gibletID="{{_id}}"/>
         minutes
       </div>
