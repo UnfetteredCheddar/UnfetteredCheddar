@@ -7,20 +7,20 @@
 
       <div class="urlDiv">
         <!-- Url list -->
-        {{#each url}}    
+        {{#each url}}
           <div class="urlLine" urlIndex="{{@index}}">
             <input class="urlTextInput" value="{{this}}" type="text" placeholder="Url here...">
 
             <!-- Subtract Url Button -->
             {{#if subtractOne ../url.length}}
               <div class="subtractUrlButton" gibletID="{{../_id}}" urlIndex="{{@index}}">
-                <img class="littleButton" src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="15px">
+                <span class="fa fa-minus-square"></span>
               </div>
             {{/if}}
             <!-- Add Url Button -->
             {{#if compareIndexLength @index ../url.length}}
               <div class="addUrlButton" gibletID="{{../_id}}">
-                <img class="littleButton" src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="15px">
+                <span class="fa fa-plus-square"></span>
               </div>
             {{/if}}
           </div>
@@ -32,15 +32,17 @@
       </div>
 
       <div>
-        Check every: 
+        Check every:
         <input class="cronJobTimer" value="{{frequency}}" type="number" gibletID="{{_id}}"/>
         minutes
       </div>
 
       <div>
         Alert me via: SMS
+        <span class="fa fa-mobile"></span>
         <input type="checkbox" class="smsStatus" checked="{{SMS}}">
         Email
+        <span class="fa fa-email"></span>
         <input type="checkbox" class="emailStatus" checked="{{email}}">
       </div>
       <div>
@@ -49,6 +51,7 @@
       </div>
       <div class="removeGibletButton" gibletID="{{_id}}">
         <img src="/close-background.png">
+        <span class="fa fa-times-circle"></span>
       </div>
     </form>
 
