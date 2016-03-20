@@ -35,6 +35,7 @@ if (Meteor.isClient) {
   Template.userSettings.events({
     "submit .userSettings": function ( event ) {
       event.preventDefault();
+      appendSavedMessage();
       // Get values from form element
       var chosenName = event.target.name.value;
       var chosenPhoneNumber = formatPhoneNumber(event.target.phone.value);
@@ -43,7 +44,7 @@ if (Meteor.isClient) {
         chosenName: chosenName,
         chosenPhoneNumber: chosenPhoneNumber,
         chosenEmail: chosenEmail
-      }
+      };
       Meteor.call('addUserSettings', userSettings);
     }
   });
@@ -64,3 +65,8 @@ function formatPhoneNumber(num) {
   return newNum;
 }
 
+function appendSavedMessage() {
+  if ( ! $('#changesSaved').has('p').length ) {
+    $('#changesSaved').append('<p>Your settings have been saved</p>');
+  }
+}
