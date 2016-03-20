@@ -111,3 +111,50 @@ function compareKeywordCounts ( giblet, url, newKeywordCounts ) {
   }
   return keywordDiffs;
 }
+
+function findKeywordsAndSentences (keywordsArray, pageText) {
+  var allSentences = [];
+  var pageArr = pageText.replace(/\s\s+/g, ' ').toLowerCase().split(' ');
+  for(var i = 0; i < keywordsArray.length; i++) {
+    var keywordSentences = [];
+    var keyword = keywordsArray[i].trim().replace(/\s\s+/g, ' ').toLowerCase();
+    var keywordArr = keyword.split(' ');
+    // var wordCount = keyword.split(' ').length;
+    for(var j = 0; j < pageArr.length; j++) {
+      if(keywordArr[0] == pageArr[j].replace(/[^\w\s]|_/g, "")) {
+        //compare other letters of keyword
+        var match = true;
+        for(var k = 1; k < keywordArr.length; k++) {
+          if(match) {
+            if(keywordArr[k] !== pageArr[j + k].replace(/[^\w\s]|_/g, "")) {
+              match = false;
+            }
+          }
+        }
+        if(match) {
+          var sentence = '';
+          var beforeMatch = '';
+          var l = 1;
+          while(pageArr[j-l] && pageArr[j-l].replace(/[\w\s\,]|_/g, "").length === 0 && l < 50){
+            //add word to sentence
+            beforeMatch += ' ' + pageArr[j-l];
+            l++;
+          }
+          beforeMatch = beforeMatch.split(' ').reverse().join(' ');
+          var afterMatch = '';
+          var m = 0;
+          while(pageArr[j+m] && pageArr[j+m-1].replace(/[\w\s\,]|_/g, "").length === 0 && m < 50){
+            //add word to sentence
+            afterMatch += ' ' + pageArr[j+m];
+            m++;
+          }
+          sentence = beforeMatch.trim() + ' ' + afterMatch.trim();
+          // make sure we dont already have it
+          keywordSentences.push(sentence.trim());
+        }
+      }
+    }
+    allSentences = allSentences.concat(keywordSentences);
+  }
+  return allSentences;
+}
