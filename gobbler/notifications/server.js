@@ -24,57 +24,75 @@ if (Meteor.isServer) {
     },
 
     sendEmail: function( giblet, url, notificationKeys ) {
+      console.log('Attempt sending of email: ----------------------------------------------------');
+      console.log('Mail Url env', process.env.MAIL_URL)
+
       var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
       var email;
-      if (user.services.facebook) {
-        email = user.services.facebook.email;
-      }
-      if (user.services.google) {
-        email = user.services.google.email;
-      }
+
+      console.log('About to send email!: ', user);
+
+      // if (user.services.facebook) {
+      //   email = user.services.facebook.email;
+      // }
+      // if (user.services.google) {
+      //   email = user.services.google.email;
+      // // }
+
       if (user.chosenEmail) {
         email = user.chosenEmail;
+        
+        Email.send({
+          to: email,
+          from: 'GobblerGonnaGobble@gmail.com',
+          subject: subject,
+          text: text
+        });
+      } else {
+        console.log('No email in user settings!');
       }
-      Email.send({
-        to: email,
-        from: 'GobblerGonnaGobble@gmail.com',
-        subject: subject,
-        text: text
-      });
+
     },
 
     sendSMS: function( giblet, url, notificationKeys ) {
       var user = Meteor.users.findOne({_id: giblet.owner});
       var subject = 'Gobbler alert: Found keywords from ' + giblet.taskname;
       var text = 'Found keywords ' + notificationKeys.join(', ') + ' at ' + url;
-      var TO_NUMBER = user.chosenPhoneNumber || process.env.TEST_NUMBER;
-      HTTP.call(
-        "POST",
-        'https://api.twilio.com/2010-04-01/Accounts/' +
-        process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
-            params: {
-                From: process.env.TWILIO_NUMBER,
-                To: TO_NUMBER,
-                Body: text
-            },
-            // Set your credentials as environment variables
-            // so that they are not loaded on the client
-            auth:
-                process.env.TWILIO_ACCOUNT_SID + ':' +
-                process.env.TWILIO_AUTH_TOKEN
-        },
-        // Print error or success to console
-        function (error) {
-            if (error) {
-                console.log(error);
-            }
-            else {
-                console.log('SMS sent successfully.');
-            }
-        }
-      );
+      if ( user.chosenPhoneNumber ) {
+        // send SMS
+        var TO_NUMBER = user.chosenPhoneNumber || process.env.TEST_NUMBER;
+        HTTP.call(
+          "POST",
+          'https://api.twilio.com/2010-04-01/Accounts/' +
+          process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
+              params: {
+                  From: process.env.TWILIO_NUMBER,
+                  To: TO_NUMBER,
+                  Body: text
+              },
+              // Set your credentials as environment variables
+              // so that they are not loaded on the client
+              auth:
+                  process.env.TWILIO_ACCOUNT_SID + ':' +
+                  process.env.TWILIO_AUTH_TOKEN
+          },
+          // Print error or success to console
+          function (error) {
+              if (error) {
+                  console.log('Twilio Error: ', error);
+              }
+              else {
+                  console.log('SMS sent successfully.');
+              }
+          }
+        );
+
+      } else {
+        // no phone number on file
+        console.log('User has no phone number in settings!');
+      }
 		}
   });
 }
