@@ -35,6 +35,26 @@ if (Meteor.isClient) {
   Template.userSettings.events({
     "submit .userSettings": function ( event ) {
       event.preventDefault();
+      $('.userSettings').validate({
+        rules: {
+          email: {
+            email: true
+          },
+          phone: {
+            minlength: 10,
+            maxlength: 20
+          }
+        },
+        messages: {
+          email: {
+            email: 'Please enter a valid email address.'
+          },
+          phone: {
+            minlength: 'Please enter a valid phone number.',
+            maxlength: 'Please enter a valid phone number.'
+          }
+        }
+      });
       appendSavedMessage();
       // Get values from form element
       var chosenName = event.target.name.value;

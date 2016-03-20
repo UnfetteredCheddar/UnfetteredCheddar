@@ -244,3 +244,7 @@ input:focus {
 .save-user-btn:focus {
   outline: none;
 }
+
+input.error{
+  background-color: rgb(255, 231, 231);
+}
