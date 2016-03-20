@@ -50,8 +50,12 @@ if (Meteor.isServer) {
       var key = 'url';
       Giblets.update({'_id': id}, {$set: {url: urlArray}});
     },
-    updateKeywordArray: function ( id, keywordArray ) {
+    updateKeywordArray: function ( id, keywordString ) {
       var giblet = Giblets.findOne({'_id': id});
+      var keywordArray = keywordString.split(',');
+      for( var i = 0; i < keywordArray.length; i++ ) {
+        keywordArray[i] = keywordArray[i].trim();
+      }
       Giblets.update({'_id': id}, {$set: {keywords: keywordArray}})
     },
     toggleSmsStatus: function ( id ) {

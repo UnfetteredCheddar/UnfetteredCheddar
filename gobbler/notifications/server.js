@@ -34,12 +34,13 @@ if (Meteor.isServer) {
 
       console.log('About to send email!: ', user);
 
+      // TODO: un comment these when google/facebook auth are working
       // if (user.services.facebook) {
       //   email = user.services.facebook.email;
       // }
       // if (user.services.google) {
       //   email = user.services.google.email;
-      // // }
+      // }
 
       if (user.chosenEmail) {
         email = user.chosenEmail;

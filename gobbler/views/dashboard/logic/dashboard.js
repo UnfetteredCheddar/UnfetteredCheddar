@@ -11,4 +11,14 @@ if (Meteor.isClient) {
   UI.registerHelper('subtractOne', function ( a ) {
     return a - 1;
   });
+  UI.registerHelper('addSpaceAfterCommas', function ( array ) {
+    var result = '';
+    for( var i = 0; i < array.length; i++ ) {
+      result = result.concat(array[i]);
+      if (i < array.length - 1) {
+        result = result.concat(', ');
+      }
+    }
+    return result;
+  });
 }
