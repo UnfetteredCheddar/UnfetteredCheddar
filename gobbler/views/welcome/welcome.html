@@ -1,17 +1,34 @@
 <template name="welcome">
-  <div class='welcomeBodyView'>
-    <div class='welcomePageView'>
+  <div class='welcomePageView'>
+    <div class='welcomeBodyView'>
       <h1>
         Welcome to Gobbler
       </h1>
-      <div>
-        Description
+      <hr>
+      <br>
+      <div class='welcomeDescription'>
+        <p> 
+          A lot of time gets wasted when you have to manually check for updates to webpages. Gobbler does the checking for you. 
+        </p>
+        <p>
+          Enter some URLs and some keywords to search for, and Gobbler will let you know if there have been any relevant updates to the page. Waiting for job postings? Looking for a specific item on Craigslist? Let Gobbler do the checking, so you can spend your time doing the things you want to do.
+        </p>
       </div>
-      <h3>
-        How it works:
-      </h3>
-      <div>
-        Description of how it works
+      <br>
+      <div class='welcomeHowItWorks'>
+        <h3>
+          How it works:
+        </h3>
+        <ol>
+          <li> Login to Gobbler using link above </li>
+          <li> Create a new Giblet to setup a page scraping job </li>
+          <li> Configure user settings to set email/phone for real-time notifications </li>
+          <li> As you find new URLs or keywords, come back and add them to an existing Giblet </li>
+        </ol>
+        <br>
+        <div class='screenshotContainer'>
+          <img class='screenshot' src="/gibletScreenShot.png">
+        </div>
       </div>
     </div>
   </div>
