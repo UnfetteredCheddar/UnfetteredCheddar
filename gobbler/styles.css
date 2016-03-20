@@ -144,7 +144,6 @@ input[type="text"] {
   width: 80%;
 }
 
-
 .cronJobTimer {
   width: 35px;
 }
@@ -157,8 +156,37 @@ input[type="text"] {
   border-radius: 5px;
 }
 
-.welcome {
-  margin: 10px;
+.welcomePageView {
+  border-top: 10px solid rgb(84,70,0);
   padding: 10px;
-  text-align: center;
 }
+
+.welcomeBodyView {
+  width: 550px;
+}
+
+.welcomeBodyView hr {
+  color: black;
+  background-color: black;
+  width: 400px;
+  border: 0;
+  height: 2px;
+}
+
+.welcomeHowItWorks {
+  background-color: white;
+  border: 5px solid black;
+  border-radius: 8px;
+  padding: 10px;
+  width: 550px;
+}
+
+.welcomeBodyView ol {
+  padding-left: 15px;
+}
+
+.welcomeBodyView img {
+  border: 5px solid black;
+  border-radius: 8px;
+}
+
