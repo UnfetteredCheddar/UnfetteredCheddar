@@ -2,15 +2,35 @@
   {{>navBar}}
   <div class='bodyView'>
     <div class='userSettingsView'>
-      <form action="/" class="userSettings"> 
+      <form action="/" class="userSettings">
         <p>
-          <label for="name"><input value="{{chosenName}}" name="name" class='name-input'> Name</label>
+          <label for="name">
+            <input
+              class="userSettingsInput"
+              placeholder="Full Name"
+              value="{{chosenName}}"
+              name="name">
+          </label>
         </p>
         <p>
-          <label for="phone"><input value="{{chosenPhoneNumber}}" name="phone" type='tel' > Phone</label>
+          <label for="phone">
+            <input
+              class="userSettingsInput"
+              placeholder="Mobile Number"
+              value="{{chosenPhoneNumber}}"
+              name="phone"
+              type='tel'>
+          </label>
         </p>
         <p>
-          <label for="email"><input value="{{chosenEmail}}" name="email" type='email'> Email</label>
+          <label for="email">
+            <input
+              class="userSettingsInput"
+              placeholder="Email Address"
+              value="{{chosenEmail}}"
+              name="email"
+              type='email'>
+          </label>
         </p>
         <p>
           <button class='save-user-btn'>Save Changes</button>

@@ -51,6 +51,9 @@ if (Meteor.isClient) {
 
 // helper function to format number correctly for Twilio SMS
 function formatPhoneNumber(num) {
+  if (!num.length) {
+    return '';
+  }
   var newNum = num.split(' ').join('').split('-').join('').split('(').join('').split(')').join('').split('+');
   if (newNum[0][0] === '1' || newNum[1] && newNum[1][0] === '1') {
     newNum.splice(0, 0, '+');
