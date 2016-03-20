@@ -1,56 +1,58 @@
 <template name="giblet">
-  <div class='giblet' gibletId="{{_id}}">
-    <form gibletID="{{_id}}">
+  <div class='gibletWrapper'>
+    <div class='giblet' gibletId="{{_id}}">
+      <form gibletID="{{_id}}">
 
-      <!-- Title -->
-      <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
+        <!-- Title -->
+        <input class="gibletTitleInput" type="text" placeholder="Title" value="{{taskname}}">
 
-      <div class="urlDiv">
-        <!-- Url list -->
-        {{#each url}}    
-          <div class="urlLine" urlIndex="{{@index}}">
-            <input class="urlTextInput" value="{{this}}" type="text" placeholder="Url here...">
+        <div class="urlDiv">
+          <!-- Url list -->
+          {{#each url}}    
+            <div class="urlLine" urlIndex="{{@index}}">
+              <input class="urlTextInput" value="{{this}}" type="text" placeholder="Url here...">
 
-            <!-- Subtract Url Button -->
-            {{#if subtractOne ../url.length}}
-              <div class="subtractUrlButton" gibletID="{{../_id}}" urlIndex="{{@index}}">
-                <img class="littleButton" src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="15px">
-              </div>
-            {{/if}}
-            <!-- Add Url Button -->
-            {{#if compareIndexLength @index ../url.length}}
-              <div class="addUrlButton" gibletID="{{../_id}}">
-                <img class="littleButton" src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="15px">
-              </div>
-            {{/if}}
-          </div>
-        {{/ each}}
-      </div>
+              <!-- Subtract Url Button -->
+              {{#if subtractOne ../url.length}}
+                <div class="subtractUrlButton" gibletID="{{../_id}}" urlIndex="{{@index}}">
+                  <img class="littleButton" src="https://image.freepik.com/free-icon/subtracting-button_318-82577.png" width="15px">
+                </div>
+              {{/if}}
+              <!-- Add Url Button -->
+              {{#if compareIndexLength @index ../url.length}}
+                <div class="addUrlButton" gibletID="{{../_id}}">
+                  <img class="littleButton" src="https://www.capitalonecardservice.com/ecare/images/plus.gif" width="15px">
+                </div>
+              {{/if}}
+            </div>
+          {{/ each}}
+        </div>
 
-      <div class="keywordDiv">Keywords:
-        <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" >
-      </div>
+        <div class="keywordDiv">Keywords:
+          <input class="keywordInput" placeholder="keyword, keyword" type="text" value="{{keywords}}" >
+        </div>
 
-      <div>
-        Check every: 
-        <input class="cronJobTimer" value="{{frequency}}" type="number" gibletID="{{_id}}"/>
-        minutes
-      </div>
+        <div>
+          Check every: 
+          <input class="cronJobTimer" value="{{frequency}}" type="number" gibletID="{{_id}}"/>
+          minutes
+        </div>
 
-      <div>
-        Alert me via: SMS
-        <input type="checkbox" class="smsStatus" checked="{{SMS}}">
-        Email
-        <input type="checkbox" class="emailStatus" checked="{{email}}">
-      </div>
-      <div>
-        Giblet On / Off
-        <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
-      </div>
-      <div class="removeGibletButton" gibletID="{{_id}}">
-        <img src="/close-background.png">
-      </div>
-    </form>
+        <div>
+          Alert me via: SMS
+          <input type="checkbox" class="smsStatus" checked="{{SMS}}">
+          Email
+          <input type="checkbox" class="emailStatus" checked="{{email}}">
+        </div>
+        <div>
+          Giblet On / Off
+          <input class="gibletRunningStatusForm" type="checkbox" checked="{{active}}" />
+        </div>
+        <div class="removeGibletButton" gibletID="{{_id}}">
+          <img src="/close-background.png">
+        </div>
+      </form>
 
+    </div>
   </div>
 </template>
