@@ -66,6 +66,7 @@ input[type="text"] {
   margin: 0 auto;
   padding: 10px;
   background-color: white;
+<<<<<<< c698627976a34a72351e0ba392e113eb18c12da6
   border: 3px solid black;
   border-radius: 10px;
   max-width: 800px;
@@ -94,7 +95,12 @@ input[type="text"] {
 
 .urlTextInput {
   height: 30px;
+=======
+  border-radius: 5px;
+  max-width: 300px;
+>>>>>>> More styles
   font-size: 1.25rem;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.25);
 }
 
 .gibletTitleInput {
