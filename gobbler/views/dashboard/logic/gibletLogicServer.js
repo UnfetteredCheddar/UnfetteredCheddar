@@ -3,7 +3,7 @@ if (Meteor.isServer) {
     // Instantiate an empty giblet
     addGiblet: function () {
       var initActive = false;
-      var initFrequency = "1";
+      var initFrequency = "60";
       var gibletId = Giblets.insert({
         createdAt: new Date(),
         owner: Meteor.userId(),
@@ -26,12 +26,12 @@ if (Meteor.isServer) {
       Giblets.remove(id);
     },
     updateTitle: function ( id, value ) {
-      console.log('update title');
+      // console.log('update title');
       var giblet = Giblets.findOne({'_id': id});
       Giblets.update({'_id': id}, {$set: {taskname: value}});
     },
     modifyUrlInArray: function ( id, urlIndex, value ) {
-      console.log('modify url server side', id, urlIndex, value);
+      // console.log('modify url server side', id, urlIndex, value);
       var giblet = Giblets.findOne({'_id': id});
       var urlArray = giblet.url;
       urlArray[urlIndex] = value;
@@ -71,7 +71,7 @@ if (Meteor.isServer) {
       var id = giblet._id;
       var frequency = giblet.frequency;
       var newActiveValue = !giblet.active
-      console.log('toggle: ', id, frequency, newActiveValue);
+      // console.log('toggle: ', id, frequency, newActiveValue);
 
       Giblets.update({'_id': id}, {$set: {active: newActiveValue}});
       
@@ -85,7 +85,7 @@ if (Meteor.isServer) {
       }
     },
     updateCronTimer: function ( id, cronTime ) {
-      console.log('Update cron timer', id, cronTime);
+      // console.log('Update cron timer', id, cronTime);
       Giblets.update({'_id': id}, {$set: {frequency: cronTime}});
       var giblet = Giblets.findOne({'_id': id});
       var active = giblet.active;

@@ -38,7 +38,7 @@ if (Meteor.isClient) {
     'change .cronJobTimer': function ( event ) {       
       var id = event.currentTarget.form.attributes['gibletID'].value;
       var input = event.currentTarget.value;
-      console.log('cron change', id, input);
+      // console.log('cron change', id, input);
       if (!input) {
         input = undefined;
       }
