@@ -113,17 +113,20 @@ function compareKeywordCounts ( giblet, url, newKeywordCounts ) {
 }
 
 function findKeywordsAndSentences (keywordsArray, pageText) {
-  var allSentences = [];
+  var allSentences = {};
   var pageArr = pageText.replace(/\s\s+/g, ' ').split(' ');
+
+  // For each of the keywords:
   for(var i = 0; i < keywordsArray.length; i++) {
     var keywordSentences = [];
     var keyword = keywordsArray[i].trim().replace(/\s\s+/g, ' ').toLowerCase();
     var keywordArr = keyword.split(' ');
-    // var wordCount = keyword.split(' ').length;
+
+    // Iterate through the pageText
     for(var j = 0; j < pageArr.length; j++) {
       if(keywordArr[0] == pageArr[j].replace(/[^\w\s]|_/g, "").toLowerCase()) {
-        //compare other letters of keyword
         var match = true;
+        // If the keyword is more than one word, make sure all parts are found
         for(var k = 1; k < keywordArr.length; k++) {
           if(match) {
             if(keywordArr[k] !== pageArr[j + k].replace(/[^\w\s]|_/g, "").toLowerCase()) {
@@ -133,29 +136,32 @@ function findKeywordsAndSentences (keywordsArray, pageText) {
         }
         if(match) {
           var sentence = '';
+
+          // Find the sentence text before the keyword
           var beforeMatch = '';
           var l = 1;
           while(pageArr[j-l] && pageArr[j-l].replace(/[^.\!?]/g, "").length === 0 && l < 50){
-            //add word to sentence
             beforeMatch += ' ' + pageArr[j-l];
             l++;
           }
           beforeMatch = beforeMatch.split(' ').reverse().join(' ');
 
+          // Find the sentence text after the keyword
           var afterMatch = '';
           var m = 1;
           while(pageArr[j+m] && pageArr[j+m-1].replace(/[^.\!?]/g, "").length === 0 && m < 50){
-            //add word to sentence
             afterMatch += ' ' + pageArr[j+m];
             m++;
           }
-          sentence = beforeMatch.trim() + ' ' + pageArr[j] + ' ' + afterMatch.trim();
+          sentence = (beforeMatch.trim() + ' ' + pageArr[j] + ' ' + afterMatch.trim()).trim();
           // make sure we dont already have it
-          keywordSentences.push(sentence.trim());
+          if(keywordSentences.indexOf(sentence) === -1) {
+            keywordSentences.push(sentence);
+          }
         }
       }
     }
-    allSentences = allSentences.concat(keywordSentences);
+    allSentences[keyword] = keywordSentences;
   }
   return allSentences;
 }
