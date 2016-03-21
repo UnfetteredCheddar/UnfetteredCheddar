@@ -4,9 +4,10 @@ if (Meteor.isServer) {
     runGiblet: function ( gibletID ) {
       var giblet = Giblets.findOne({_id: gibletID});
       var urlArray = giblet.url;
+      
       urlArray.forEach( function ( url ) {
-        console.log("each url in array", url);
-        if (url) {
+        // checks if urlArray is truthy. Don't proceed without truthy url data
+        if (url) {          
           var webpageText = scrapePage(url);
           if (webpageText !== '') {
             var hash = hashText(webpageText);
@@ -73,10 +74,9 @@ function compareHash ( giblet, url, newHash ) {
 
 // get the keyword count
 function findKeywords ( keywordsArray, pageText ) {
-  var cleanTags = Tags.clean( keywordsArray );
   // convert tags to case-insensitive regular expressions
   var tagRegexArr = [];
-  cleanTags.forEach( function(tag) {
+  keywordsArray.forEach( function(tag) {
     tagRegexArr.push(new RegExp(tag, 'gi'));
   });
 

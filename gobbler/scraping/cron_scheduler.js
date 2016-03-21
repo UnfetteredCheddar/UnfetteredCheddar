@@ -13,11 +13,11 @@ if (Meteor.isServer) {
       });
     },
     stopGiblet: function ( gibletID ) {
-      console.log('Stop Giblet Timer');
+      // console.log('Stop Giblet Timer');
       SyncedCron.remove(gibletID);
     },
     updateGibletTimer: function ( gibletID, frequency ) {
-      console.log('update Giblet Timer', gibletID, frequency);
+      // console.log('update Giblet Timer', gibletID, frequency);
       Meteor.call('stopGiblet', gibletID);
       Meteor.call('scheduleGiblet', gibletID, frequency);
     }
